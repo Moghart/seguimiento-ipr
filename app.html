@@ -368,7 +368,8 @@ function pantallaLogin(msg) {
     <form id="lf" novalidate><div class="fld"><label for="le">Correo</label><input id="le" type="email" autocomplete="username" inputmode="email"></div>
     <div class="fld"><label for="lp">Contraseña</label><input id="lp" type="password" autocomplete="current-password"></div>
     <div class="err" id="lerr" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Entrar</button></form>
-    <p class="lfoot">¿Olvidaste tu contraseña? Pídele al administrador que te la restablezca.</p></div></div>`;
+    <p class="lfoot"><a href="#" id="lolv" style="color:inherit">¿Olvidaste tu contraseña?</a></p></div></div>`;
+  $("#lolv").onclick = e => { e.preventDefault(); pantallaRecuperar($("#le").value.trim()); };
   $("#lf").onsubmit = async e => {
     e.preventDefault(); const b = $("#lf button"), em = $("#le").value.trim(), pw = $("#lp").value;
     if (!em || !pw) { $("#lerr").textContent = "Escribe tu correo y tu contraseña."; return; }
@@ -377,6 +378,43 @@ function pantallaLogin(msg) {
     catch (err) { if ($("#lerr")) { $("#lerr").textContent = err.message; b.disabled = false; b.textContent = "Entrar"; } }
   };
   setTimeout(() => $("#le") && $("#le").focus(), 50);
+}
+function pantallaRecuperar(correo) {
+  $("#app").innerHTML = `<div class="login"><div class="lcard"><div class="brand"><div class="t">Seguimiento <b>IPR</b></div><div class="s">Programa de trabajo</div></div>
+    <h1>Recuperar contraseña</h1>
+    <form id="rf1" novalidate><p class="lfoot" style="text-align:left;margin:0 0 14px">Escribe tu correo y te enviaremos un código de 6 números.</p>
+    <div class="fld"><label for="re">Correo</label><input id="re" type="email" autocomplete="username" inputmode="email" value="${esc(correo || "")}"></div>
+    <div class="err" id="rerr1" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Enviar código</button></form>
+    <form id="rf2" novalidate hidden><p class="lfoot" id="rinfo" style="text-align:left;margin:0 0 14px"></p>
+    <div class="fld"><label for="rc">Código</label><input id="rc" inputmode="numeric" autocomplete="one-time-code" maxlength="6"></div>
+    <div class="fld"><label for="rp1">Contraseña nueva (mínimo 8 caracteres)</label><input id="rp1" type="password" autocomplete="new-password"></div>
+    <div class="fld"><label for="rp2">Repite la contraseña nueva</label><input id="rp2" type="password" autocomplete="new-password"></div>
+    <div class="err" id="rerr2" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Guardar y entrar</button></form>
+    <p class="lfoot"><a href="#" id="rvolver" style="color:inherit">Volver a Ingresar</a></p></div></div>`;
+  $("#rvolver").onclick = e => { e.preventDefault(); pantallaLogin(); };
+  $("#rf1").onsubmit = async e => {
+    e.preventDefault(); const b = $("#rf1 button"), em = $("#re").value.trim();
+    if (!em) { $("#rerr1").textContent = "Escribe tu correo."; return; }
+    b.disabled = true; b.textContent = "Enviando…"; $("#rerr1").textContent = "";
+    try {
+      await call("pedirCodigoClave", em);
+      $("#rf1").hidden = true; $("#rf2").hidden = false;
+      $("#rinfo").textContent = "Si " + em + " tiene cuenta, le llegó un correo con el código. Revisa también la carpeta de spam. El código vale 15 minutos.";
+      setTimeout(() => $("#rc") && $("#rc").focus(), 50);
+    } catch (err) { $("#rerr1").textContent = err.message; b.disabled = false; b.textContent = "Enviar código"; }
+  };
+  $("#rf2").onsubmit = async e => {
+    e.preventDefault(); const b = $("#rf2 button"), em = $("#re").value.trim(), cod = $("#rc").value.trim(), p1 = $("#rp1").value, p2 = $("#rp2").value;
+    if (!cod || !p1) { $("#rerr2").textContent = "Escribe el código y la contraseña nueva."; return; }
+    if (p1.length < 8) { $("#rerr2").textContent = "La contraseña debe tener al menos 8 caracteres."; return; }
+    if (p1 !== p2) { $("#rerr2").textContent = "Las dos contraseñas no coinciden."; return; }
+    b.disabled = true; b.textContent = "Guardando…"; $("#rerr2").textContent = "";
+    try {
+      await call("restablecerConCodigo", em, cod, p1);
+      const r = await call("login", em, p1); S.token = r.token; try { localStorage.setItem("ipr-token", r.token); } catch (_) {} await cargar();
+    } catch (err) { if ($("#rerr2")) { $("#rerr2").textContent = err.message; b.disabled = false; b.textContent = "Guardar y entrar"; } }
+  };
+  setTimeout(() => $("#re") && $("#re").focus(), 50);
 }
 function salir(expiro) {
   if (!expiro && S.token) call("logout", S.token).catch(() => {});
