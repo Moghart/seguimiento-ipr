@@ -354,12 +354,32 @@ function infoBox(title, html) {
     const ov = document.createElement("div"); ov.className = "ov";
     ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><h3>${esc(title)}</h3>${html}<div class="mact"><i></i><button class="btn primary" data-x>Entendido</button></div></div>`;
     document.body.append(ov); $("[data-x]", ov).onclick = () => { ov.remove(); resolve(); }; $("[data-x]", ov).focus();
+    const msg = $("[data-msg]", ov);
+    if (msg) {
+      $("[data-wa]", ov).onclick = () => window.open("https:" + "/" + "/wa.me/?text=" + encodeURIComponent(msg.value), "_blank");
+      $("[data-cp]", ov).onclick = () => copiarTexto(msg.value).then(() => toast("Mensaje copiado. Pégalo en WhatsApp o donde quieras."));
+    }
   });
 }
 const claveHtml = (u, clave) => `<p class="intro">Entrégale estos datos a <b>${esc(u.nombre)}</b>. Al entrar por primera vez se le pedirá crear su propia contraseña.</p>
   <div class="fld"><label>Correo</label><div class="secret" style="font-size:16px">${esc(u.email)}</div></div>
   <div class="fld"><label>Contraseña temporal</label><div class="secret">${esc(clave)}</div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px"><button type="button" class="btn dark" data-wa>Enviar por WhatsApp</button><button type="button" class="btn" data-cp>Copiar mensaje</button></div>
+  <textarea data-msg hidden>${esc(msgInvitacion(u, clave))}</textarea>
   <p style="color:var(--gris);font-size:13px">Por seguridad esta contraseña no se volverá a mostrar. Si se pierde, usa <b>Restablecer contraseña</b>.</p>`;
+const LINK_APP = "https:" + "/" + "/ipr.gmrlabs.cl";
+function msgInvitacion(u, clave) {
+  return `Hola ${u.nombre}, te creé una cuenta en la app Seguimiento IPR.\n\n` +
+    `1. Abre este link en tu celular: ${LINK_APP}\n` +
+    `2. Instálala en tu pantalla de inicio siguiendo los pasos que aparecen.\n` +
+    `3. Ingresa con:\n   Correo: ${u.email}\n   Contraseña temporal: ${clave}\n\n` +
+    `Al entrar por primera vez te pedirá crear tu propia contraseña.`;
+}
+function copiarTexto(t) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t).catch(() => copiarViejo(t));
+  return Promise.resolve(copiarViejo(t));
+}
+function copiarViejo(t) { const a = document.createElement("textarea"); a.value = t; a.style.position = "fixed"; a.style.opacity = "0"; document.body.append(a); a.select(); try { document.execCommand("copy"); } finally { a.remove(); } }
 /* ===================== Ingreso ===================== */
 function pantallaLogin(msg) {
   S.d = null;
