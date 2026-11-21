@@ -1,5 +1,5 @@
 // Seguimiento IPR: guarda solo la portada y los íconos. La app real vive en Google Apps Script.
-const VERSION = "seguimiento-ipr-v2";
+const VERSION = "seguimiento-ipr-v1";
 const ARCHIVOS = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png"];
 
 self.addEventListener("install", e => {
