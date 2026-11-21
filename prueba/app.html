@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguimiento IPR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --negro:#0f0f10;--tinta:#1a1a1c;--gris:#6c6c6e;--gris-claro:#e4e4df;--hueso:#f6f5f2;
+  --verde:#6bbf3f;--verde-osc:#4e9e2a;--verde-txt:#3b7a1f;--verde-suave:#ebf5e4;
+  --ambar:#f0b400;--ambar-txt:#8a6400;--ambar-suave:#fff5d6;--rojo:#d64545;--rojo-txt:#a82e2e;--rojo-suave:#fbeaea;
+  --sombra:0 1px 2px rgba(15,15,16,.06),0 4px 16px rgba(15,15,16,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:Barlow,"Segoe UI",system-ui,sans-serif;background:var(--hueso);color:var(--tinta);font-size:15px;line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.01em}
+.app{display:flex;min-height:100vh}
+.side{width:250px;flex:none;background:var(--negro);color:#fff;display:flex;flex-direction:column;gap:6px;padding:22px 14px;position:sticky;top:0;height:100vh}
+.brand{padding:4px 10px 18px}.brand .t{font-size:22px;font-weight:600}.brand .t b{color:var(--verde)}
+.brand .s{font-size:12.5px;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em}
+.nav{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:rgba(255,255,255,.75);padding:11px 12px;border-radius:10px;text-align:left;font-weight:500}
+.nav:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav.on{background:var(--verde);color:var(--negro);font-weight:600}
+.nav svg{width:20px;height:20px;flex:none}
+.badge{margin-left:auto;background:var(--ambar);color:var(--negro);font-size:12px;font-weight:700;border-radius:20px;padding:1px 8px}
+.nav.on .badge{background:var(--negro);color:#fff}
+.grow{flex:1}
+.me{display:flex;gap:10px;align-items:center;padding:10px;border-top:1px solid rgba(255,255,255,.1);margin-top:6px}
+.me b{display:block;font-weight:600;font-size:14px}.me small{color:rgba(255,255,255,.55)}
+.side .btn{width:100%;justify-content:flex-start;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.08);color:#fff;font-weight:500}
+.side .btn:hover{background:rgba(255,255,255,.12)}
+.main{flex:1;min-width:0;padding:30px 36px 60px;max-width:1400px}
+svg{stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.eyebrow{font-size:12.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--verde-txt);font-weight:600}
+.top h1{font-size:30px;margin-top:2px}.top .sub{color:var(--gris);margin-top:4px;max-width:760px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gris-claro);background:#fff;color:var(--tinta);padding:9px 16px;border-radius:10px;font-weight:600;font-size:14.5px;transition:background .15s}
+.btn:hover{background:#fafaf8}.btn:disabled{opacity:.55;cursor:default}
+.btn svg{width:18px;height:18px}
+.btn.primary{background:var(--verde);border-color:var(--verde);color:var(--negro)}
+.btn.primary:hover{background:var(--verde-osc);border-color:var(--verde-osc);color:#fff}
+.btn.dark{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.btn.ghost{border-color:transparent;background:none}.btn.ghost:hover{background:rgba(15,15,16,.05)}
+.btn.danger{color:var(--rojo-txt);border-color:#f0c9c9}
+.btn.sm{padding:6px 11px;font-size:13.5px;border-radius:8px}
+.btn.big{width:100%;justify-content:center;padding:13px;font-size:16px}
+.icon-btn{border:0;background:none;color:var(--gris);padding:6px;border-radius:8px;display:inline-flex;align-items:center;gap:3px}
+.icon-btn:hover{background:rgba(15,15,16,.06);color:var(--tinta)}.icon-btn svg{width:18px;height:18px}
+.has-ev{color:var(--verde-txt)!important}
+.card{background:#fff;border-radius:14px;box-shadow:var(--sombra);padding:22px}
+.card h3{font-size:18px;margin-bottom:14px;display:flex;align-items:baseline;gap:10px}.card h3 small{font-weight:500;color:var(--gris);font-size:13.5px}
+.mt{margin-top:20px}
+.grid{display:grid;gap:16px}.g-3{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.g-2{grid-template-columns:1.3fr 1fr}
+.hero{background:var(--negro);color:#fff;border-radius:18px;padding:28px 32px;display:flex;gap:30px;align-items:center;margin-bottom:20px}
+.hero h2{font-size:30px;margin:4px 0}.hero p{margin:0;color:rgba(255,255,255,.7)}
+.hero .eyebrow{color:var(--verde)}
+.kpi{display:flex;gap:16px;align-items:center;background:#fff;border:0;border-radius:14px;box-shadow:var(--sombra);padding:18px;text-align:left;transition:transform .15s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi .kt{font-weight:700;font-size:16px}.kpi .ks{color:var(--gris);font-size:13.5px;margin-bottom:8px}.kpi>div{flex:1;min-width:0}
+.track{height:7px;background:#efeee9;border-radius:9px;overflow:hidden}.track i{display:block;height:100%;border-radius:9px}
+.f-ok{background:var(--verde)}.f-mid{background:var(--ambar)}.f-bad{background:var(--rojo)}.f-na{background:transparent}
+.pill{display:inline-block;font-weight:700;font-size:13px;padding:2px 10px;border-radius:20px;white-space:nowrap}
+.pill.ok{background:var(--verde-suave);color:var(--verde-txt)}.pill.mid{background:var(--ambar-suave);color:var(--ambar-txt)}.pill.bad{background:var(--rojo-suave);color:var(--rojo-txt)}.pill.na{background:#f0f0ec;color:var(--gris)}
+.av{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--tinta);color:#fff;font-size:11.5px;font-weight:700;flex:none}
+.av.big-av{width:40px;height:40px;font-size:14px}
+.me .av{background:var(--verde);color:var(--negro)}
+.who{display:inline-flex;align-items:center;gap:7px}
+.prow{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:10px;border-radius:10px;text-align:left}
+.prow:hover{background:var(--hueso)}.prow .pn{flex:1;min-width:0;font-weight:600}.prow small{display:block;color:var(--gris);font-weight:400}
+.plist{display:flex;flex-direction:column;gap:4px}
+.prow-pend{display:flex;gap:12px;align-items:center;padding:10px 4px;border-bottom:1px solid #f0efea}.prow-pend:last-child{border:0}
+.prow-pend p{margin:0;flex:1;min-width:0;font-size:14px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--gris-claro);background:#fff;border-radius:20px;padding:6px 14px;font-size:14px;font-weight:500}
+.chip.on{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.search{display:flex;align-items:center;gap:6px;border:1px solid var(--gris-claro);background:#fff;border-radius:10px;padding:0 10px;flex:1;min-width:220px}
+.search svg{width:18px;height:18px;color:var(--gris)}.search input{border:0;flex:1;padding:8px 0;outline:none;background:none}
+.section{margin-top:22px}
+.shead{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}.shead h2{font-size:19px}.shead .count{color:var(--gris);font-size:14px}.shead .track{width:140px}
+.item{display:grid;grid-template-columns:54px 1fr auto;gap:16px;background:#fff;border-radius:12px;box-shadow:var(--sombra);padding:16px 18px;margin-bottom:8px;border-left:5px solid var(--gris-claro)}
+.item.ok{border-left-color:var(--verde)}.item.mid{border-left-color:var(--ambar)}.item.bad{border-left-color:var(--rojo)}
+.item .code{font-weight:700;color:var(--gris);font-size:14px}.item .q{margin:0 0 6px;font-weight:500}
+.meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--gris);font-size:13px;align-items:center}
+.tag{background:var(--hueso);border-radius:6px;padding:1px 8px}
+.note{margin-top:8px;background:var(--hueso);border-radius:8px;padding:8px 12px;font-size:13.5px;white-space:pre-wrap}
+.ctrl{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.seg{display:inline-flex;background:#f1f0ec;border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:none;padding:7px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--gris);white-space:nowrap}
+.seg button:hover{background:#fff}
+.seg .bad.on{background:var(--rojo);color:#fff}.seg .mid.on{background:var(--ambar);color:var(--negro)}.seg .ok.on{background:var(--verde);color:var(--negro)}
+.custom{font-size:12px;color:var(--gris)}
+.rfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.rf{background:#fff;border-radius:14px;box-shadow:var(--sombra);padding:16px 18px;border-top:5px solid var(--gris-claro);display:flex;flex-direction:column;gap:8px}
+.rf.ok{border-top-color:var(--verde)}.rf.mid{border-top-color:var(--ambar)}.rf.bad{border-top-color:var(--rojo)}
+.rf .rh{display:flex;justify-content:space-between;align-items:center}.rf .rc{font-weight:700;color:var(--gris)}.rf .rp{font-weight:700;font-size:22px}
+.t-ok{color:var(--verde-txt)}.t-mid{color:var(--ambar-txt)}.t-bad{color:var(--rojo-txt)}.t-na{color:var(--gris)}
+.rf h4{font-size:16px}.rf .rdue{color:var(--gris);font-size:13px}
+.rf input[type=range]{width:100%;accent-color:var(--verde-osc)}
+.rfoot{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gris)}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px}
+.person{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid transparent;border-radius:14px;box-shadow:var(--sombra);padding:12px 14px;text-align:left}
+.person.on{border-color:var(--verde)}.person .pn{font-weight:700}.person .pd{color:var(--gris);font-size:13px}
+.turnhead{display:flex;align-items:center;gap:18px;margin-bottom:16px;flex-wrap:wrap}.turnhead h2{font-size:22px}.turnhead .sp{flex:1}
+.act{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:start;padding:14px 0;border-top:1px solid #f0efea}
+.act .num{width:30px;height:30px;border-radius:50%;background:#f1f0ec;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.act.ok .num{background:var(--verde);color:var(--negro)}.act .num svg{width:16px;height:16px}
+.tchip{display:inline-block;background:var(--tinta);color:#fff;border-radius:6px;font-size:11.5px;font-weight:700;padding:1px 7px;margin-right:8px;vertical-align:1px}
+.obs{width:100%;margin-top:8px;border:1px solid var(--gris-claro);border-radius:8px;padding:7px 10px;font-size:14px}
+.ar{display:flex;align-items:center;gap:4px}
+table.tb{width:100%;border-collapse:collapse;font-size:14px}
+.tb th{text-align:left;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--gris);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--gris-claro)}
+.tb td{padding:10px;border-bottom:1px solid #f0efea;vertical-align:middle}
+.tablewrap{overflow-x:auto}
+.empty{text-align:center;color:var(--gris);padding:40px}
+.ov{position:fixed;inset:0;background:rgba(15,15,16,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal{background:#fff;border-radius:16px;width:min(620px,100%);max-height:92vh;overflow-y:auto;padding:24px 26px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 6px;font-size:21px}.modal .intro{color:var(--gris);margin:0 0 16px}
+.fld{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;flex:1;min-width:0}
+.fld label{font-weight:600;font-size:14px}
+.fld input,.fld select,.fld textarea{border:1px solid var(--gris-claro);border-radius:9px;padding:10px 12px;background:#fff;width:100%}
+.fld textarea{min-height:84px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus,.obs:focus{outline:2px solid var(--verde);border-color:var(--verde)}
+.frow{display:flex;gap:12px}
+.err{color:var(--rojo-txt);font-size:13px}
+.mact{display:flex;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap}.mact span{display:flex;gap:8px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--tinta);color:#fff;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;gap:10px;align-items:center;z-index:60;max-width:calc(100% - 32px)}
+body:has(#offbar) .toast{bottom:calc(84px + env(safe-area-inset-bottom))}
+.offbar{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:55;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;width:max-content;max-width:min(560px,calc(100vw - 24px));background:var(--tinta);color:#fff;padding:8px 12px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.2);font-size:14px;line-height:1.3;text-align:center}
+.offbar.sin{background:var(--ambar-suave);color:var(--ambar-txt);border:1px solid var(--ambar)}
+.offbar button{border:0;border-radius:8px;padding:5px 10px;background:rgba(255,255,255,.18);color:inherit;font-weight:600;font-size:13px}
+.offbar.sin button{background:#fff;border:1px solid var(--ambar)}
+.toast i{width:10px;height:10px;border-radius:50%;background:var(--verde);flex:none}.toast.bad i{background:var(--rojo)}
+.secret{font-family:Consolas,monospace;font-size:22px;letter-spacing:.08em;background:var(--hueso);padding:12px 16px;border-radius:10px;text-align:center;font-weight:700;user-select:all;word-break:break-all}
+.evlist{list-style:none;margin:4px 0 14px;padding:0;display:flex;flex-direction:column;gap:8px}
+.evlist li{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--gris-claro);border-radius:12px}
+.evic{display:inline-flex;width:34px;height:34px;border-radius:9px;background:var(--verde-suave);align-items:center;justify-content:center;flex:none;color:var(--verde-txt)}.evic svg{width:18px;height:18px}
+.evn{flex:1;min-width:0}.evn b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}.evn small{color:var(--gris);font-size:12.5px}
+.preview img{max-width:100%;border-radius:10px;margin-bottom:10px}
+.loading{display:flex;align-items:center;justify-content:center;min-height:100vh;color:var(--gris);gap:12px;font-size:16px}
+.spin{width:22px;height:22px;border:3px solid var(--gris-claro);border-top-color:var(--verde);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--negro)}
+.lcard{background:#fff;border-radius:18px;padding:34px 32px;width:min(410px,100%)}
+.lcard .brand{padding:0 0 22px}.lcard .brand .t{color:var(--tinta)}.lcard .brand .s{color:var(--gris)}
+.lcard h1{font-size:24px;margin-bottom:16px}
+.lmsg{background:var(--ambar-suave);color:var(--ambar-txt);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:14px}
+.lfoot{color:var(--gris);font-size:13px;margin:16px 0 0;text-align:center}
+.side .btn[data-tool="instalar"]{display:none}
+.itabs{display:flex;gap:6px;overflow-x:auto;margin:16px 0 12px;padding-bottom:4px}
+.itabs button{flex:none;border:1px solid var(--gris-claro);background:#fff;border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:600;white-space:nowrap;color:var(--tinta)}
+.itabs button.on{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.lnkchip{display:inline-block;margin-top:6px;border:0;background:var(--verde-suave);color:var(--verde-txt);border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600}
+.iturno{display:flex;align-items:center;gap:8px}.iturno>span{font-size:12.5px;color:var(--gris);font-weight:600;min-width:52px;text-align:right}
+.note{color:var(--gris);font-size:12.5px;margin-top:4px}
+.igrid input.inum{width:64px;border:1px solid var(--gris-claro);border-radius:8px;padding:6px 8px;text-align:center}
+.igrid th{white-space:nowrap}
+.irow{display:grid;grid-template-columns:130px 1fr 110px 90px;gap:10px;align-items:start;padding:12px 0;border-top:1px solid #f0efea}
+.irow .ilab{font-weight:700;padding-top:28px}
+.irec{border:1px solid var(--gris-claro);border-radius:12px;padding:14px;margin-bottom:12px}
+.irech{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.igrid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}.igrid2 .wide{grid-column:1/-1}
+.ifotos{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.btn.has-ev{border-color:var(--verde);color:var(--verde-txt)}
+.idias{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.iday{border:1px solid var(--gris-claro);background:#fff;border-radius:12px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:var(--tinta)}
+.iday span{font-size:12.5px;color:var(--gris);font-weight:600}.iday b{font-size:22px;line-height:1.1}.iday small{font-size:11.5px;color:var(--gris)}
+.iday.lleno{border-color:var(--verde);background:var(--verde-suave)}.iday.lleno small{color:var(--verde-txt);font-weight:600}
+.iday.hoy{outline:2px solid var(--tinta);outline-offset:1px}
+.imenu{display:flex;flex-wrap:wrap;gap:8px}
+.iav-dos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.iav-card{background:#fff;border-radius:18px;box-shadow:var(--sombra);overflow:hidden}
+.iav-hero{background:var(--negro);color:#fff;display:flex;align-items:center;gap:18px;padding:20px 22px;background-image:radial-gradient(circle at 100% 0,rgba(110,190,68,.25),transparent 55%)}
+.iav-ht{min-width:0}.iav-ht .eyebrow{color:var(--verde)}.iav-ht h3{color:#fff;font-size:21px;margin:2px 0 8px}
+.iav-est{display:inline-block;border-radius:999px;padding:4px 11px;font-size:12.5px;font-weight:600}.iav-est.ok{background:rgba(110,190,68,.2);color:#a9e48a}.iav-est.mid{background:rgba(240,180,0,.2);color:#ffd36b}
+.iav-kpis{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #eeede8}
+.iav-kpi{padding:14px 16px;border-right:1px solid #eeede8}.iav-kpi:last-child{border-right:0}
+.iav-kn{font-size:26px;font-weight:800;line-height:1}.iav-kn span{font-size:15px;color:var(--gris);font-weight:600}.iav-kl{font-size:12px;color:var(--gris);margin:4px 0 8px;font-weight:600}
+.iav-kt,.iav-track{height:6px;border-radius:99px;background:#eeede8;overflow:hidden}.iav-kt i,.iav-track i{display:block;height:100%;border-radius:99px;background:#d9d6cc}
+.iav-kt i.ok,.iav-track i.ok{background:var(--verde)}.iav-kt i.mid,.iav-track i.mid{background:#e8b03a}.iav-kt i.low,.iav-track i.low{background:#e07a5f}
+.iav-sec{padding:16px 20px 4px}.iav-sec:last-child{padding-bottom:20px}
+.iav-h{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--tinta);font-weight:800;margin-bottom:10px}.iav-h small{text-transform:none;letter-spacing:0;color:var(--gris);font-weight:500;margin-left:6px}
+.iav-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.iav-day{border:1px solid #e7e5de;background:#fbfaf7;border-radius:12px;padding:8px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font:inherit;color:var(--tinta)}
+.iav-day .d1{font-size:11px;color:var(--gris);font-weight:700;text-transform:uppercase}.iav-day b{font-size:18px;line-height:1.1}.iav-day .d2{font-size:10.5px;color:var(--gris);font-weight:600}
+.iav-day .dots{display:flex;gap:3px;margin:3px 0}.iav-day .dots i{width:7px;height:7px;border-radius:50%;background:#dedbd2}.iav-day .dots i.ok{background:var(--verde)}.iav-day .dots i.no{background:#e07a5f}
+.iav-day.ok{background:var(--verde-suave);border-color:#cfe9c0}.iav-day.ok .d2{color:var(--verde-txt)}
+.iav-day.mid{background:#fff8e6;border-color:#f3dfa6}.iav-day.mid .d2{color:var(--ambar-txt)}
+.iav-day.no{background:var(--rojo-suave);border-color:#f1cfcf}.iav-day.no .d2{color:var(--rojo-txt)}
+.iav-day.fut{opacity:.55}.iav-day.hoy{box-shadow:0 0 0 2px var(--tinta)}
+.iav-leg{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--gris);margin:8px 0 6px}
+.iav-pl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.iav-pend{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #ecebe5;background:#f7f6f2;border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;color:var(--tinta);text-align:left;cursor:pointer}
+.iav-pend.dia{background:#fff8e6;border-color:#f3dfa6}.iav-pend em{font-style:normal;font-size:20px;color:var(--gris);line-height:1}.iav-pend:hover{border-color:var(--tinta)}
+.iav-bar{margin-bottom:11px}.iav-bt{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;margin-bottom:5px}.iav-bt b{white-space:nowrap;font-size:15px}.iav-bt b small{color:var(--gris);font-weight:600}
+.iav-todo{background:var(--verde-suave);color:var(--verde-txt);border-radius:10px;padding:10px 12px;font-weight:600;display:flex;gap:8px;align-items:center}.iav-todo svg{width:18px;height:18px}
+@media (max-width:900px){.iav-dos{grid-template-columns:1fr}.iav-kn{font-size:22px}.iav-kpi{padding:12px 10px}.iav-sec{padding:14px 14px 4px}.iav-days{gap:4px}.iav-day b{font-size:16px}.iav-day .d2{font-size:9.5px}}
+.irech h3{flex:1;font-size:16px;display:block;margin:0}.irech h3 small{display:block;font-weight:500;margin-top:2px}.irech{gap:10px}
+.idnav{display:flex;align-items:center;gap:10px;margin:4px 0 16px}.idnav h2{font-size:20px}
+.instbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:var(--tinta);color:#fff;border-radius:16px;padding:14px 14px 12px;box-shadow:0 12px 34px rgba(0,0,0,.3);font-size:14px}
+.instbar b{display:block;font-size:15px;margin-bottom:2px}.instbar p{margin:0 0 10px;color:#cfcfcf}
+.instbar .ib{display:flex;flex-wrap:wrap;gap:8px}.instbar button{border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:600;cursor:pointer;background:#2c2c30;color:#fff}
+.instbar button.pri{background:var(--verde);color:var(--negro)}.instbar button.lnk{background:none;color:#bdbdbd;font-weight:500;text-decoration:underline;padding:9px 4px}
+.isteps{margin:6px 0 4px;padding-left:20px;line-height:1.6}.isteps li{margin-bottom:6px}
+@media (max-width:900px){
+  .irow{grid-template-columns:1fr 1fr}.irow .ilab{grid-column:1/-1;padding-top:0}.irow .fld:first-of-type{grid-column:1/-1}
+  .side .btn[data-tool="instalar"]{display:inline-flex}
+  .en-inst .side .btn[data-tool="instalar"]{display:none}
+  .app{flex-direction:column}
+  .side{width:auto;height:auto;position:sticky;top:0;z-index:20;flex-direction:row;align-items:center;padding:8px 10px;gap:4px;overflow-x:auto}
+  .side .brand,.side .grow,.side .me,.side .btn[data-tool="clave"]{display:none}
+  #nav{display:flex;gap:4px}.nav{white-space:nowrap;padding:9px 12px;width:auto}
+  .side .btn{width:auto;flex:none}
+  .main{padding:18px 16px 50px}
+  .top h1{font-size:24px}
+  .hero{flex-direction:column;text-align:center;padding:22px}
+  .g-2{grid-template-columns:1fr}
+  .item{grid-template-columns:1fr;gap:10px}.item .code{display:none}.ctrl{align-items:stretch}
+  .act{grid-template-columns:30px 1fr}.act .ar{grid-column:1/-1;justify-content:flex-end;flex-wrap:wrap}
+  .seg{width:100%}.seg button{flex:1;padding:9px 6px}
+  .frow{flex-direction:column;gap:0}
+}
+</style>
+</head>
+<body>
+<div id="app"><div class="loading"><div class="spin"></div>Cargando…</div></div><script>
+/* ===================== Utilidades ===================== */
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const num = v => (v === null || v === undefined || v === "" || isNaN(v)) ? null : Number(v);
+const avg = a => { const n = a.map(num).filter(v => v !== null); return n.length ? n.reduce((x, y) => x + y, 0) / n.length : null; };
+const fmt = v => v == null ? "—" : Math.round(v) + "%";
+const tone = v => v == null ? "na" : v >= 90 ? "ok" : v >= 60 ? "mid" : "bad";
+const statusOf = v => v == null ? "na" : v >= 100 ? "ok" : v <= 0 ? "bad" : "mid";
+const COL = { ok: "#6bbf3f", mid: "#f0b400", bad: "#d64545", na: "#e4e4df" };
+const hoy = () => { const d = new Date(), p = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`; };
+const fCorta = iso => iso ? new Date(iso).toLocaleDateString("es-CL", { day: "numeric", month: "short", year: "numeric" }) : "";
+const fDia = s => { if (!s) return ""; const [y, m, d] = String(s).slice(0, 10).split("-").map(Number); return new Date(y, m - 1, d).toLocaleDateString("es-CL", { weekday: "short", day: "numeric", month: "short", year: "numeric" }); };
+const ini = n => String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+const av = (n, c = "") => `<span class="av ${c}">${esc(ini(n))}</span>`;
+const pill = v => `<span class="pill ${tone(v)}">${fmt(v)}</span>`;
+const track = v => `<div class="track"><i class="f-${tone(v)}" style="width:${v == null ? 0 : Math.max(2, Math.min(100, v))}%"></i></div>`;
+const tamano = b => { b = Number(b) || 0; return b < 1024 ? b + " B" : b < 1048576 ? Math.round(b / 1024) + " KB" : (b / 1048576).toFixed(1).replace(".", ",") + " MB"; };
+function ring(v, size = 64, sw = 7, dark = false) {
+  const r = (size - sw) / 2, c = 2 * Math.PI * r, p = v == null ? 0 : Math.max(0, Math.min(100, v)), h = size / 2;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex:none;stroke-linecap:round" role="img" aria-label="${fmt(v)}">
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="${dark ? "rgba(255,255,255,.1)" : "#efeee9"}" stroke-width="${sw}"/>
+    ${p > 0 ? `<circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="${COL[tone(v)]}" stroke-width="${sw}" stroke-dasharray="${(c * p / 100).toFixed(2)} ${c.toFixed(2)}" transform="rotate(-90 ${h} ${h})"/>` : ""}
+    <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-family="Barlow" font-weight="700" stroke="none"
+      font-size="${Math.round(size * 0.25)}" fill="${dark ? "#fff" : "#1a1a1c"}">${fmt(v)}</text></svg>`;
+}
+const IC = {
+  dash: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  doc: '<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/>',
+  alert: '<path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',
+  users: '<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.1a4 4 0 0 1 0 7.8M21 21v-2a4 4 0 0 0-3-3.9"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  hist: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+  edit: '<path d="M4 20h4L18.5 9.5a2.8 2.8 0 0 0-4-4L4 16v4M13.5 6.5l4 4"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>', x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  search: '<circle cx="10" cy="10" r="7"/><path d="m21 21-6-6"/>', check: '<path d="m5 12 5 5L20 7"/>',
+  clip: '<path d="m21 11-8.6 8.6a5 5 0 0 1-7.1-7.1l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.4-2.4L15 7.4"/>',
+  key: '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/>',
+  out: '<path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/>',
+  sync: '<path d="M21 12a9 9 0 0 1-15.5 6.2L3 16M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5M3 21v-5h5"/>',
+  down: '<path d="M12 4v12M7 11l5 5 5-5M4 20h16"/>', eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+};
+const ic = (n, cls = "") => `<svg viewBox="0 0 24 24" class="${cls}" aria-hidden="true">${IC[n]}</svg>`;
+
+/* ===================== Servidor ===================== */
+const S = { token: null, d: null, view: "", sel: null, f: { cat: "", est: "", q: "" }, t: 0 };
+const API = "https:" + "/" + "/script.google.com/macros/s/AKfycby6lSaIyz10AM9mAlyFmXALibm-KBzIOzD8HDsGvkWGg9-wl2UEr-IAe0KAAZkjrgSkEQ/exec";
+const EN_GAS = !!(window.google && google.script && google.script.run);
+function callT(fn, args, ms) {
+  return new Promise((res, rej) => {
+    const falla = e => {
+      const m = String((e && e.message) || e).replace(/^(Exception|Error):\s*/, "");
+      if (m === "SESION") { try { salir(true); } catch (_) {} rej(new Error("Tu sesión expiró.")); } else rej(new Error(m));
+    };
+    const sinRed = () => { const e = new Error("Sin conexión con el servidor. Revisa tu internet e intenta de nuevo."); e.sinRed = true; rej(e); };
+    if (EN_GAS) { google.script.run.withSuccessHandler(res).withFailureHandler(e => /NetworkError|network|conexi/i.test(String((e && e.message) || e)) ? sinRed() : falla(e))[fn](...args); return; }
+    const ac = ms && window.AbortController ? new AbortController() : null, to = ac ? setTimeout(() => ac.abort(), ms) : 0;
+    fetch(API, { method: "POST", body: JSON.stringify({ f: fn, a: args }), credentials: "omit", redirect: "follow", signal: ac ? ac.signal : undefined })
+      .then(r => r.json())
+      .then(o => { clearTimeout(to); if (o && o.ok) res(o.r); else falla(new Error((o && o.e) || "Error del servidor")); })
+      .catch(() => { clearTimeout(to); sinRed(); });
+  });
+}
+const call = (fn, ...args) => callT(fn, args, 0);
+const LIBRES = ["datos", "listaInformes", "cambiarClave", "logout"];
+async function T(fn, ...a) {
+  if (COLA_FN.includes(fn)) return Tcola(fn, a);
+  if (!LIBRES.includes(fn) && S.d && miCola().length) {
+    await enviarPendientes();
+    if (miCola().length) throw new Error("Primero hay que enviar lo que guardaste sin señal. Intenta de nuevo cuando tengas señal.");
+  }
+  return call(fn, S.token, ...a);
+}
+const esAdmin = () => S.d && S.d.yo.rol === "admin";
+const reg = (e, a) => S.d.reg.find(r => r.email === e && r.actividad_id === a) || { email: e, actividad_id: a, cumplimiento: "", obs: "" };
+function setReg(r) { const i = S.d.reg.findIndex(x => x.email === r.email && x.actividad_id === r.actividad_id); if (i >= 0) S.d.reg[i] = r; else S.d.reg.push(r); }
+const supervisores = () => S.d.usuarios.filter(u => u.rol === "supervisor" && u.activo === "SI");
+const iprPct = e => S.d.act.length ? avg(S.d.act.map(a => num(reg(e, a.id).cumplimiento) ?? 0)) : null; // lo no marcado cuenta como no realizado
+const iprHechas = e => S.d.act.filter(a => num(reg(e, a.id).cumplimiento) >= 100).length;
+const grupo = id => (S.d.grupos || []).find(g => g.id === id) || { id, cat: "", nombre: id };
+const evDe = (t, id) => S.d.evidencias.filter(e => e.ref_tipo === t && e.ref_id === id);
+const cats = () => { const s = []; (S.d.grupos || []).forEach(g => { if (!s.includes(g.cat)) s.push(g.cat); }); return s; };
+const itemsCat = c => S.d.items.filter(i => grupo(i.grupo).cat === c);
+const pendientes = () => (S.d.items || []).filter(i => i.grupo !== "rf" && (num(i.cumplimiento) == null || num(i.cumplimiento) < 100));
+const persona = e => S.d.usuarios.find(u => u.email === e) || { email: e, nombre: e };
+
+/* ===================== Sin señal ===================== */
+/* Lo que se registra sin señal queda en una bandeja de salida en el celular (IndexedDB) y se envía solo al volver la conexión. */
+const COLA_FN = ["marcar7x7", "guardarInformeSecc", "subirEvidencia"];
+const OFF = { db: null, cola: [], rech: [], enviando: false, sinRed: false, listo: null };
+function idb() {
+  if (OFF.db) return OFF.db;
+  OFF.db = new Promise((res, rej) => { try { const r = indexedDB.open("ipr-sin-senal", 1); r.onupgradeneeded = () => r.result.createObjectStore("kv"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } });
+  return OFF.db;
+}
+async function kvGet(k) { try { const db = await idb(); return await new Promise((res, rej) => { const q = db.transaction("kv").objectStore("kv").get(k); q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }); } catch (_) { return undefined; } }
+async function kvSet(k, v) { try { const db = await idb(); await new Promise((res, rej) => { const tx = db.transaction("kv", "readwrite"); tx.objectStore("kv").put(v, k); tx.oncomplete = res; tx.onerror = () => rej(tx.error); }); return true; } catch (_) { return false; } }
+OFF.listo = (async () => { OFF.cola = (await kvGet("cola")) || []; OFF.rech = (await kvGet("rechazados")) || []; })();
+const guardarCola = () => Promise.all([kvSet("cola", OFF.cola), kvSet("rechazados", OFF.rech)]).then(offPintar);
+let cacheT = 0;
+function guardarCache() {
+  clearTimeout(cacheT);
+  cacheT = setTimeout(() => {
+    if (!S.d || !S.d.yo) return;
+    kvSet("cache", { email: S.d.yo.email, token: S.token, t: S.t, d: S.d, inf: S.inf ? { lista: S.inf.lista, esquema: S.inf.esquema, dias: S.inf.dias } : null });
+  }, 400);
+}
+async function leerCache() { const c = await kvGet("cache"); return c && c.token && c.token === S.token ? c : null; }
+const miCola = () => OFF.cola.filter(o => S.d && o.email === S.d.yo.email);
+const esSinRed = e => !!(e && e.sinRed);
+function b64Bytes(b) { const n = (b || "").length; return Math.floor(n * 3 / 4) - (b.endsWith("==") ? 2 : b.endsWith("=") ? 1 : 0); }
+function optimista(fn, a) {
+  if (fn === "marcar7x7") return Object.assign({}, reg(a[0], a[1]), a[2]);
+  if (fn === "guardarInformeSecc") { const x = S.inf && S.inf.lista.find(z => z.id === a[0]); return { nombres: x ? x.nombres : "", actualizado: x ? x.actualizado : "" }; }
+  if (fn === "subirEvidencia") return { id: "pend-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7), ref_tipo: a[0], ref_id: a[1], nombre: a[2], mime: a[3], tam: b64Bytes(a[4]), fecha: new Date().toISOString(), subido_por: S.d.yo.email, pendiente: true };
+}
+async function encolar(fn, a) {
+  await OFF.listo;
+  const r = optimista(fn, a), op = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), fn, a, email: S.d.yo.email, t: Date.now() };
+  if (fn === "subirEvidencia") op.tmp = r.id;
+  OFF.cola.push(op); await guardarCola(); guardarCache(); programarEnvio();
+  return r;
+}
+async function Tcola(fn, a) {
+  await OFF.listo;
+  if (!S.d || !S.d.yo) return call(fn, S.token, ...a);
+  if (miCola().length || navigator.onLine === false) return encolar(fn, a);
+  try { const r = await callT(fn, [S.token, ...a], fn === "subirEvidencia" ? 120000 : 40000); OFF.sinRed = false; offPintar(); guardarCache(); return r; }
+  catch (e) { if (!esSinRed(e)) throw e; OFF.sinRed = true; return encolar(fn, a); }
+}
+async function quitarPendiente(id) {
+  await OFF.listo;
+  const i = OFF.cola.findIndex(o => o.tmp === id); if (i < 0) return false;
+  OFF.cola.splice(i, 1); S.d.evidencias = S.d.evidencias.filter(x => x.id !== id); await guardarCola(); guardarCache(); return true;
+}
+let envioT = 0;
+function programarEnvio(ms) { clearTimeout(envioT); envioT = setTimeout(enviarPendientes, ms ?? 1500); }
+async function enviarPendientes() {
+  await OFF.listo;
+  if (OFF.enviando || !S.token || !S.d) return;
+  if (!miCola().length) { offPintar(); return; }
+  if (navigator.onLine === false) { OFF.sinRed = true; offPintar(); programarEnvio(30000); return; }
+  OFF.enviando = true; offPintar(); let n = 0;
+  try {
+    while (true) {
+      const op = miCola()[0]; if (!op) break;
+      if (op.fn === "subirEvidencia" && op.intento) {
+        /* Ya se intentó una vez: si el archivo alcanzó a llegar, no se sube de nuevo. */
+        const d = await callT("datos", [S.token], 40000), a = op.a;
+        const ya = (d.evidencias || []).find(e => e.ref_tipo === a[0] && e.ref_id === a[1] && e.nombre === a[2] && Number(e.tam) === b64Bytes(a[4]));
+        if (ya) { cambiarTmp(op.tmp, ya); OFF.cola = OFF.cola.filter(o => o !== op); await guardarCola(); n++; continue; }
+      }
+      op.intento = (op.intento || 0) + 1; await kvSet("cola", OFF.cola);
+      try {
+        const r = await callT(op.fn, [S.token, ...op.a], op.fn === "subirEvidencia" ? 120000 : 40000);
+        if (op.fn === "subirEvidencia") cambiarTmp(op.tmp, r);
+        else if (op.fn === "marcar7x7") setReg(r);
+        else if (op.fn === "guardarInformeSecc") { const x = S.inf && S.inf.lista.find(z => z.id === op.a[0]); if (x && r) { x.nombres = r.nombres; x.actualizado = r.actualizado; } }
+        OFF.cola = OFF.cola.filter(o => o !== op); await guardarCola(); n++;
+      } catch (e) {
+        if (esSinRed(e)) { OFF.sinRed = true; programarEnvio(30000); break; }
+        if (e.message === "SESION" || /sesi[oó]n expir/i.test(e.message)) break;
+        OFF.cola = OFF.cola.filter(o => o !== op); OFF.rech.push(Object.assign({}, op, { error: e.message, a: op.fn === "subirEvidencia" ? op.a.slice(0, 4).concat([op.a[4]]) : op.a }));
+        if (op.tmp) S.d.evidencias = S.d.evidencias.filter(x => x.id !== op.tmp);
+        await guardarCola();
+      }
+    }
+  } catch (e) { if (esSinRed(e)) { OFF.sinRed = true; programarEnvio(30000); } }
+  OFF.enviando = false; if (!miCola().length) OFF.sinRed = false;
+  guardarCache(); offPintar();
+  if (n) { toast(n === 1 ? "Se envió 1 registro guardado sin señal." : `Se enviaron ${n} registros guardados sin señal.`); if (!miCola().length) refrescar(); else render(); }
+}
+function cambiarTmp(tmp, r) { const i = S.d.evidencias.findIndex(x => x.id === tmp); if (i >= 0) S.d.evidencias[i] = r; else S.d.evidencias.push(r); }
+function offPintar() {
+  let b = document.getElementById("offbar");
+  const n = miCola().length, m = OFF.rech.filter(o => S.d && o.email === S.d.yo.email).length;
+  if (!S.d || (!n && !m && !OFF.sinRed)) { if (b) b.remove(); return; }
+  if (!b) { b = document.createElement("div"); b.id = "offbar"; b.className = "offbar"; document.body.append(b);
+    b.addEventListener("click", e => { const t = e.target.closest("button"); if (!t) return; if (t.dataset.offenv !== undefined) enviarPendientes(); if (t.dataset.offver !== undefined) verRechazados(); }); }
+  const txt = OFF.enviando ? `Enviando registros guardados… (${n})`
+    : n ? (OFF.sinRed ? `Sin señal · ${n === 1 ? "1 registro guardado" : n + " registros guardados"} en el celular. Se envían solos al volver la señal.` : `${n === 1 ? "1 registro" : n + " registros"} por enviar.`)
+    : OFF.sinRed ? "Sin señal · lo que registres se guardará en el celular." : "";
+  b.className = "offbar" + (OFF.sinRed && !OFF.enviando ? " sin" : "");
+  b.innerHTML = (txt ? `<span>${txt}</span>` : "") + (n && !OFF.enviando ? `<button type="button" data-offenv>Enviar ahora</button>` : "") + (m ? `<button type="button" data-offver>${m === 1 ? "1 no se pudo enviar" : m + " no se pudieron enviar"}</button>` : "");
+}
+const NOM_FN = { marcar7x7: "Marca de actividad 7x7", guardarInformeSecc: "Cambio en informe de turno", subirEvidencia: "Archivo" };
+async function verRechazados() {
+  const L = OFF.rech.filter(o => o.email === S.d.yo.email);
+  const html = `<p>Estos registros se guardaron sin señal, pero el servidor no los aceptó al enviarlos (por ejemplo, porque el informe ya estaba cerrado).</p><ul>` +
+    L.map(o => `<li><b>${NOM_FN[o.fn] || o.fn}${o.fn === "subirEvidencia" ? " «" + esc(o.a[2]) + "»" : ""}</b> · ${esc(fCorta(new Date(o.t).toISOString()))}<br><small>${esc(o.error)}</small></li>`).join("") + `</ul>`;
+  if (await confirmBox("Registros no enviados", html, "Descartarlos")) { OFF.rech = OFF.rech.filter(o => o.email !== S.d.yo.email); await guardarCola(); }
+}
+window.addEventListener("online", () => { OFF.sinRed = false; offPintar(); programarEnvio(800); });
+window.addEventListener("offline", () => { OFF.sinRed = true; offPintar(); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") programarEnvio(800); });
+setInterval(() => { if (miCola().length && !OFF.enviando) enviarPendientes(); }, 60000);
+
+/* ===================== Avisos y ventanas ===================== */
+function toast(msg, bad) {
+  $$(".toast").forEach(t => t.remove());
+  const t = document.createElement("div"); t.className = "toast" + (bad ? " bad" : ""); t.setAttribute("role", "status");
+  t.innerHTML = `<i></i><div>${msg}</div>`; document.body.append(t); setTimeout(() => t.remove(), bad ? 6000 : 4000);
+}
+const fallo = e => toast(esc(e.message || e), true);
+function fieldHtml(f) {
+  if (f.row) return `<div class="frow">${f.row.map(fieldHtml).join("")}</div>`;
+  const id = "fld-" + f.name, v = f.value ?? ""; let inp;
+  if (f.type === "textarea") inp = `<textarea id="${id}" name="${f.name}" placeholder="${esc(f.placeholder || "")}">${esc(v)}</textarea>`;
+  else if (f.type === "select") inp = `<select id="${id}" name="${f.name}">${f.options.map(o => `<option value="${esc(o.v)}" ${String(o.v) === String(v) ? "selected" : ""}>${esc(o.l)}</option>`).join("")}</select>`;
+  else inp = `<input id="${id}" name="${f.name}" type="${f.type || "text"}" value="${esc(v)}" placeholder="${esc(f.placeholder || "")}" ${f.auto ? `autocomplete="${f.auto}"` : ""} ${f.type === "number" ? 'min="0" max="100" step="1"' : ""}>`;
+  return `<div class="fld"><label for="${id}">${esc(f.label)}</label>${inp}${f.help ? `<span style="font-size:12.5px;color:var(--gris)">${esc(f.help)}</span>` : ""}<span class="err" data-err="${f.name}"></span></div>`;
+}
+/* o.onSubmit(vals) puede devolver una promesa; si falla, el error se muestra dentro de la ventana */
+function openForm(o) {
+  return new Promise(resolve => {
+    const ov = document.createElement("div"); ov.className = "ov";
+    const fields = o.fields || [], flat = fields.flatMap(f => f.row || [f]);
+    ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(o.title)}"><h3>${esc(o.title)}</h3>${o.intro ? `<p class="intro">${o.intro}</p>` : ""}
+      <form novalidate>${fields.map(fieldHtml).join("")}<div class="err" data-err="_" style="margin-bottom:8px"></div>
+      <div class="mact">${o.onDelete ? `<button type="button" class="btn danger" data-borrar>${esc(o.deleteLabel || "Eliminar")}</button>` : "<i></i>"}
+      <span>${o.noCancel ? "" : `<button type="button" class="btn ghost" data-x>Cancelar</button>`}<button type="submit" class="btn ${o.danger ? "dark" : "primary"}">${esc(o.saveLabel || "Guardar")}</button></span></div></form></div>`;
+    document.body.append(ov);
+    const form = $("form", ov), sub = $("button[type=submit]", form);
+    const close = v => { ov.remove(); document.removeEventListener("keydown", kd); resolve(v); };
+    const kd = e => { if (e.key === "Escape" && !o.noCancel && $$(".ov").pop() === ov) close(null); };
+    document.addEventListener("keydown", kd);
+    if (!o.noCancel) { ov.addEventListener("mousedown", e => { if (e.target === ov) close(null); }); $("[data-x]", ov).onclick = () => close(null); }
+    if (o.onDelete) $("[data-borrar]", ov).onclick = () => { close(null); o.onDelete(); };
+    form.addEventListener("input", e => { const er = $(`[data-err="${e.target.name}"]`, form); if (er) er.textContent = ""; });
+    form.onsubmit = async e => {
+      e.preventDefault(); const vals = {}; let ok = true;
+      flat.forEach(f => {
+        const raw = String(form.elements[f.name].value), val = f.type === "password" ? raw : raw.trim(); vals[f.name] = val; const er = $(`[data-err="${f.name}"]`, form);
+        if (f.required && !val) { ok = false; er.textContent = "Completa este campo."; }
+        else if (f.type === "number" && val !== "" && (isNaN(+val) || +val < 0 || +val > 100)) { ok = false; er.textContent = "Escribe un número entre 0 y 100."; }
+      });
+      if (!ok) return;
+      if (!o.onSubmit) return close(vals);
+      sub.disabled = true; const lbl = sub.textContent; sub.textContent = "Guardando…";
+      try { const r = await o.onSubmit(vals); close(r === undefined ? vals : r); }
+      catch (err) { $('[data-err="_"]', form).textContent = err.message; sub.disabled = false; sub.textContent = lbl; }
+    };
+    setTimeout(() => { const f = $("input,textarea,select", form); (f || sub).focus(); }, 30);
+  });
+}
+const confirmBox = (title, msg, ok = "Sí, continuar", danger = true) => openForm({ title, intro: msg, saveLabel: ok, danger }).then(v => !!v);
+function infoBox(title, html) {
+  return new Promise(resolve => {
+    const ov = document.createElement("div"); ov.className = "ov";
+    ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(title)}"><h3>${esc(title)}</h3>${html}<div class="mact"><i></i><button class="btn primary" data-x>Entendido</button></div></div>`;
+    document.body.append(ov); $("[data-x]", ov).onclick = () => { ov.remove(); resolve(); }; $("[data-x]", ov).focus();
+    const msg = $("[data-msg]", ov);
+    if (msg) {
+      $("[data-wa]", ov).onclick = () => window.open("https:" + "/" + "/wa.me/?text=" + encodeURIComponent(msg.value), "_blank");
+      $("[data-cp]", ov).onclick = () => copiarTexto(msg.value).then(() => toast("Mensaje copiado. Pégalo en WhatsApp o donde quieras."));
+    }
+  });
+}
+const claveHtml = (u, clave) => `<p class="intro">Entrégale estos datos a <b>${esc(u.nombre)}</b>. Al entrar por primera vez se le pedirá crear su propia contraseña.</p>
+  <div class="fld"><label>Correo</label><div class="secret" style="font-size:16px">${esc(u.email)}</div></div>
+  <div class="fld"><label>Contraseña temporal</label><div class="secret">${esc(clave)}</div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px"><button type="button" class="btn dark" data-wa>Enviar por WhatsApp</button><button type="button" class="btn" data-cp>Copiar mensaje</button></div>
+  <textarea data-msg hidden>${esc(msgInvitacion(u, clave))}</textarea>
+  <p style="color:var(--gris);font-size:13px">Por seguridad esta contraseña no se volverá a mostrar. Si se pierde, usa <b>Restablecer contraseña</b>.</p>`;
+const LINK_APP = "https:" + "/" + "/ipr.gmrlabs.cl";
+function msgInvitacion(u, clave) {
+  return `Hola ${u.nombre}, te creé una cuenta en la app Seguimiento IPR.\n\n` +
+    `1. Abre este link en tu celular: ${LINK_APP}\n` +
+    `2. Instálala en tu pantalla de inicio siguiendo los pasos que aparecen.\n` +
+    `3. Ingresa con:\n   Correo: ${u.email}\n   Contraseña temporal: ${clave}\n\n` +
+    `Al entrar por primera vez te pedirá crear tu propia contraseña.`;
+}
+function copiarTexto(t) {
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t).catch(() => copiarViejo(t));
+  return Promise.resolve(copiarViejo(t));
+}
+function copiarViejo(t) { const a = document.createElement("textarea"); a.value = t; a.style.position = "fixed"; a.style.opacity = "0"; document.body.append(a); a.select(); try { document.execCommand("copy"); } finally { a.remove(); } }
+/* ===================== Ingreso ===================== */
+function pantallaLogin(msg) {
+  S.d = null;
+  $("#app").innerHTML = `<div class="login"><div class="lcard"><div class="brand"><div class="t">Seguimiento <b>IPR</b></div><div class="s">Programa de trabajo</div></div>
+    <h1>Ingresar</h1>${msg ? `<div class="lmsg">${esc(msg)}</div>` : ""}
+    <form id="lf" novalidate><div class="fld"><label for="le">Correo</label><input id="le" type="email" autocomplete="username" inputmode="email"></div>
+    <div class="fld"><label for="lp">Contraseña</label><input id="lp" type="password" autocomplete="current-password"></div>
+    <div class="err" id="lerr" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Entrar</button></form>
+    <p class="lfoot"><a href="#" id="lolv" style="color:inherit">¿Olvidaste tu contraseña?</a></p></div></div>`;
+  $("#lolv").onclick = e => { e.preventDefault(); pantallaRecuperar($("#le").value.trim()); };
+  $("#lf").onsubmit = async e => {
+    e.preventDefault(); const b = $("#lf button"), em = $("#le").value.trim(), pw = $("#lp").value;
+    if (!em || !pw) { $("#lerr").textContent = "Escribe tu correo y tu contraseña."; return; }
+    b.disabled = true; b.textContent = "Entrando…"; $("#lerr").textContent = "";
+    try { const r = await call("login", em, pw); S.token = r.token; try { localStorage.setItem("ipr-token", r.token); } catch (_) {} await cargar(); }
+    catch (err) { if ($("#lerr")) { $("#lerr").textContent = err.message; b.disabled = false; b.textContent = "Entrar"; } }
+  };
+  setTimeout(() => $("#le") && $("#le").focus(), 50);
+}
+function pantallaRecuperar(correo) {
+  $("#app").innerHTML = `<div class="login"><div class="lcard"><div class="brand"><div class="t">Seguimiento <b>IPR</b></div><div class="s">Programa de trabajo</div></div>
+    <h1>Recuperar contraseña</h1>
+    <form id="rf1" novalidate><p class="lfoot" style="text-align:left;margin:0 0 14px">Escribe tu correo y te enviaremos un código de 6 números.</p>
+    <div class="fld"><label for="re">Correo</label><input id="re" type="email" autocomplete="username" inputmode="email" value="${esc(correo || "")}"></div>
+    <div class="err" id="rerr1" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Enviar código</button></form>
+    <form id="rf2" novalidate hidden><p class="lfoot" id="rinfo" style="text-align:left;margin:0 0 14px"></p>
+    <div class="fld"><label for="rc">Código</label><input id="rc" inputmode="numeric" autocomplete="one-time-code" maxlength="6"></div>
+    <div class="fld"><label for="rp1">Contraseña nueva (mínimo 8 caracteres)</label><input id="rp1" type="password" autocomplete="new-password"></div>
+    <div class="fld"><label for="rp2">Repite la contraseña nueva</label><input id="rp2" type="password" autocomplete="new-password"></div>
+    <div class="err" id="rerr2" style="margin-bottom:10px"></div><button class="btn primary big" type="submit">Guardar y entrar</button></form>
+    <p class="lfoot"><a href="#" id="rvolver" style="color:inherit">Volver a Ingresar</a></p></div></div>`;
+  $("#rvolver").onclick = e => { e.preventDefault(); pantallaLogin(); };
+  $("#rf1").onsubmit = async e => {
+    e.preventDefault(); const b = $("#rf1 button"), em = $("#re").value.trim();
+    if (!em) { $("#rerr1").textContent = "Escribe tu correo."; return; }
+    b.disabled = true; b.textContent = "Enviando…"; $("#rerr1").textContent = "";
+    try {
+      await call("pedirCodigoClave", em);
+      $("#rf1").hidden = true; $("#rf2").hidden = false;
+      $("#rinfo").textContent = "Si " + em + " tiene cuenta, le llegó un correo con el código. Revisa también la carpeta de spam. El código vale 15 minutos.";
+      setTimeout(() => $("#rc") && $("#rc").focus(), 50);
+    } catch (err) { $("#rerr1").textContent = err.message; b.disabled = false; b.textContent = "Enviar código"; }
+  };
+  $("#rf2").onsubmit = async e => {
+    e.preventDefault(); const b = $("#rf2 button"), em = $("#re").value.trim(), cod = $("#rc").value.trim(), p1 = $("#rp1").value, p2 = $("#rp2").value;
+    if (!cod || !p1) { $("#rerr2").textContent = "Escribe el código y la contraseña nueva."; return; }
+    if (p1.length < 8) { $("#rerr2").textContent = "La contraseña debe tener al menos 8 caracteres."; return; }
+    if (p1 !== p2) { $("#rerr2").textContent = "Las dos contraseñas no coinciden."; return; }
+    b.disabled = true; b.textContent = "Guardando…"; $("#rerr2").textContent = "";
+    try {
+      await call("restablecerConCodigo", em, cod, p1);
+      const r = await call("login", em, p1); S.token = r.token; try { localStorage.setItem("ipr-token", r.token); } catch (_) {} await cargar();
+    } catch (err) { if ($("#rerr2")) { $("#rerr2").textContent = err.message; b.disabled = false; b.textContent = "Guardar y entrar"; } }
+  };
+  setTimeout(() => $("#re") && $("#re").focus(), 50);
+}
+async function salir(expiro) {
+  const n = !expiro && S.d ? miCola().length : 0;
+  if (n && !(await confirmBox("Tienes registros sin enviar", `Hay ${n === 1 ? "1 registro guardado" : n + " registros guardados"} en este celular que aún no se envían. Quedarán guardados y se enviarán cuando vuelvas a entrar con tu cuenta y haya señal.`, "Salir igual", false))) return;
+  if (!expiro && S.token) call("logout", S.token).catch(() => {});
+  S.token = null; S.view = ""; try { localStorage.removeItem("ipr-token"); } catch (_) {}
+  const ob = document.getElementById("offbar"); if (ob) ob.remove();
+  $$(".ov").forEach(o => o.remove());
+  pantallaLogin(expiro ? "Tu sesión expiró. Vuelve a ingresar." : "");
+}
+async function pantallaCambio() {
+  $("#app").innerHTML = `<div class="login"></div>`;
+  await openForm({ title: "Crea tu contraseña", intro: `Hola, <b>${esc(S.d.yo.nombre)}</b>. Antes de comenzar, reemplaza la contraseña temporal por una propia de al menos 8 caracteres.`, noCancel: true,
+    fields: [{ name: "actual", label: "Contraseña temporal", type: "password", required: true, auto: "current-password" },
+             { name: "nueva", label: "Nueva contraseña", type: "password", required: true, auto: "new-password" },
+             { name: "rep", label: "Repite la nueva contraseña", type: "password", required: true, auto: "new-password" }],
+    saveLabel: "Guardar y entrar",
+    onSubmit: async v => { if (v.nueva !== v.rep) throw new Error("Las contraseñas nuevas no coinciden."); await T("cambiarClave", v.actual, v.nueva); return true; } });
+  await cargar();
+}
+async function cambiarMiClave() {
+  const r = await openForm({ title: "Cambiar contraseña",
+    fields: [{ name: "actual", label: "Contraseña actual", type: "password", required: true, auto: "current-password" },
+             { name: "nueva", label: "Nueva contraseña", type: "password", required: true, auto: "new-password", help: "Al menos 8 caracteres." },
+             { name: "rep", label: "Repite la nueva contraseña", type: "password", required: true, auto: "new-password" }],
+    onSubmit: async v => { if (v.nueva !== v.rep) throw new Error("Las contraseñas nuevas no coinciden."); await T("cambiarClave", v.actual, v.nueva); return true; } });
+  if (r) toast("Contraseña actualizada.");
+}
+
+/* ===================== Estructura ===================== */
+const NAV_ADMIN = [["panel", "Panel general", "dash"], ["c4x3", "Control documental 4x3", "doc"], ["rf", "Riesgos de fatalidad", "alert"], ["ipr", "IPR 7x7 · Informes", "users"], ["usuarios", "Usuarios", "user"]];
+const NAV_SUP = [["turno", "Informe de turno", "users"], ["historial", "Mis informes", "hist"]];
+async function cargar() {
+  await OFF.listo;
+  const c = await leerCache();
+  let d, desdeCache = false;
+  try { d = await callT("datos", [S.token], c ? 15000 : 40000); OFF.sinRed = false; }
+  catch (e) { if (!esSinRed(e) || !c) throw e; d = c.d; desdeCache = true; OFF.sinRed = true; }
+  /* Si hay registros sin enviar se muestra lo guardado en el celular (que ya los incluye) hasta que se envíen. */
+  if (!desdeCache && c && c.email === d.yo.email && OFF.cola.some(o => o.email === d.yo.email)) { d = c.d; desdeCache = true; }
+  S.d = d; S.t = desdeCache ? c.t : Date.now();
+  if (desdeCache && c.inf) S.inf = Object.assign({ cur: null }, c.inf);
+  if (!desdeCache) guardarCache();
+  if (d.yo.cambiar) return pantallaCambio();
+  const nav = esAdmin() ? NAV_ADMIN : NAV_SUP;
+  if (!nav.some(n => n[0] === S.view)) { let v = ""; try { v = localStorage.getItem("ipr-view") || ""; } catch (_) {} S.view = nav.some(n => n[0] === v) ? v : nav[0][0]; }
+  shell(); render();
+  if (!S.inf) cargarInformes().then(render).catch(() => {});
+  offPintar(); if (miCola().length) programarEnvio(500);
+}
+async function refrescar(aviso) {
+  if (miCola().length) { await enviarPendientes(); if (miCola().length) { if (aviso) toast("Sin señal. Lo guardado se enviará y se actualizará cuando vuelva la conexión.", true); return; } }
+  try { const d = await T("datos"); S.d = d; S.t = Date.now(); OFF.sinRed = false; offPintar(); guardarCache(); render(); if (aviso) toast("Datos actualizados."); }
+  catch (e) { if (esSinRed(e)) { OFF.sinRed = true; offPintar(); if (aviso) toast("Sin señal. Estás viendo lo último guardado en el celular.", true); } else if (S.d) fallo(e); }
+}
+function shell() {
+  const nav = esAdmin() ? NAV_ADMIN : NAV_SUP, yo = S.d.yo;
+  $("#app").innerHTML = `<div class="app"><aside class="side">
+    <div class="brand"><div class="t">Seguimiento <b>IPR</b></div><div class="s">Programa de trabajo</div></div>
+    <nav id="nav">${nav.map(([id, l, i]) => `<button class="nav" data-nav="${id}">${ic(i)}<span>${l}</span>${id === "c4x3" ? '<span class="badge" id="badge"></span>' : ""}</button>`).join("")}</nav>
+    <div class="grow"></div>
+    <div class="me">${av(yo.nombre)}<div style="min-width:0"><b>${esc(yo.nombre)}</b><small>${yo.rol === "admin" ? "Administrador" : "APR"}</small></div></div>
+    <button class="btn" data-tool="clave">${ic("key")}Cambiar contraseña</button>
+    <button class="btn" data-tool="instalar">${ic("down")}Instalar app</button>
+    <button class="btn" data-tool="salir">${ic("out")}Salir</button></aside><main class="main" id="main"></main></div>`;
+  $("#nav").onclick = e => { const b = e.target.closest("[data-nav]"); if (!b) return; if (S.inf) { S.inf.cur = null; S.inf.tab = "act"; } go(b.dataset.nav); };
+  $(".side").addEventListener("click", e => { const t = e.target.closest("[data-tool]"); if (!t) return; if (t.dataset.tool === "salir") salir(); else if (t.dataset.tool === "instalar") instalarAyuda(); else cambiarMiClave(); });
+  bindEvents();
+}
+function go(view, f) {
+  S.view = view; try { localStorage.setItem("ipr-view", view); } catch (_) {}
+  if (f) S.f = Object.assign({ cat: "", est: "", q: "" }, f);
+  render(); window.scrollTo(0, 0);
+  if (Date.now() - S.t > 30000) refrescar();
+}
+function topbar(eyebrow, title, sub, actions = "") {
+  return `<div class="top"><div><div class="eyebrow">${esc(eyebrow)}</div><h1>${esc(title)}</h1>${sub ? `<div class="sub">${sub}</div>` : ""}</div>
+    <div class="actions">${actions}<button class="btn ghost" data-refresh title="Traer los cambios de los demás usuarios">${ic("sync")}Actualizar</button></div></div>`;
+}
+function render() {
+  if (!S.d || !$("#main")) return;
+  $$("#nav [data-nav]").forEach(b => b.classList.toggle("on", b.dataset.nav === S.view));
+  const b = $("#badge"); if (b) { const n = pendientes().length; b.textContent = n; b.style.display = n ? "" : "none"; }
+  const v = { panel: viewPanel, c4x3: viewC4, rf: viewRF, ipr: viewInformes, usuarios: viewUsuarios, turno: viewInformeActual, historial: viewInformes }[S.view] || (esAdmin() ? viewPanel : viewInformeActual);
+  $("#main").innerHTML = v();
+}
+function seg(v, attr, labels) {
+  v = num(v);
+  const opts = [[0, "bad", labels[0]], [50, "mid", labels[1]], [100, "ok", labels[2]]];
+  const extra = v == null ? "Sin evaluar" : ![0, 50, 100].includes(v) ? `Valor actual: ${v}%` : "";
+  return `<div class="seg" role="group">${opts.map(([n, c, l]) => `<button type="button" class="${c} ${v === n ? "on" : ""}" data-v="${n}" ${attr} aria-pressed="${v === n}">${l}</button>`).join("")}</div>${extra ? `<span class="custom">${extra}</span>` : ""}`;
+}
+
+/* ===================== Panel general ===================== */
+function viewPanel() {
+  const C = cats().map(c => { const its = itemsCat(c); return { c, v: avg(its.map(i => i.cumplimiento)), ok: its.filter(i => num(i.cumplimiento) >= 100).length, n: its.length, rf: its.some(i => i.grupo === "rf") }; });
+  const sup = supervisores(), infA = S.inf ? infActual() : null, vIpr = infA ? infPctTurnos(infA) : null;
+  const gen = avg(C.map(x => x.v).concat(vIpr == null ? [] : [vIpr])), pend = pendientes();
+  const frase = gen == null ? "Aún sin datos" : gen >= 90 ? "Muy bien encaminado" : gen >= 60 ? "Avance parcial" : "Requiere atención";
+  const ult = e => S.d.turnos.filter(t => t.email === e).sort((a, b) => a.fecha < b.fecha ? 1 : -1)[0];
+  return topbar("Panel general", "¿Cómo va el cumplimiento?", "Toca cualquier tarjeta para ver el detalle.") +
+    `<div class="hero">${ring(gen, 150, 14, true)}<div><div class="eyebrow">Cumplimiento general</div><h2>${frase}</h2>
+      <p>${pend.length} actividades del control documental por resolver · ${sup.length} ${sup.length === 1 ? "APR" : "APR"} en IPR 7x7</p></div></div>
+    <div class="grid g-3">${C.map(x => `<button class="kpi" data-go="${x.rf ? "rf" : "c4x3"}" data-cat="${x.rf ? "" : esc(x.c)}">${ring(x.v, 64, 7)}<div><div class="kt">${esc(x.c)}</div><div class="ks">${x.ok} de ${x.n} cumplidas</div>${track(x.v)}</div></button>`).join("")}</div>
+    <div class="grid g-2 mt">
+      <div class="card"><h3>Por resolver <small>${pend.length} actividades</small></h3>${pend.length ? pend.slice(0, 8).map(i => `<div class="prow-pend">${pill(num(i.cumplimiento))}<p>${esc(i.actividad)}</p><button class="btn sm" data-goitem="${i.id}">Revisar</button></div>`).join("") + (pend.length > 8 ? `<div style="margin-top:10px"><button class="btn sm ghost" data-go="c4x3" data-est="pend">Ver las ${pend.length}</button></div>` : "") : `<div class="empty" style="padding:20px">Todo al día.</div>`}</div>
+      <div class="card"><h3>IPR 7x7 <small>informe de la semana</small></h3>${infA ? `<div style="display:flex;align-items:center;gap:16px">${ring(vIpr, 78, 8)}<div style="flex:1"><b>Turno ${esc(semanaTxt(infA))}</b><div style="color:var(--gris);font-size:13.5px">${esc(infA.nombres || "—")} · ${infA.estado === "cerrado" ? "cerrado" : "en curso"}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">${["A", "B"].map(T => { const a = infAvance(infA, T); return `<span class="pill ${a.falta.length ? "mid" : "ok"}">Turno ${T}: ${a.pct}% · ${a.falta.length ? a.falta.length + " pendientes" : "al día"}</span>`; }).join("")}</div></div><button class="btn sm" data-iopen="${infA.id}">Abrir</button></div>` : `<div class="empty" style="padding:18px">${S.inf ? "Aún no hay informe para esta semana." : "Cargando…"} <button class="btn sm" data-go="ipr">Ver informes</button></div>`}</div>
+    </div>`;
+}
+
+/* ===================== Control documental 4x3 ===================== */
+function viewC4() {
+  const f = S.f, groups = S.d.grupos.filter(g => g.id !== "rf"), cs = [...new Set(groups.map(g => g.cat))];
+  const chip = (k, val, label) => `<button class="chip ${f[k] === val ? "on" : ""}" data-f="${k}" data-val="${esc(val)}">${esc(label)}</button>`;
+  return topbar("Control documental 4x3", "Actividades y cumplimiento", "Marca cada actividad como <b>Cumple</b>, <b>Parcial</b> o <b>No cumple</b>. Con <b>Adjuntar</b> subes fotos o PDF de respaldo.",
+      `<button class="btn primary" data-add-item>${ic("plus")}Agregar actividad</button>`) +
+    `<div class="filters"><div class="chips">${chip("cat", "", "Todas")}${cs.map(c => chip("cat", c, c)).join("")}</div></div>
+     <div class="filters"><div class="chips">${chip("est", "", "Todos los estados")}${chip("est", "pend", "Por resolver")}${chip("est", "ok", "Cumplidas")}</div>
+       <label class="search">${ic("search")}<input id="f-q" placeholder="Buscar actividad, responsable, comentario…" value="${esc(f.q)}" aria-label="Buscar"></label></div>
+     <div id="list">${listC4()}</div>`;
+}
+function listC4() {
+  const f = S.f, q = f.q.toLowerCase();
+  const match = i => (!f.est || (f.est === "ok" ? num(i.cumplimiento) >= 100 : (num(i.cumplimiento) == null || num(i.cumplimiento) < 100)))
+    && (!q || [i.codigo, i.actividad, i.comentario, i.responsable].join(" ").toLowerCase().includes(q));
+  let html = "";
+  for (const g of S.d.grupos) {
+    if (g.id === "rf" || (f.cat && g.cat !== f.cat)) continue;
+    const all = S.d.items.filter(i => i.grupo === g.id), its = all.filter(match);
+    if (!its.length) continue;
+    const v = avg(all.map(i => i.cumplimiento));
+    html += `<section class="section"><div class="shead"><h2>${esc(g.cat === "RESSO V10" ? "RESSO V10 · " + g.nombre : g.nombre)}</h2>
+      <span class="count">${all.filter(i => num(i.cumplimiento) >= 100).length} de ${all.length} cumplidas</span>${track(v)}${pill(v)}</div>${its.map(itemC4).join("")}</section>`;
+  }
+  return html || `<div class="empty">No hay actividades que coincidan con los filtros.<br><br><button class="btn" data-clear>Quitar filtros</button></div>`;
+}
+function evBtn(tipo, id, small) {
+  const n = evDe(tipo, id).length;
+  return small ? `<button class="icon-btn ${n ? "has-ev" : ""}" data-ev="${tipo}" data-evid="${esc(id)}" title="Evidencias" aria-label="Evidencias">${ic("clip")}${n ? `<b style="font-size:12px">${n}</b>` : ""}</button>`
+    : `<button class="btn sm ghost ${n ? "has-ev" : ""}" data-ev="${tipo}" data-evid="${esc(id)}">${ic("clip")}${n ? `Evidencias (${n})` : "Adjuntar"}</button>`;
+}
+function itemC4(i) {
+  return `<article class="item ${statusOf(num(i.cumplimiento))}" id="it-${i.id}"><div class="code">${esc(i.codigo)}</div>
+    <div><p class="q">${esc(i.actividad)}</p><div class="meta">${i.responsable ? `<span class="who">${av(i.responsable)}${esc(i.responsable)}</span>` : "<span>Sin responsable</span>"}
+      ${i.frecuencia ? `<span class="tag">${esc(i.frecuencia)}</span>` : ""}${i.actualizado ? `<span>Actualizado el ${esc(fCorta(i.actualizado))}</span>` : ""}</div>
+      ${i.comentario ? `<div class="note">${esc(i.comentario)}</div>` : ""}</div>
+    <div class="ctrl">${seg(i.cumplimiento, `data-item="${i.id}"`, ["No cumple", "Parcial", "Cumple"])}
+      <span style="display:flex;gap:4px;justify-content:flex-end">${evBtn("item", i.id)}<button class="btn sm ghost" data-edit-item="${i.id}">${ic("edit")}Editar</button></span></div></article>`;
+}
+function guardarItemRemoto(obj, okMsg) {
+  return T("guardarItem", obj).then(x => { const k = S.d.items.findIndex(i => i.id === x.id); if (k >= 0) S.d.items[k] = x; else S.d.items.push(x); if (okMsg) toast(okMsg); return x; });
+}
+async function editItem(id, grupoDef) {
+  const it = id ? S.d.items.find(i => i.id === id) : { grupo: grupoDef || (S.d.grupos.find(g => g.cat === S.f.cat && g.id !== "rf") || S.d.grupos[0]).id, codigo: "", actividad: "", responsable: "", dueno: "", frecuencia: "", cumplimiento: "", comentario: "" };
+  const isRF = it.grupo === "rf";
+  const x = await openForm({
+    title: id ? "Editar actividad" : (isRF ? "Agregar riesgo de fatalidad" : "Agregar actividad"),
+    fields: [
+      { name: "grupo", label: "Sección", type: "select", value: it.grupo, options: S.d.grupos.filter(g => isRF ? g.id === "rf" : g.id !== "rf").map(g => ({ v: g.id, l: g.cat === "RESSO V10" ? "RESSO V10 · " + g.nombre : g.nombre })) },
+      { name: "actividad", label: isRF ? "Nombre del riesgo" : "Actividad o pregunta", type: "textarea", value: it.actividad, required: true },
+      { row: [{ name: "codigo", label: isRF ? "Código (ej. RF05)" : "N°", value: it.codigo }, isRF ? { name: "dueno", label: "Dueño(s) del riesgo", value: it.dueno } : { name: "frecuencia", label: "Frecuencia", value: it.frecuencia, placeholder: "Diaria, semanal, mensual…" }] },
+      { row: [{ name: "responsable", label: "Responsable", value: it.responsable }, { name: "cumplimiento", label: "Cumplimiento %", type: "number", value: it.cumplimiento, placeholder: "0 a 100", help: "Déjalo vacío si aún no se evalúa." }] },
+      { name: "comentario", label: "Comentario", type: "textarea", value: it.comentario, placeholder: "Ej.: LOD folio N° 00426, programa revisado…" }],
+    onDelete: id ? async () => { if (await confirmBox("¿Eliminar esta actividad?", `Se eliminará «${esc(it.actividad.slice(0, 90))}».`, "Sí, eliminar")) { try { await T("borrarItem", id); S.d.items = S.d.items.filter(z => z.id !== id); render(); toast("Actividad eliminada."); } catch (e) { fallo(e); } } } : null,
+    onSubmit: v => guardarItemRemoto(Object.assign({ id: id || "" }, v))
+  });
+  if (!x) return;
+  render(); toast(id ? "Cambios guardados." : "Actividad agregada.");
+  if (!id) goItem(x.id);
+}
+function goItem(id) {
+  const it = S.d.items.find(i => i.id === id); if (!it) return;
+  if (it.grupo === "rf") go("rf"); else go("c4x3", {});
+  requestAnimationFrame(() => { const el = document.getElementById("it-" + id); if (el) el.scrollIntoView({ block: "center", behavior: "smooth" }); });
+}
+/* ===================== Riesgos de fatalidad ===================== */
+function viewRF() {
+  const rf = S.d.items.filter(i => i.grupo === "rf"), v = avg(rf.map(i => i.cumplimiento));
+  return topbar("Riesgos de fatalidad", "Cumplimiento por riesgo", `Promedio general ${pill(v)} · ${rf.filter(i => num(i.cumplimiento) >= 100).length} de ${rf.length} riesgos al 100%. Desliza la barra para actualizar el porcentaje.`,
+      `<button class="btn primary" data-add-rf>${ic("plus")}Agregar riesgo</button>`) +
+    `<div class="rfgrid">${rf.map(i => { const t = tone(num(i.cumplimiento)); return `<div class="rf ${t}" id="it-${i.id}">
+      <div class="rh"><span class="rc">${esc(i.codigo)}</span><span class="rp t-${t}" data-rp>${fmt(num(i.cumplimiento))}</span></div>
+      <h4>${esc(i.actividad)}</h4><div class="rdue">Dueño: ${esc(i.dueno || "—")}</div>
+      <input type="range" min="0" max="100" step="1" value="${num(i.cumplimiento) ?? 0}" data-rf="${i.id}" aria-label="Cumplimiento ${esc(i.codigo)}">
+      <div class="rfoot"><span class="who">${i.responsable ? av(i.responsable) + esc(i.responsable) : ""}</span><span style="display:flex">${evBtn("item", i.id, true)}<button class="icon-btn" data-edit-item="${i.id}" aria-label="Editar">${ic("edit")}</button></span></div></div>`; }).join("")}</div>`;
+}
+
+/* ===================== IPR 7x7 ===================== */
+function panelTurno(u) {
+  const v = iprPct(u.email), A = S.d.act, admin = esAdmin();
+  const acts = A.map((a, ix) => { const r = reg(u.email, a.id), st = statusOf(num(r.cumplimiento)); return `<div class="act ${st}">
+      <span class="num">${st === "ok" ? ic("check") : ix + 1}</span>
+      <div><div><span class="tchip">${esc(a.turno)}</span>${esc(a.texto)}</div>
+        <input class="obs" data-obs="${a.id}" value="${esc(r.obs)}" placeholder="Agregar observación…" aria-label="Observación" maxlength="500"></div>
+      <div class="ar">${seg(r.cumplimiento, `data-act="${a.id}"`, ["No realizada", "Parcial", "Realizada"])}${evBtn("reg7x7", u.email + "|" + a.id, true)}
+        ${admin ? `<button class="icon-btn" data-edit-act="${a.id}" aria-label="Editar actividad">${ic("edit")}</button>` : ""}</div></div>`; }).join("");
+  return `<div class="card"><div class="turnhead">${ring(v, 78, 8)}<div><h2>Turno de ${esc(u.nombre)}</h2><div style="color:var(--gris)">${iprHechas(u.email)} de ${A.length} actividades realizadas · se guarda al instante</div></div>
+      <span class="sp"></span>${S.d.evidencias.some(e => e.ref_tipo === "reg7x7" && e.ref_id.indexOf(u.email + "|") === 0) ? `<button class="btn" data-zip-turno="${esc(u.email)}" style="margin-right:8px">${ic("down")}Descargar documentos</button>` : ""}<button class="btn primary" data-close-turn>${ic("check")}Cerrar turno</button></div>
+      ${acts || `<div class="empty">No hay actividades configuradas.</div>`}
+      ${admin ? `<div style="margin-top:14px"><button class="btn" data-add-act>${ic("plus")}Agregar actividad</button></div>` : ""}</div>`;
+}
+function tablaTurnos(list, conPersona) {
+  const H = list.slice().sort((a, b) => (a.fecha + a.creado) < (b.fecha + b.creado) ? 1 : -1);
+  if (!H.length) return `<div class="empty" style="padding:24px">Aún no hay turnos cerrados. Al terminar un turno, presiona <b>Cerrar turno</b> y quedará guardado aquí.</div>`;
+  return `<div class="tablewrap"><table class="tb"><thead><tr><th>Fecha</th>${conPersona ? "<th>Persona</th>" : ""}<th>Cumplimiento</th><th>Realizadas</th><th>Nota</th><th></th></tr></thead><tbody>${H.map(h => `<tr>
+    <td>${esc(fDia(h.fecha))}</td>${conPersona ? `<td><span class="who">${av(h.nombre)}${esc(h.nombre)}</span></td>` : ""}<td>${pill(num(h.cumplimiento))}</td><td>${esc(h.realizadas)} de ${esc(h.total)}</td>
+    <td>${esc(h.nota)}</td><td><button class="btn sm ghost" data-turno="${h.id}">${ic("eye")}Ver</button></td></tr>`).join("")}</tbody></table></div>`;
+}
+function viewIPR() {
+  const P = supervisores();
+  if (!P.find(p => p.email === S.sel)) S.sel = P[0] && P[0].email;
+  const p = P.find(x => x.email === S.sel);
+  const people = P.map(x => `<button class="person ${x.email === S.sel ? "on" : ""}" data-person="${esc(x.email)}">${av(x.nombre, "big-av")}<div style="flex:1;min-width:0"><div class="pn">${esc(x.nombre)}</div><div class="pd">${iprHechas(x.email)} de ${S.d.act.length} realizadas</div></div>${ring(iprPct(x.email), 46, 5)}</button>`).join("");
+  return topbar("IPR 7x7", "Actividades por turno", "Cada APR llena su turno desde su propio usuario. Aquí ves el avance de todos y puedes corregirlo.",
+      `<button class="btn" data-go="usuarios">${ic("user")}Agregar APR</button>`) +
+    (P.length ? `<div class="people">${people}</div>${panelTurno(p)}` : `<div class="card empty">Aún no hay APR. Créalos en <b>Usuarios</b> con el rol APR y aquí verás el turno de cada uno.</div>${catalogoAct()}`) +
+    `<div class="card mt"><h3>Historial de turnos <small>${S.d.turnos.length} turnos cerrados</small></h3>${tablaTurnos(S.d.turnos, true)}</div>`;
+}
+function catalogoAct() {
+  const A = S.d.act;
+  return `<div class="card mt"><h3>Actividades semanales de los APR <small>${A.length} actividades</small></h3>
+    ${A.map((a, ix) => `<div class="act"><span class="num">${ix + 1}</span><div><div><span class="tchip">${esc(a.turno)}</span>${esc(a.texto)}</div></div>
+      <div class="ar"><button class="icon-btn" data-edit-act="${a.id}" aria-label="Editar actividad">${ic("edit")}</button></div></div>`).join("") || `<div class="empty">No hay actividades configuradas.</div>`}
+    <div style="margin-top:14px"><button class="btn" data-add-act>${ic("plus")}Agregar actividad</button></div></div>`;
+}
+function viewTurno() {
+  return topbar("IPR 7x7", "Mi turno", "Marca cada actividad a medida que la realizas. Puedes adjuntar fotos con el clip. Al terminar, presiona <b>Cerrar turno</b>.") + panelTurno(S.d.yo);
+}
+function viewHistorial() {
+  return topbar("IPR 7x7", "Mis turnos", "Turnos que ya cerraste.") + `<div class="card">${tablaTurnos(S.d.turnos, false)}</div>`;
+}
+const emailTurno = () => esAdmin() ? S.sel : S.d.yo.email;
+async function cerrarTurno() {
+  const u = persona(emailTurno()), A = S.d.act, v = iprPct(u.email);
+  const r = await openForm({ title: `Cerrar turno de ${u.nombre}`, intro: `Cumplimiento del turno: <b>${fmt(v)}</b> (${iprHechas(u.email)} de ${A.length} realizadas). Se guardará en el historial y las actividades quedarán listas para el próximo turno.`,
+    fields: [{ name: "fecha", label: "Fecha de cierre", type: "date", value: hoy(), required: true }, { name: "nota", label: "Nota (opcional)", type: "textarea", placeholder: "Ej.: turno sin novedades" }],
+    saveLabel: "Cerrar turno", onSubmit: v2 => T("cerrarTurno", u.email, v2.fecha, v2.nota) });
+  if (!r) return;
+  await refrescar(); toast(`Turno de ${esc(u.nombre)} guardado en el historial.`);
+}
+function verTurno(id) {
+  const t = S.d.turnos.find(x => x.id === id); if (!t) return;
+  let det = []; try { det = JSON.parse(t.detalle || "[]"); } catch (_) {}
+  const ev = S.d.evidencias.filter(e => e.ref_tipo === "turno" && e.ref_id.indexOf(t.id + "|") === 0);
+  const rows = det.map((d, ix) => { const evs = ev.filter(e => e.ref_id === t.id + "|" + d.id); return `<tr><td>${ix + 1}</td><td><span class="tchip">${esc(d.turno)}</span>${esc(d.actividad)}${d.obs ? `<div class="note">${esc(d.obs)}</div>` : ""}
+    ${evs.map(e => `<div><button class="btn sm ghost" data-bajar="${e.id}">${ic("clip")}${esc(e.nombre)}</button></div>`).join("")}</td><td>${pill(num(d.cumplimiento))}</td></tr>`; }).join("");
+  const ov = document.createElement("div"); ov.className = "ov";
+  ov.innerHTML = `<div class="modal" style="width:min(760px,100%)" role="dialog" aria-modal="true"><h3>Turno de ${esc(t.nombre)}</h3><p class="intro">${esc(fDia(t.fecha))} · ${fmt(num(t.cumplimiento))} · ${esc(t.realizadas)} de ${esc(t.total)} realizadas${t.nota ? " · " + esc(t.nota) : ""}</p>
+    <div class="tablewrap"><table class="tb"><thead><tr><th>N°</th><th>Actividad</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="mact"><i></i><span>${ev.length > 1 ? `<button class="btn" data-tzip>${ic("down")}Descargar todo</button>` : ""}<button class="btn primary" data-x>Cerrar</button></span></div></div>`;
+  document.body.append(ov);
+  ov.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; if (b.dataset.x !== undefined) ov.remove(); if (b.dataset.bajar) descargar(b.dataset.bajar);
+    if (b.dataset.tzip !== undefined) bajarVarios(ev.map(e => { const ix = det.findIndex(x => t.id + "|" + x.id === e.ref_id); return { id: e.id, nombre: `${n2(ix + 1)} - ${e.nombre}` }; }), `Turno ${t.nombre} ${t.fecha}`); });
+  ov.addEventListener("mousedown", e => { if (e.target === ov) ov.remove(); });
+}
+async function actForm(id) {
+  const a = id ? S.d.act.find(x => x.id === id) : null, opts = ["A", "B", "A/B"], cur = a ? a.turno : "A/B";
+  const r = await openForm({ title: a ? "Editar actividad IPR" : "Agregar actividad IPR", intro: "Las actividades son las mismas para todos los APR.",
+    fields: [{ name: "turno", label: "Turno", type: "select", value: cur, options: (opts.includes(cur) ? opts : [cur, ...opts]).map(o => ({ v: o, l: o === "A/B" ? "A/B (ambos)" : o })) },
+             { name: "texto", label: "Actividad", type: "textarea", value: a ? a.texto : "", required: true }],
+    deleteLabel: "Quitar actividad",
+    onDelete: a ? async () => { if (await confirmBox("¿Quitar esta actividad?", "Dejará de aparecer para todos. Los turnos ya cerrados no cambian.", "Sí, quitar")) { try { await T("quitarAct", id); S.d.act = S.d.act.filter(x => x.id !== id); render(); toast("Actividad quitada."); } catch (e) { fallo(e); } } } : null,
+    onSubmit: v => T("guardarAct", Object.assign({ id: id || "" }, v)) });
+  if (!r) return;
+  const k = S.d.act.findIndex(x => x.id === r.id); if (k >= 0) S.d.act[k] = r; else S.d.act.push(r);
+  render(); toast(a ? "Cambios guardados." : "Actividad agregada.");
+}
+
+/* ===================== Usuarios ===================== */
+function viewUsuarios() {
+  const rank = u => (u.activo === "SI" ? 0 : 2) + (u.rol === "admin" ? 0 : 1);
+  const U = S.d.usuarios.slice().sort((a, b) => rank(a) - rank(b) || a.nombre.localeCompare(b.nombre));
+  return topbar("Usuarios", "Quién puede entrar", "Los <b>APR</b> solo ven y llenan su propio turno 7x7. Los <b>administradores</b> ven todo y pueden crear usuarios.",
+      `<button class="btn primary" data-add-user>${ic("plus")}Agregar usuario</button>`) +
+    `<div class="card"><div class="tablewrap"><table class="tb"><thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th></th></tr></thead><tbody>${U.map(u => `<tr style="${u.activo === "SI" ? "" : "opacity:.55"}">
+      <td><span class="who">${av(u.nombre)}<b>${esc(u.nombre)}</b></span></td><td>${esc(u.email)}</td><td>${u.rol === "admin" ? "Administrador" : "APR"}</td>
+      <td>${u.activo === "SI" ? (u.cambiar ? '<span class="pill mid">Clave temporal</span>' : '<span class="pill ok">Activo</span>') : '<span class="pill na">Desactivado</span>'}</td>
+      <td style="white-space:nowrap;text-align:right"><button class="btn sm ghost" data-edit-user="${esc(u.email)}">${ic("edit")}Editar</button><button class="btn sm ghost" data-reset-user="${esc(u.email)}">${ic("key")}Restablecer contraseña</button></td></tr>`).join("")}</tbody></table></div></div>`;
+}
+async function userForm(email) {
+  const u = email ? S.d.usuarios.find(x => x.email === email) : null;
+  const fields = [{ name: "nombre", label: "Nombre y apellido", value: u ? u.nombre : "", required: true }];
+  if (!u) fields.push({ name: "email", label: "Correo", type: "email", required: true, placeholder: "nombre@empresa.cl" });
+  fields.push({ name: "rol", label: "Rol", type: "select", value: u ? u.rol : "supervisor", options: [{ v: "supervisor", l: "APR: llena su turno 7x7" }, { v: "admin", l: "Administrador: ve y edita todo" }] });
+  if (u) fields.push({ name: "activo", label: "Estado", type: "select", value: u.activo, options: [{ v: "SI", l: "Activo" }, { v: "NO", l: "Desactivado (no puede entrar)" }] });
+  const r = await openForm({ title: u ? "Editar usuario" : "Agregar usuario", intro: u ? esc(u.email) : "Se creará una contraseña temporal que deberás entregarle.", fields,
+    onSubmit: v => u ? T("editarUsuario", u.email, v) : T("crearUsuario", v) });
+  if (!r) return;
+  if (u) { Object.assign(u, r); render(); toast("Cambios guardados."); }
+  else { S.d.usuarios.push(r.usuario); render(); await infoBox("Usuario creado", claveHtml(r.usuario, r.clave)); }
+}
+async function resetUser(email) {
+  const u = S.d.usuarios.find(x => x.email === email);
+  if (!(await confirmBox(`¿Restablecer la contraseña de ${esc(u.nombre)}?`, "Se creará una contraseña temporal nueva y la anterior dejará de funcionar.", "Sí, restablecer", false))) return;
+  try { const r = await T("restablecerClave", email); Object.assign(u, r.usuario); render(); await infoBox("Contraseña restablecida", claveHtml(r.usuario, r.clave)); } catch (e) { fallo(e); }
+}
+/* ===================== Evidencias ===================== */
+const MAX_MB = 10;
+function leerB64(file) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1] || ""); r.onerror = () => rej(new Error("No se pudo leer el archivo.")); r.readAsDataURL(file); }); }
+async function descargar(id, previewEl) {
+  toast("Abriendo archivo…");
+  try {
+    const op = String(id).indexOf("pend-") === 0 ? OFF.cola.find(o => o.tmp === id) : null;
+    if (String(id).indexOf("pend-") === 0 && !op) throw new Error("Este archivo ya no está en el celular.");
+    const f = op ? { b64: op.a[4], mime: op.a[3], nombre: op.a[2] } : await T("bajarEvidencia", id), bin = atob(f.b64), u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    const url = URL.createObjectURL(new Blob([u8], { type: f.mime }));
+    if (previewEl && /^image\//.test(f.mime)) { previewEl.innerHTML = `<img src="${url}" alt="${esc(f.nombre)}">`; $$(".toast").forEach(t => t.remove()); return; }
+    const a = document.createElement("a"); a.href = url; a.download = f.nombre; document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000); toast("Archivo descargado.");
+  } catch (e) { fallo(e); }
+}
+async function bajarVarios(lista, nombreZip) {
+  if (!lista.length) return toast("No hay archivos para descargar.", true);
+  if (lista.length === 1) return descargar(lista[0].id);
+  toast(`Preparando ${lista.length} archivos…`);
+  try {
+    const f = await T("bajarZip", lista, nombreZip), bin = atob(f.b64), u8 = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    const url = URL.createObjectURL(new Blob([u8], { type: f.mime }));
+    const a = document.createElement("a"); a.href = url; a.download = f.nombre; document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000); toast(`${lista.length} archivos descargados en un ZIP.`);
+  } catch (e) { fallo(e); }
+}
+const n2 = n => String(n).padStart(2, "0");
+function zipTurnoAbierto(email) {
+  const u = persona(email), L = [];
+  S.d.act.forEach((a, ix) => evDe("reg7x7", email + "|" + a.id).forEach(e => L.push({ id: e.id, nombre: `${n2(ix + 1)} - ${e.nombre}` })));
+  return bajarVarios(L, `Evidencias ${u.nombre} ${hoy()}`);
+}
+function evidModal(tipo, refId) {
+  let titulo = "";
+  if (tipo === "item") { const it = S.d.items.find(i => i.id === refId); titulo = it ? (it.codigo ? it.codigo + " · " : "") + it.actividad : ""; }
+  else if (tipo === "informe") titulo = S.evTit || "Informe de turno";
+  else { const [em, aid] = refId.split("|"), a = S.d.act.find(x => x.id === aid); titulo = (a ? a.texto : "") + " · " + persona(em).nombre; }
+  const ov = document.createElement("div"); ov.className = "ov";
+  const paint = () => {
+    const L = evDe(tipo, refId);
+    ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="Evidencias"><h3>Evidencias</h3><p class="intro">${esc(titulo.length > 160 ? titulo.slice(0, 160) + "…" : titulo)}</p>
+      <div class="preview" id="evprev"></div>
+      ${L.length ? `<ul class="evlist">${L.map(e => `<li><span class="evic">${ic("clip")}</span><div class="evn"><b title="${esc(e.nombre)}">${esc(e.nombre)}</b><small>${e.pendiente ? '<b style="color:var(--ambar-txt)">Por enviar</b>' : esc(fCorta(e.fecha))} · ${tamano(e.tam)} · ${esc(persona(e.subido_por).nombre)}</small></div>
+          ${/^image\//.test(e.mime) ? `<button type="button" class="icon-btn" data-ever="${e.id}" title="Ver">${ic("eye")}</button>` : ""}
+          <button type="button" class="icon-btn" data-ebajar="${e.id}" title="Descargar">${ic("down")}</button>
+          ${esAdmin() || e.subido_por === S.d.yo.email ? `<button type="button" class="icon-btn" data-equitar="${e.id}" title="Quitar">${ic("x")}</button>` : ""}</li>`).join("")}</ul>`
+        : `<div class="empty" style="padding:26px 10px">Aún no hay archivos.<br>Adjunta fotos, PDF, actas o planillas que respalden esta actividad (máximo ${MAX_MB} MB cada uno).</div>`}
+      <input type="file" multiple id="evfile" hidden>${tipo === "informe" ? `<input type="file" accept="image/&#42;" capture="environment" id="evcam" hidden>` : ""}
+      <div class="mact"><i></i><span>${tipo === "informe" ? `<button type="button" class="btn" data-ecam>${ic("plus")}Tomar foto</button>` : ""}${L.length > 1 ? `<button type="button" class="btn" data-ezip>${ic("down")}Descargar todo</button>` : ""}<button type="button" class="btn ghost" data-x>Cerrar</button><button type="button" class="btn primary" data-eadd>${ic("plus")}Adjuntar archivos</button></span></div></div>`;
+    const subir = async e => {
+      const files = [...e.target.files]; if (!files.length) return;
+      const btn = $("[data-eadd]", ov); btn.disabled = true; let ok = 0, pend = 0;
+      for (const f of files) {
+        if (f.size > MAX_MB * 1048576) { toast(`«${esc(f.name)}» pesa más de ${MAX_MB} MB y no se subió.`, true); continue; }
+        btn.textContent = `Subiendo ${ok + 1} de ${files.length}…`;
+        try { const chica = tipo === "informe" ? await achicarFoto(f) : null;
+          const r = chica ? await T("subirEvidencia", tipo, refId, f.name.replace(/\.[^.]+$/, "") + ".jpg", "image/jpeg", chica) : await T("subirEvidencia", tipo, refId, f.name, f.type, await leerB64(f)); S.d.evidencias.push(r); ok++; if (r.pendiente) pend++; } catch (err) { fallo(err); }
+      }
+      paint(); guardarCache();
+      if (pend) toast(`Sin señal: ${pend === 1 ? "1 archivo quedó guardado" : pend + " archivos quedaron guardados"} en el celular. Se subirán solos al volver la señal.`);
+      else if (ok) toast(ok === 1 ? "Archivo adjuntado." : `${ok} archivos adjuntados.`);
+    };
+    $("#evfile", ov).onchange = subir; if ($("#evcam", ov)) $("#evcam", ov).onchange = subir;
+  };
+  const close = () => { ov.remove(); render(); };
+  ov.addEventListener("mousedown", e => { if (e.target === ov) close(); });
+  ov.addEventListener("click", async e => {
+    const b = e.target.closest("button"); if (!b) return; const d = b.dataset;
+    if (d.x !== undefined) return close();
+    if (d.eadd !== undefined) return $("#evfile", ov).click();
+    if (d.ecam !== undefined) return $("#evcam", ov).click();
+    if (d.ever) return descargar(d.ever, $("#evprev", ov));
+    if (d.ebajar) return descargar(d.ebajar);
+    if (d.ezip !== undefined) { const ix = tipo === "reg7x7" ? S.d.act.findIndex(a => a.id === refId.split("|")[1]) + 1 : 0;
+      return bajarVarios(evDe(tipo, refId).map(e => ({ id: e.id, nombre: e.nombre })), (ix ? `Actividad ${n2(ix)} ` : "Evidencias ") + (tipo === "reg7x7" ? persona(refId.split("|")[0]).nombre : tipo === "informe" ? (S.evTit || "") : "")); }
+    if (d.equitar) {
+      const ev = S.d.evidencias.find(x => x.id === d.equitar);
+      if (!(await confirmBox("¿Quitar este archivo?", `«${esc(ev.nombre)}» se enviará a la papelera de Drive del administrador.`, "Sí, quitar"))) return;
+      try { if (!(await quitarPendiente(d.equitar))) await T("quitarEvidencia", d.equitar); S.d.evidencias = S.d.evidencias.filter(x => x.id !== d.equitar); paint(); toast("Archivo quitado."); } catch (err) { fallo(err); }
+    }
+  });
+  paint(); document.body.append(ov);
+}
+
+/* ===================== Eventos ===================== */
+function bindEvents() {
+  const main = $("#main");
+  main.addEventListener("click", e => {
+    const t = e.target.closest("button,[data-go]"); if (!t) return; const d = t.dataset;
+    if (Object.keys(d).some(k => /^i(tab|back|open|crear|new|pdf|zip|seg|add|addf|del|ev|cerrar|reabrir|borrar|inicio|cancel|turno|listo|datos)$/.test(k))) { infClick(t, d).catch(fallo); return; }
+    if (d.v !== undefined && d.item) {
+      const it = S.d.items.find(i => i.id === d.item), prev = it.cumplimiento; it.cumplimiento = d.v; it.actualizado = new Date().toISOString(); render();
+      return guardarItemRemoto({ id: it.id, cumplimiento: Number(d.v) }).then(() => {}, err => { it.cumplimiento = prev; render(); fallo(err); });
+    }
+    if (d.v !== undefined && d.act) {
+      const em = emailTurno(), r = Object.assign({}, reg(em, d.act)), prev = r.cumplimiento; r.cumplimiento = d.v; setReg(r); render();
+      return T("marcar7x7", em, d.act, { cumplimiento: Number(d.v) }).then(x => setReg(x), err => { r.cumplimiento = prev; setReg(r); render(); fallo(err); });
+    }
+    if (d.refresh !== undefined) return refrescar(true);
+    if (d.go) return go(d.go, d.cat !== undefined || d.est !== undefined ? { cat: d.cat || "", est: d.est || "" } : null);
+    if (d.goitem) return goItem(d.goitem);
+    if (d.goperson) { S.sel = d.goperson; return go("ipr"); }
+    if (d.f) { S.f[d.f] = d.val; return render(); }
+    if (d.clear !== undefined) { S.f = { cat: "", est: "", q: "" }; return render(); }
+    if (d.ev) return evidModal(d.ev, d.evid);
+    if (d.editItem) return editItem(d.editItem);
+    if (d.addItem !== undefined) return editItem(null);
+    if (d.addRf !== undefined) return editItem(null, "rf");
+    if (d.person) { S.sel = d.person; return render(); }
+    if (d.addAct !== undefined) return actForm(null);
+    if (d.editAct) return actForm(d.editAct);
+    if (d.closeTurn !== undefined) return cerrarTurno();
+    if (d.zipTurno) return zipTurnoAbierto(d.zipTurno);
+    if (d.turno) return verTurno(d.turno);
+    if (d.addUser !== undefined) return userForm(null);
+    if (d.editUser) return userForm(d.editUser);
+    if (d.resetUser) return resetUser(d.resetUser);
+  });
+  main.addEventListener("input", e => {
+    const t = e.target;
+    if (t.id === "f-q") { S.f.q = t.value; $("#list").innerHTML = listC4(); }
+    if (t.dataset.rf) { const card = t.closest(".rf"), v = Number(t.value), tn = tone(v), rp = $("[data-rp]", card); rp.textContent = v + "%"; rp.className = "rp t-" + tn; card.className = "rf " + tn; }
+  });
+  main.addEventListener("change", e => {
+    const t = e.target;
+    if (infChange(t)) return;
+    if (t.dataset.rf) { const it = S.d.items.find(i => i.id === t.dataset.rf); it.cumplimiento = t.value; guardarItemRemoto({ id: it.id, cumplimiento: Number(t.value) }, `${esc(it.codigo)} actualizado a ${t.value}%.`).catch(fallo); }
+    if (t.dataset.obs) { const em = emailTurno(), r = Object.assign({}, reg(em, t.dataset.obs)); r.obs = t.value.trim(); setReg(r); T("marcar7x7", em, t.dataset.obs, { obs: r.obs }).then(x => setReg(x), fallo); }
+  });
+}
+
+/* ===================== Informe de turno HSE (semanal, compartido A/B) ===================== */
+const INF_MAPA = { 3: "s2", 5: "s4", 7: "s11", 10: "s12", 12: "s6", 13: "s5", 14: "s5", 15: "s5", 16: "s5", 17: "s5" };
+const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+const pf = s => { const [y, m, d] = String(s || "").slice(0, 10).split("-").map(Number); return y ? new Date(y, m - 1, d) : null; };
+const isoD = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+function semanaTxt(x) {
+  const d = pf(x.desde), h = pf(x.hasta); if (!d || !h) return "";
+  const dd = n => String(n).padStart(2, "0");
+  return d.getMonth() === h.getMonth() ? `${dd(d.getDate())} al ${dd(h.getDate())} de ${MESES[h.getMonth()]}` : `${dd(d.getDate())} de ${MESES[d.getMonth()]} al ${dd(h.getDate())} de ${MESES[h.getMonth()]}`;
+}
+function miercolesDe(d) { const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay() + 4) % 7)); return x; }
+const infCur = () => S.inf && S.inf.lista.find(x => x.id === S.inf.cur);
+const infActual = () => { if (!S.inf) return null; const h = hoy(); return S.inf.lista.find(x => x.desde <= h && h <= x.hasta) || null; };
+const infSecc = (x, k) => (x.secc[k] = x.secc[k] || {});
+const infEdit = x => x && (x.estado !== "cerrado" || esAdmin());
+const actOrden = a => Number(a.orden);
+function infDerivado(x, a, T) { // actividades 13 a 17 se calculan desde la Sección 5
+  const o = actOrden(a); if (o < 13 || o > 17) return undefined;
+  const sch = S.inf.esquema.find(s => s.k === "s5"), i = o - 13, r = ((x.secc.s5 || {})[T] || [])[i] || {};
+  const cant = r.cant === undefined || r.cant === "" ? sch.cant[i] : Number(r.cant), real = r.real === undefined || r.real === "" ? null : Number(r.real);
+  if (real == null || isNaN(real)) return null;
+  return cant > 0 ? Math.min(100, Math.round(real / cant * 100)) : (real > 0 ? 100 : 0);
+}
+function infValAct(x, a, T) { const d = infDerivado(x, a, T); if (d !== undefined) return d; const v = ((x.secc.act || {})[a.id] || {})[T]; return num(v); }
+function infPct(x) {
+  if (!x || !S.d.act.length) return null;
+  const v = []; S.d.act.forEach(a => ["A", "B"].forEach(T => v.push(infValAct(x, a, T) ?? 0)));
+  return avg(v);
+}
+async function cargarInformes(force) {
+  if (S.inf && !force) return;
+  if (S.inf && miCola().length) { await enviarPendientes(); if (miCola().length) return; }
+  let r;
+  try { r = await T("listaInformes"); }
+  catch (e) { if (!esSinRed(e)) throw e; OFF.sinRed = true; offPintar(); if (S.inf) return; const c = await leerCache(); if (c && c.inf) r = c.inf; else throw e; }
+  S.inf = Object.assign(S.inf || {}, { lista: r.lista, esquema: r.esquema, dias: r.dias, cur: S.inf ? S.inf.cur : null });
+  guardarCache();
+}
+function conInformes(fn) {
+  if (S.inf) return fn();
+  cargarInformes().then(render, fallo);
+  return topbar("IPR 7x7", "Informe de turno", "") + `<div class="card empty">Cargando informes…</div>`;
+}
+function infEstadoChip(x) { return x.estado === "cerrado" ? `<span class="pill ok">Cerrado</span>` : `<span class="pill mid">En curso</span>`; }
+function viewInformes() {
+  return conInformes(() => {
+    if (S.inf.nuevo) return viewInicioTurno(null);
+    if (S.inf.cur && infCur()) return viewInformeEditor(infCur());
+    const L = S.inf.lista, act = infActual();
+    const rows = L.map(x => `<tr><td><b>${esc(semanaTxt(x))}</b><div style="color:var(--gris);font-size:13px">${esc(x.nombres || "—")}</div></td><td>${infEstadoChip(x)}</td><td>${pill(infPct(x))}</td>
+      <td style="white-space:nowrap;text-align:right"><button class="btn sm" data-iopen="${x.id}">${ic("edit")}Abrir</button> <button class="btn sm ghost" data-ipdf="${x.id}">${ic("down")}PDF</button> <button class="btn sm ghost" data-izip="${x.id}" title="Descargar todos los documentos y fotos">${ic("clip")}Docs</button></td></tr>`).join("");
+    return topbar("IPR 7x7", esAdmin() ? "Informes de turno" : "Mis informes", "Un informe por turno, compartido por los APR del Turno A y B. Cuando los dos marcan su turno como listo se genera el PDF.",
+        `<button class="btn primary" data-inew>${ic("plus")}Nuevo informe</button>`) +
+      (act && !esAdmin() ? `<div class="card" style="margin-bottom:16px"><b>Semana en curso:</b> ${esc(semanaTxt(act))} <button class="btn sm primary" style="margin-left:10px" data-iopen="${act.id}">Continuar</button></div>` : "") +
+      `<div class="card">${L.length ? `<div class="tablewrap"><table class="tb"><thead><tr><th>Semana</th><th>Estado</th><th>Cumplimiento</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`
+        : `<div class="empty" style="padding:24px">Aún no hay informes. Presiona <b>Nuevo informe</b> para iniciar un turno.</div>`}</div>`;
+  });
+}
+function viewInformeActual() {
+  return conInformes(() => {
+    if (S.inf.nuevo) return viewInicioTurno(null);
+    const x = (S.inf.cur && infCur()) || infActual();
+    if (x) { S.inf.cur = x.id; return viewInformeEditor(x); }
+    return viewInicioTurno(null);
+  });
+}
+const INF_TABS = () => [["menu", "← Menú"], ["act", "Actividades"]].concat(S.inf.esquema.map(s => [s.k, s.n + ". " + s.t]));
+function viewInformeEditor(x) {
+  const ed = infEdit(x), tab = S.inf.tab = S.inf.tab || "menu", v = infPct(x), dis = ed ? "" : "disabled";
+  if (tab === "datos") return viewInicioTurno(x);
+  if (tab === "menu" || (tab.indexOf("dia:") === 0 && !infTurno())) { S.inf.tab = "menu"; return topbar("IPR 7x7", "Informe de turno", "", `<button class="btn ghost" data-iback>${ic("hist")}Todos los informes</button>`) + viewInfMenu(x, ed); }
+  if (tab.indexOf("dia:") === 0) { const i = Math.max(0, Math.min(infDias(x).length - 1, Number(tab.slice(4)) || 0)); S.inf.tab = "dia:" + i; return viewInfDia(x, i, ed); }
+  const head = `<div class="card"><div class="turnhead">${ring(v, 64, 7)}<div style="flex:1;min-width:0"><h2>Turno ${esc(semanaTxt(x))}</h2>
+      <div style="color:var(--gris)">${esc(nombresDe(infEq(x)) || x.nombres || "")} · Informe completo, todas las secciones</div></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><button class="btn" data-itab="menu">← Menú</button><button class="btn ghost" data-ipdf="${x.id}">${ic("down")}${x.estado === "cerrado" ? "Descargar PDF" : "Vista previa PDF"}</button></div></div></div>`;
+  const tabs = `<div class="itabs">${INF_TABS().map(([k, l]) => `<button class="${k === tab ? "on" : ""}" data-itab="${k}">${esc(l)}</button>`).join("")}</div>`;
+  const body = tab === "act" ? infActs(x, ed) : infSeccion(x, S.inf.esquema.find(s => s.k === tab), ed);
+  setTimeout(() => { const o = document.querySelector(".itabs .on"); if (o) o.scrollIntoView({ block: "nearest", inline: "center" }); }, 0);
+  return topbar("IPR 7x7", "Informe de turno", "", `<button class="btn ghost" data-iback>${ic("hist")}Todos los informes</button>`) + head + tabs + `<div class="card" id="inf">${body}</div>`;
+}
+function infActs(x, ed) {
+  const A = S.d.act, ad = x.secc.act || {};
+  const seccLink = a => { const k = INF_MAPA[actOrden(a)]; if (!k) return ""; const s = S.inf.esquema.find(z => z.k === k); return `<button class="lnkchip" data-itab="${k}">Se registra en ${s.n}. ${esc(s.t)}</button>`; };
+  return `<h3>Actividades del turno <small>${A.length} actividades · marca el avance de cada turno</small></h3>` + A.map(a => {
+    const r = ad[a.id] || {}, d = infDerivado(x, a, "A") !== undefined, evId = x.id + "|act|" + a.id, n = evDe("informe", evId).length;
+    const col = T => d ? `<div class="iturno"><span>Turno ${T}</span>${pill(infValAct(x, a, T))}</div>`
+      : `<div class="iturno"><span>Turno ${T}</span>${ed ? seg(r[T], `data-iseg="${a.id}|${T}"`, ["No", "Parcial", "Sí"]) : pill(num(r[T]))}</div>`;
+    const st = statusOf(avg([infValAct(x, a, "A"), infValAct(x, a, "B")]));
+    return `<div class="act ${st}"><span class="num">${actOrden(a)}</span><div><div><span class="tchip">${esc(a.turno)}</span>${esc(a.texto)}</div>${seccLink(a)}
+      ${d ? `<div class="note">Se calcula con lo registrado en la Sección 5 (realizadas contra la cantidad semanal).</div>` : ""}
+      <input class="obs" data-ik="act|${a.id}|obs" value="${esc(r.obs || "")}" placeholder="Agregar observación…" maxlength="500" ${ed ? "" : "disabled"}></div>
+      <div class="ar" style="flex-direction:column;align-items:flex-end;gap:6px">${col("A")}${col("B")}
+        <button class="icon-btn ${n ? "has-ev" : ""}" data-iev="${esc(evId)}" data-ievt="${esc("Actividad " + a.orden + " · " + a.texto)}" title="Documentos">${ic("clip")}${n ? `<b style="font-size:12px">${n}</b>` : ""}</button></div></div>`;
+  }).join("");
+}
+function infCampo(sec, path, c, v, ed) {
+  const at = `data-ik="${sec}|${path}" ${ed ? "" : "disabled"}`;
+  if (c.t === "area") return `<textarea ${at} rows="2" maxlength="2000">${esc(v)}</textarea>`;
+  if (c.t === "fecha") return `<input type="date" ${at} value="${esc(v)}">`;
+  if (c.t === "sel") return `<select ${at}>${c.o.map(o => `<option value="${esc(o)}" ${o === (v || "") ? "selected" : ""}>${o || "—"}</option>`).join("")}</select>`;
+  if (c.t === "cierre") return `<input ${at} value="${esc(v)}" placeholder="dd-mm-aaaa o ABIERTO" list="dl-cierre">`;
+  if (c.k === "clasificacion") return `<input ${at} value="${esc(v)}" maxlength="300" list="dl-clasif" autocomplete="off">`;
+  return `<input ${at} value="${esc(v)}" maxlength="300">`;
+}
+/* Clasificaciones: se escriben a mano; la app sugiere las que ya se usaron antes (historial). */
+function infClasifDL() {
+  const n = {}; (S.inf.lista || []).forEach(x => Object.values(x.secc || {}).forEach(s => ((s && s.rows) || []).forEach(r => { const t = String(r.clasificacion || "").trim(); if (t) n[t] = (n[t] || 0) + 1; })));
+  const L = Object.keys(n).sort((a, b) => n[b] - n[a] || a.localeCompare(b)).slice(0, 80);
+  return `<datalist id="dl-clasif">${L.map(t => `<option value="${esc(t)}">`).join("")}</datalist>`;
+}
+function infSeccion(x, s, ed) {
+  const d = x.secc[s.k] || {}, D = infDias(x).map(diaCorto), dis = ed ? "" : "disabled", nn = v => { const n = Number(String(v ?? "").replace(",", ".")); return isNaN(n) ? 0 : n; };
+  let h = `<h3>${s.n}. ${esc(s.t)}</h3>`;
+  if (s.tipo === "grilla") {
+    const fila = T => `<tr><th>Turno ${T}</th>${D.map((_, i) => `<td><input class="inum" inputmode="numeric" data-ik="${s.k}|${T}.${i}" value="${esc((d[T] || [])[i] ?? "")}" ${dis}></td>`).join("")}</tr>`;
+    h += `<div class="tablewrap"><table class="tb igrid"><thead><tr><th></th>${D.map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>${fila("A")}${fila("B")}
+      <tr><th>Total</th>${D.map((_, i) => `<td><b>${nn((d.A || [])[i]) + nn((d.B || [])[i])}</b></td>`).join("")}</tr></tbody></table></div>
+      <div class="fld" style="margin-top:12px"><label>Observaciones</label><textarea data-ik="${s.k}|obs" rows="2" ${dis}>${esc(d.obs || "")}</textarea></div>`;
+  } else if (s.tipo === "charlas") {
+    const rows = d.rows || [];
+    h += D.map((dia, i) => ["Día", "Noche"].map((jn, j) => { const k = i * 2 + j, r = rows[k] || {};
+      return `<div class="irow"><div class="ilab">${dia} ${jn}</div><div class="fld"><label>Tema de la charla</label><textarea rows="2" data-ik="${s.k}|rows.${k}.tema" ${dis}>${esc(r.tema || "")}</textarea></div>
+        <div class="fld"><label>N° participantes</label><input data-ik="${s.k}|rows.${k}.part" value="${esc(r.part || "")}" ${dis}></div><div class="fld"><label>Minutos</label><input data-ik="${s.k}|rows.${k}.min" value="${esc(r.min || "")}" ${dis}></div></div>`; }).join("")).join("");
+  } else if (s.tipo === "liderazgo") {
+    const lado = T => { const arr = d[T] || []; let t = [0, 0, 0];
+      const rr = s.acts.map((a, i) => { const r = arr[i] || {}, c = r.cant === undefined || r.cant === "" ? s.cant[i] : r.cant; t[0] += nn(c); t[1] += nn(r.real); t[2] += nn(r.zyght);
+        return `<tr><td>${esc(a)}</td><td><input class="inum" data-ik="${s.k}|${T}.${i}.cant" value="${esc(c)}" ${dis}></td><td><input class="inum" data-ik="${s.k}|${T}.${i}.real" value="${esc(r.real ?? "")}" ${dis}></td><td><input class="inum" data-ik="${s.k}|${T}.${i}.zyght" value="${esc(r.zyght ?? "")}" ${dis}></td></tr>`; }).join("");
+      return `<div class="tablewrap"><table class="tb igrid"><thead><tr><th>Actividades del IPR ${T}</th><th>Cantidad semanal</th><th>Realizadas</th><th>Ingreso a ZYGHT</th></tr></thead><tbody>${rr}
+        <tr><th>Total</th><td><b>${t[0]}</b></td><td><b>${t[1]}</b></td><td><b>${t[2]}</b></td></tr></tbody></table></div>`; };
+    h += lado("A") + `<div style="height:16px"></div>` + lado("B");
+  } else {
+    const rows = d.rows || [];
+    h += rows.length ? rows.map((r, i) => infRec(x, s, r, i, ed, s.k === "s6" ? "N° " + (i + 1) : "Registro " + (i + 1) + (r.fecha ? " · " + r.fecha.split("-").reverse().join("-") : "") + (r._t ? " · Turno " + r._t : ""))).join("")
+      : `<div class="empty" style="padding:18px">Sin registros todavía.</div>`;
+    if (ed) h += `<div style="margin-top:14px"><button class="btn" data-iadd="${s.k}">${ic("plus")}Agregar registro</button></div>`;
+    h += `<datalist id="dl-cierre"><option value="ABIERTO"></datalist>${infClasifDL()}`;
+  }
+  return h;
+}
+/* --- Inicio de turno, menú y registro diario por turno (A o B) --- */
+const DIAS_N = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+function infDias(x) { const d = pf(x.desde), h = pf(x.hasta), r = []; if (!d || !h) return r; for (const t = new Date(d); t <= h && r.length < 7; t.setDate(t.getDate() + 1)) r.push(new Date(t)); return r; }
+const diaCorto = t => DIAS_N[t.getDay()] + " " + t.getDate();
+const diaLargo = t => DIAS_N[t.getDay()] + " " + t.getDate() + " de " + MESES[t.getMonth()];
+const infAct = x => (x.secc.act = x.secc.act || {});
+const infEq = x => infAct(x)._equipo || {};
+const infListo = x => infAct(x)._listo || {};
+const JORN = { A: "Día", B: "Noche" };
+function infTurno() { if (S.inf.turno) return S.inf.turno; try { return localStorage.getItem("ipr-turno") || ""; } catch (_) { return ""; } }
+function infActSet(x, key, val) { infAct(x)[key] = val; const k = x.id + "|act"; (infPend[k] = infPend[k] || { x, sec: "act", keys: new Set(), t: 0 }).keys.add(key); infGuardar(k, true); }
+function nombresDe(e) { return [e.A, e.B, e.otros].map(s => String(s || "").trim()).filter(Boolean).join(" / "); }
+
+function viewInicioTurno(x) {
+  const d = new Date(), h = new Date(d); h.setDate(h.getDate() + 6);
+  const e = x ? infEq(x) : {}, yo = S.d.yo.nombre || "";
+  return topbar("IPR 7x7", x ? "Datos del turno" : "Iniciar turno", "Esto se completa una sola vez por turno. Después cada APR registra lo suyo día a día.",
+      S.inf.lista.length ? `<button class="btn ghost" data-iback>${ic("hist")}Todos los informes</button>` : "") +
+    `<div class="card" style="max-width:640px"><h3>Fechas del turno</h3>
+      <div class="igrid2"><div class="fld"><label>Fecha de inicio</label><input type="date" id="it-desde" value="${x ? esc(x.desde) : isoD(d)}" ${x ? "disabled" : ""}></div>
+      <div class="fld"><label>Fecha de término</label><input type="date" id="it-hasta" value="${x ? esc(x.hasta) : isoD(h)}" ${x ? "disabled" : ""}></div></div>
+      ${x ? `<div class="note">Las fechas no se pueden cambiar una vez iniciado el turno. Si están mal, el administrador puede eliminar el informe y crearlo de nuevo.</div>` : `<div class="note">Máximo 7 días. La fecha de término se completa sola, pero la puedes cambiar.</div>`}
+      <h3 style="margin-top:20px">Integrantes</h3>
+      <div class="igrid2"><div class="fld"><label>APR Turno A (día)</label><input id="it-a" value="${esc(e.A || "")}" maxlength="80" placeholder="Nombre y apellido"></div>
+      <div class="fld"><label>APR Turno B (noche)</label><input id="it-b" value="${esc(e.B || "")}" maxlength="80" placeholder="Nombre y apellido"></div>
+      <div class="fld wide"><label>Otros integrantes (opcional)</label><input id="it-otros" value="${esc(e.otros || "")}" maxlength="120"></div></div>
+      ${!x && yo && !esAdmin() ? `<div class="note">Tip: escribe tu nombre en el turno que te corresponde.</div>` : ""}
+      <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" data-iinicio="${x ? x.id : ""}">${ic("check")}${x ? "Guardar integrantes" : "Comenzar turno"}</button>
+      ${x || S.inf.nuevo ? `<button class="btn ghost" data-icancel>Volver</button>` : ""}</div></div>`;
+}
+function infTieneDia(x, i, T) {
+  const D = infDias(x), iso = D[i] ? isoD(D[i]) : "", v = (k) => ((x.secc[k] || {})[T] || [])[i];
+  if (["s1", "s2", "s3"].some(k => String(v(k) ?? "").trim() !== "")) return true;
+  const ch = ((x.secc.s4 || {}).rows || [])[i * 2 + (T === "A" ? 0 : 1)] || {}; if (ch.tema) return true;
+  return INF_DIARIAS.some(k => ((x.secc[k] || {}).rows || []).some(r => r.fecha === iso && infRowTurno(k, r, T)));
+}
+const INF_DIARIAS = ["s7", "s8", "s9", "s10", "s11", "s12", "s13"];
+function infRowTurno(k, r, T) {
+  if (r._t) return r._t === T;
+  if (r.turno) return r.turno === T || (k === "s11" && r.turno === (T === "A" ? "DIA" : "NOCHE"));
+  return true;
+}
+function viewInfMenu(x, ed) {
+  const T = infTurno(), D = infDias(x), h = hoy(), e = infEq(x), L = infListo(x), v = infPctTurnos(x);
+  const turnoBtn = k => `<button class="btn ${T === k ? "primary" : ""}" data-iturno="${k}" style="flex:1;min-width:140px;justify-content:center;flex-direction:column;padding:12px">
+      <b style="font-size:16px">Turno ${k}</b><span style="font-size:12.5px;font-weight:500">${esc(e[k] || JORN[k])}</span></button>`;
+  const estado = k => L[k] ? `<span class="pill ok">Turno ${k} listo</span>` : `<span class="pill mid">Turno ${k} en curso</span>`;
+  let h1 = `<div class="card"><div class="turnhead">${ring(v, 78, 8)}<div style="flex:1;min-width:0"><h2>Turno ${esc(semanaTxt(x))}</h2>
+      <div style="color:var(--gris)">${esc(nombresDe(e) || x.nombres || "Sin integrantes")}</div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">${x.estado === "cerrado" ? `<span class="pill ok">Informe cerrado · PDF generado</span>` : estado("A") + estado("B")}</div>
+      ${ed ? `<button class="btn sm ghost" style="margin-top:8px" data-idatos>${ic("edit")}Fechas e integrantes</button>` : ""}</div></div></div>`;
+  h1 += `<div class="card" style="margin-top:16px"><h3>¿De qué turno eres?</h3><div style="display:flex;gap:10px;flex-wrap:wrap">${turnoBtn("A")}${turnoBtn("B")}</div></div>`;
+  if (!T && !esAdmin()) return h1;
+  if (esAdmin()) h1 += `<div class="iav-dos">${infAvanceCard(x, "A", ed)}${infAvanceCard(x, "B", ed)}</div>`;
+  else h1 += `<div style="margin-top:16px">${infAvanceCard(x, T, ed)}</div>`;
+  if (!T) return h1;
+  h1 += `<div class="card" style="margin-top:16px"><h3>Registro diario · Turno ${T} <small>elige el día</small></h3><div class="idias">${D.map((t, i) => {
+      const iso = isoD(t), lleno = infTieneDia(x, i, T);
+      return `<button class="iday ${iso === h ? "hoy" : ""} ${lleno ? "lleno" : ""}" data-itab="dia:${i}"><span>${DIAS_N[t.getDay()]}</span><b>${t.getDate()}</b><small>${iso === h ? "Hoy" : lleno ? "Con datos" : "Sin datos"}</small></button>`; }).join("")}</div></div>`;
+  const sem = [["act", "Actividades del turno"], ["s5", "5. Actividades de liderazgo"], ["s6", "6. Personal BEL"], ["s14", "14. Reinstrucciones"]];
+  h1 += `<div class="card" style="margin-top:16px"><h3>Durante la semana · Turno ${T}</h3><div class="imenu">${sem.map(([k, l]) => `<button class="btn" data-itab="${k}">${esc(l)}</button>`).join("")}
+      <button class="btn ghost" data-itab="s1">${ic("doc")}Ver el informe completo</button></div></div>`;
+  const ambos = L.A && L.B;
+  h1 += `<div class="card" style="margin-top:16px"><h3>Terminar el turno</h3>
+      ${x.estado === "cerrado" ? `<p>El informe está cerrado.</p>` : L[T] ? `<p>Marcaste el Turno ${T} como listo. ${ambos ? "Los dos turnos están listos." : `Falta que el Turno ${T === "A" ? "B" : "A"} marque el suyo.`}</p>` : `<p>Cuando termines de registrar todo lo de tu turno, márcalo como listo.</p>`}
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      ${x.estado !== "cerrado" && ed ? (L[T] ? `<button class="btn ghost" data-ilisto="${T}|0">Seguir editando mi turno</button>` : `<button class="btn primary" data-ilisto="${T}|1">${ic("check")}Marcar Turno ${T} como listo</button>`) : ""}
+      ${x.estado !== "cerrado" && (ambos || esAdmin()) ? `<button class="btn ${ambos ? "primary" : ""}" data-icerrar>${ic("check")}Generar informe PDF</button>` : ""}
+      <button class="btn" data-ipdf="${x.id}">${ic("down")}${x.estado === "cerrado" ? "Descargar PDF" : "Vista previa PDF"}</button>
+      <button class="btn ghost" data-izip="${x.id}">${ic("clip")}Documentos y fotos</button>
+      ${esAdmin() && x.estado === "cerrado" ? `<button class="btn" data-ireabrir>${ic("edit")}Reabrir</button>` : ""}
+      ${esAdmin() ? `<button class="btn ghost" data-iborrar style="color:var(--rojo-txt)">${ic("x")}Eliminar</button>` : ""}</div>
+      ${x.estado !== "cerrado" && !ambos && !esAdmin() ? `<div class="note">El PDF se genera cuando los dos turnos estén listos.</div>` : ""}</div>`;
+  return h1;
+}
+function viewInfDia(x, i, ed) {
+  const T = infTurno(), D = infDias(x), t = D[i], iso = isoD(t), dis = ed ? "" : "disabled", J = T === "A" ? 0 : 1, ch = ((x.secc.s4 || {}).rows || [])[i * 2 + J] || {};
+  const n = (k, l) => `<div class="fld"><label>${l}</label><input inputmode="numeric" data-ik="${k}|${T}.${i}" value="${esc(((x.secc[k] || {})[T] || [])[i] ?? "")}" ${dis}></div>`;
+  let h = `<div class="idnav"><button class="btn ghost" data-itab="menu">← Menú</button>
+      <div style="text-align:center;flex:1"><div class="eyebrow">Turno ${T} · ${JORN[T]}</div><h2 style="margin:0">${esc(diaLargo(t))}</h2></div>
+      <span style="display:flex;gap:6px"><button class="btn sm" data-itab="dia:${i - 1}" ${i ? "" : "disabled"} title="Día anterior">‹</button><button class="btn sm" data-itab="dia:${i + 1}" ${i < D.length - 1 ? "" : "disabled"} title="Día siguiente">›</button></span></div>`;
+  h += `<div class="card"><h3>Personal y salud</h3><div class="igrid2">${n("s1", "1. Dotación")}${n("s2", "2. Control de drogas")}${n("s3", "3. Asistencia policlínico")}</div></div>`;
+  h += `<div class="card" style="margin-top:16px"><h3>4. Charla de seguridad (${JORN[T].toLowerCase()})</h3><div class="igrid2">
+      <div class="fld wide"><label>Tema</label><textarea rows="2" data-ik="s4|rows.${i * 2 + J}.tema" ${dis}>${esc(ch.tema || "")}</textarea></div>
+      <div class="fld"><label>N° participantes</label><input inputmode="numeric" data-ik="s4|rows.${i * 2 + J}.part" value="${esc(ch.part || "")}" ${dis}></div>
+      <div class="fld"><label>Minutos</label><input inputmode="numeric" data-ik="s4|rows.${i * 2 + J}.min" value="${esc(ch.min || "")}" ${dis}></div></div></div>`;
+  INF_DIARIAS.forEach(k => {
+    const s = S.inf.esquema.find(z => z.k === k), rows = (x.secc[k] || {}).rows || [];
+    const mios = rows.map((r, ix) => [r, ix]).filter(([r]) => r.fecha === iso && infRowTurno(k, r, T));
+    h += `<div class="card" style="margin-top:16px"><div class="irech"><h3 style="margin:0">${s.n}. ${esc(s.t)} <small>${mios.length || "sin"} registro${mios.length === 1 ? "" : "s"}</small></h3>
+        ${ed ? `<button class="btn sm" data-iaddf="${k}|${iso}">${ic("plus")}Agregar</button>` : ""}</div>${mios.map(([r, ix], j) => infRec(x, s, r, ix, ed, "Registro " + (j + 1))).join("")}</div>`;
+  });
+  h += `<div style="margin:18px 0;display:flex;gap:8px;justify-content:space-between"><button class="btn ghost" data-itab="menu">← Volver al menú</button>
+      ${i < D.length - 1 ? `<button class="btn primary" data-itab="dia:${i + 1}">Siguiente día ›</button>` : ""}</div><datalist id="dl-cierre"><option value="ABIERTO"></datalist>${infClasifDL()}`;
+  return h;
+}
+function infRec(x, s, r, i, ed, titulo) {
+  const cols = s.cols.filter(c => !(c.k === "fecha" && INF_DIARIAS.includes(s.k) && S.inf.tab.indexOf("dia:") === 0) && !(c.k === "turno" && r._t && S.inf.tab.indexOf("dia:") === 0));
+  return `<div class="irec"><div class="irech"><b>${esc(titulo)}</b>${ed ? `<button class="btn sm ghost" data-idel="${s.k}|${r._id}">${ic("x")}Quitar</button>` : ""}</div>
+      <div class="igrid2">${cols.map(c => `<div class="fld ${c.t === "area" ? "wide" : ""}"><label>${esc(c.l)}</label>${infCampo(s.k, "rows." + i + "." + c.k, c, r[c.k], ed)}</div>`).join("")}</div>
+      ${s.fotos ? `<div class="ifotos">${["antes", "despues"].map(f => { const id = x.id + "|" + s.k + "|" + r._id + "|" + f, n = evDe("informe", id).length;
+        return `<button class="btn sm ${n ? "has-ev" : ""}" data-iev="${esc(id)}" data-ievt="${esc(s.t + " · " + titulo + " · foto " + (f === "antes" ? "antes" : "después"))}">${ic("clip")}Foto ${f === "antes" ? "antes" : "después"}${n ? ` (${n})` : ""}</button>`; }).join("")}</div>` : ""}</div>`;
+}
+
+/* --- Panel "¿Cómo vamos?": qué lleva y qué le falta a cada turno --- */
+function infPctTurnos(x) { return Math.round((infAvance(x, "A").pct + infAvance(x, "B").pct) / 2); }
+function infAvance(x, T) {
+  const D = infDias(x), h = hoy(), vacio = v => v === undefined || v === null || String(v).trim() === "";
+  const filas = [["s1", "Dotación"], ["s2", "Control de drogas"], ["s3", "Asistencia policlínico"]].map(([k, l]) => ({ l, cel: D.map((t, i) => isoD(t) > h ? null : !vacio(((x.secc[k] || {})[T] || [])[i])) }));
+  filas.push({ l: "Charla de seguridad", cel: D.map((t, i) => isoD(t) > h ? null : !vacio(((((x.secc.s4 || {}).rows || [])[i * 2 + (T === "A" ? 0 : 1)]) || {}).tema)) });
+  const falta = []; let tot = 0, ok = 0;
+  filas.forEach(f => f.cel.forEach((c, i) => { if (c === null) return; tot++; if (c) ok++; else falta.push({ txt: `${f.l} · ${isoD(D[i]) === h ? "hoy" : diaLargo(D[i]).toLowerCase()}`, tab: "dia:" + i, dia: true }); }));
+  const s5 = S.inf.esquema.find(z => z.k === "s5"), arr = (x.secc.s5 || {})[T] || [];
+  const lid = s5.acts.map((a, i) => { const r = arr[i] || {}, c = vacio(r.cant) ? s5.cant[i] : Number(r.cant) || 0, real = Number(String(r.real ?? "").replace(",", ".")) || 0; return { a, c, real }; });
+  lid.forEach(l => { tot += l.c; ok += Math.min(l.real, l.c); if (l.real < l.c) falta.push({ txt: `${l.a}: faltan ${l.c - l.real} (llevas ${l.real} de ${l.c})`, tab: "s5" }); });
+  const ad = x.secc.act || {}, acts = S.d.act.filter(a => infDerivado(x, a, T) === undefined && (String(a.turno).indexOf(T) === 0 || String(a.turno) === "A/B"));
+  acts.forEach(a => { tot++; const v = (ad[a.id] || {})[T]; if (!vacio(v)) ok++; else falta.push({ txt: `Actividad ${a.orden}: ${a.texto.length > 60 ? a.texto.slice(0, 60) + "…" : a.texto}`, tab: "act", act: true }); });
+  const dTot = filas.reduce((s, f) => s + f.cel.filter(c => c !== null).length, 0), dOk = filas.reduce((s, f) => s + f.cel.filter(c => c === true).length, 0);
+  const lTot = lid.reduce((s, l) => s + l.c, 0), lOk = lid.reduce((s, l) => s + Math.min(l.real, l.c), 0), aTot = acts.length, aOk = acts.filter(a => !vacio((ad[a.id] || {})[T])).length;
+  return { T, filas, lid, falta, pct: tot ? Math.round(ok / tot * 100) : 0, D, h, k: { dOk, dTot, lOk, lTot, aOk, aTot } };
+}
+function infAvanceCard(x, T, ed) {
+  const v = infAvance(x, T), L = infListo(x), e = infEq(x), k = v.k;
+  const est = L[T] ? ["ok", "Turno marcado como listo"] : !v.falta.filter(f => f.dia).length ? ["ok", "Registro diario al día"] : ["mid", v.falta.filter(f => f.dia).length + " registros diarios pendientes"];
+  const kpi = (n, d, l, ic2) => { const p = d ? Math.round(n / d * 100) : 100; return `<div class="iav-kpi"><div class="iav-kn">${n}<span>/${d}</span></div><div class="iav-kl">${l}</div><div class="iav-kt"><i class="${p >= 100 ? "ok" : p >= 50 ? "mid" : p > 0 ? "low" : ""}" style="width:${Math.max(p, 3)}%"></i></div></div>`; };
+  const ETQ = ["Dotación", "Drogas", "Policlínico", "Charla"];
+  const dias = v.D.map((t, i) => { const fut = isoD(t) > v.h, cel = v.filas.map(f => f.cel[i]), lleno = !fut && cel.every(c => c), parcial = !fut && !lleno && cel.some(c => c);
+    return `<button class="iav-day ${isoD(t) === v.h ? "hoy" : ""} ${fut ? "fut" : lleno ? "ok" : parcial ? "mid" : "no"}" data-itab="dia:${i}" data-iset="${T}" ${ed ? "" : "disabled"} title="${esc(diaLargo(t))}">
+      <span class="d1">${DIAS_N[t.getDay()].slice(0, 3)}</span><b>${t.getDate()}</b><span class="dots">${cel.map((c, j) => `<i class="${c === null ? "" : c ? "ok" : "no"}" title="${ETQ[j]}"></i>`).join("")}</span>
+      <span class="d2">${fut ? "—" : isoD(t) === v.h ? "Hoy" : lleno ? "Listo" : parcial ? "Incompleto" : "Falta"}</span></button>`; }).join("");
+  const li = f => `<li><button class="iav-pend ${f.dia ? "dia" : ""}" data-itab="${f.tab}" data-iset="${T}" ${ed ? "" : "disabled"}><span>${esc(f.txt)}</span><em>›</em></button></li>`;
+  const pd = v.falta.filter(f => f.dia), act = v.falta.filter(f => f.act), lidF = v.lid.reduce((s, l) => s + Math.max(0, l.c - l.real), 0);
+  const pend = (pd.length ? pd.slice(0, 6).map(li).join("") + (pd.length > 6 ? `<li class="note">y ${pd.length - 6} más…</li>` : "") : "") +
+    (lidF ? li({ txt: `Liderazgo: faltan ${lidF} para la meta semanal`, tab: "s5" }) : "") + (act.length ? li({ txt: `${act.length} ${act.length === 1 ? "actividad" : "actividades"} del turno sin marcar`, tab: "act" }) : "");
+  const barras = v.lid.map(l => { const p = l.c ? Math.min(100, Math.round(l.real / l.c * 100)) : 100;
+    return `<div class="iav-bar"><div class="iav-bt"><span>${esc(l.a)}</span><b>${l.real}<small>/${l.c}</small></b></div><div class="iav-track"><i style="width:${Math.max(p, 2)}%" class="${p >= 100 ? "ok" : p >= 50 ? "mid" : p > 0 ? "low" : ""}"></i></div></div>`; }).join("");
+  return `<div class="iav-card">
+    <div class="iav-hero">${ring(v.pct, 96, 10, true)}<div class="iav-ht"><div class="eyebrow">Turno ${T} · ${JORN[T]}</div><h3>${esc(e[T] || "Turno " + T)}</h3>
+      <span class="iav-est ${est[0]}">${est[0] === "ok" ? "●" : "▲"} ${esc(est[1])}</span></div></div>
+    <div class="iav-kpis">${kpi(k.dOk, k.dTot, "Registros diarios")}${kpi(k.lOk, k.lTot, "Liderazgo semanal")}${kpi(k.aOk, k.aTot, "Actividades marcadas")}</div>
+    <div class="iav-sec"><div class="iav-h">Semana <small>toca un día para llenarlo</small></div><div class="iav-days">${dias}</div>
+      <div class="iav-leg">Puntos de cada día, en orden: ${ETQ.join(" · ")}</div></div>
+    ${pend ? `<div class="iav-sec"><div class="iav-h">Pendientes <small>toca para ir directo</small></div><ul class="iav-pl">${pend}</ul></div>` : `<div class="iav-sec"><div class="iav-todo">${ic("check")} ¡Todo al día! No falta nada hasta hoy.</div></div>`}
+    <div class="iav-sec"><div class="iav-h">Metas de liderazgo</div>${barras}</div></div>`;
+}
+/* --- guardar --- */
+const infPend = {};
+function infSet(x, sec, path, val) {
+  const o = infSecc(x, sec), ks = path.split(".");
+  let p = o; for (let i = 0; i < ks.length - 1; i++) { const k = ks[i], nx = ks[i + 1]; if (p[k] === undefined || p[k] === null) p[k] = /^\d+$/.test(nx) ? [] : {}; p = p[k]; }
+  p[ks[ks.length - 1]] = val;
+  const top = sec === "s4" && ks[0] === "rows" && ks.length > 2 ? "rows." + ks[1] : ks[0]; (infPend[x.id + "|" + sec] = infPend[x.id + "|" + sec] || { x, sec, keys: new Set(), t: 0 }).keys.add(top);
+  infGuardar(x.id + "|" + sec);
+}
+function infGuardar(k, now) {
+  const p = infPend[k]; if (!p) return;
+  clearTimeout(p.t);
+  p.t = setTimeout(async () => {
+    const patch = {}, src = p.x.secc[p.sec] || {};
+    p.keys.forEach(t => { const [a, b] = t.split(".");
+      if (b === undefined) patch[a] = src[a];
+      else if (Array.isArray(src[a])) { patch[a] = patch[a] || []; patch[a][b] = src[a][b]; }
+      else { patch[a] = patch[a] || {}; patch[a][b] = (src[a] || {})[b]; } });
+    p.keys.clear(); delete infPend[k];
+    try { const r = await T("guardarInformeSecc", p.x.id, p.sec, patch); p.x.nombres = r.nombres; p.x.actualizado = r.actualizado; }
+    catch (e) { fallo(e); }
+  }, now ? 0 : 700);
+}
+async function infGuardarTodo() { const ks = Object.keys(infPend); if (!ks.length) return; ks.forEach(k => infGuardar(k, true)); await new Promise(r => setTimeout(r, 900)); }
+/* --- eventos --- */
+async function infClick(t, d) {
+  const x = infCur();
+  if (d.itab) { await infGuardarTodo(); if (d.iset) S.inf.turno = d.iset; S.inf.tab = d.itab; render(); window.scrollTo(0, 0);
+    if (d.itab === "menu" && !Object.keys(infPend).length) cargarInformes(true).then(() => { if (S.inf.tab === "menu") render(); }).catch(() => {});
+    return true; }
+  if (d.iback !== undefined) { await infGuardarTodo(); S.inf.cur = null; go(esAdmin() ? "ipr" : "historial"); return true; }
+  if (d.iopen) { S.inf.cur = d.iopen; S.inf.tab = "menu"; go(esAdmin() ? "ipr" : "turno"); return true; }
+  if (d.inew !== undefined) { await infGuardarTodo(); S.inf.nuevo = true; S.inf.cur = null; render(); window.scrollTo(0, 0); return true; }
+  if (d.icancel !== undefined) { S.inf.nuevo = false; if (S.inf.tab === "datos") S.inf.tab = "menu"; render(); return true; }
+  if (d.iinicio !== undefined) {
+    const g = id => ((document.getElementById(id) || {}).value || "").trim(), eq = { A: g("it-a"), B: g("it-b"), otros: g("it-otros") };
+    if (!eq.A && !eq.B) { toast("Escribe al menos el nombre de un APR.", true); return true; }
+    if (d.iinicio) { const y = S.inf.lista.find(z => z.id === d.iinicio); infAct(y)._equipo = eq; y.nombres = nombresDe(eq);
+      try { await T("guardarInformeSecc", y.id, "act", { _equipo: eq }); await T("guardarInformeSecc", y.id, "cabecera", { nombres: y.nombres }); S.inf.tab = "menu"; render(); toast("Integrantes guardados."); } catch (e) { fallo(e); } return true; }
+    const desde = g("it-desde"), hasta = g("it-hasta");
+    if (!desde || !hasta) { toast("Completa la fecha de inicio y de término.", true); return true; }
+    try { const r = await T("crearInforme", desde, nombresDe(eq), hasta); await T("guardarInformeSecc", r.id, "act", { _equipo: eq }); await cargarInformes(true);
+      S.inf.nuevo = false; S.inf.cur = r.id; S.inf.tab = "menu"; go(esAdmin() ? "ipr" : "turno"); toast("Turno iniciado. Ahora elige si eres del Turno A o B."); } catch (e) { fallo(e); }
+    return true;
+  }
+  if (d.iturno) { S.inf.turno = d.iturno; try { localStorage.setItem("ipr-turno", d.iturno); } catch (_) {} render(); return true; }
+  if (d.ipdf) { await infGuardarTodo(); toast("Generando PDF…"); try { const f = await T("pdfInformeB64", d.ipdf); bajarB64(f); toast("PDF descargado."); } catch (e) { fallo(e); } return true; }
+  if (d.izip) { const id = d.izip, L = S.d.evidencias.filter(e => e.ref_tipo === "informe" && e.ref_id.indexOf(id + "|") === 0), inf = S.inf.lista.find(z => z.id === id);
+    const nom = e => { const p = e.ref_id.split("|"); if (p[1] === "act") { const a = S.d.act.find(z => z.id === p[2]); return `Actividad ${n2(a ? a.orden : 0)} - ${e.nombre}`; } const s = S.inf.esquema.find(z => z.k === p[1]), rows = ((inf.secc[p[1]] || {}).rows || []), ix = rows.findIndex(r => r._id === p[2]); return `Seccion ${n2(s ? s.n : 0)} registro ${ix + 1} ${p[3] || ""} - ${e.nombre}`; };
+    if (!L.length) { toast("Este informe aún no tiene documentos ni fotos.", true); return true; }
+    bajarVarios(L.map(e => ({ id: e.id, nombre: nom(e) })), "Documentos informe " + semanaTxt(inf)); return true; }
+  if (!x) return false;
+  if (d.iseg) { const [aid, T] = d.iseg.split("|"); const ad = infSecc(x, "act"); ad[aid] = Object.assign({}, ad[aid]); ad[aid][T] = Number(t.dataset.v); infPend[x.id + "|act"] = infPend[x.id + "|act"] || { x, sec: "act", keys: new Set(), t: 0 }; infPend[x.id + "|act"].keys.add(aid + "." + T); infGuardar(x.id + "|act", true); render(); return true; }
+  if (d.idatos !== undefined) { S.inf.tab = "datos"; render(); window.scrollTo(0, 0); return true; }
+  if (d.ilisto) { const [Tn, on] = d.ilisto.split("|"); const ad = infAct(x); ad._listo = Object.assign({}, ad._listo, { [Tn]: on === "1" });
+    infPend[x.id + "|act"] = infPend[x.id + "|act"] || { x, sec: "act", keys: new Set(), t: 0 }; infPend[x.id + "|act"].keys.add("_listo." + Tn); infGuardar(x.id + "|act", true);
+    render(); toast(on === "1" ? "Turno " + Tn + " marcado como listo." : "Puedes seguir editando tu turno."); return true; }
+  if (d.iaddf) { const [k, iso] = d.iaddf.split("|"), s = S.inf.esquema.find(z => z.k === k), Tn = infTurno(), o = infSecc(x, k), r = { _id: Math.random().toString(36).slice(2, 10), fecha: iso, _t: Tn };
+    const ct = s.cols.find(c => c.k === "turno"); if (ct) r.turno = ct.o.indexOf("A") >= 0 ? Tn : (Tn === "A" ? "DIA" : "NOCHE");
+    o.rows = (o.rows || []).concat([r]); infSet(x, k, "rows", o.rows); render(); return true; }
+  if (d.iadd) { const o = infSecc(x, d.iadd); o.rows = (o.rows || []).concat([{ _id: Math.random().toString(36).slice(2, 10) }]); infSet(x, d.iadd, "rows", o.rows); render(); return true; }
+  if (d.idel) { const [sec, rid] = d.idel.split("|"); if (!(await confirmBox("¿Quitar este registro?", "Se borrará del informe.", "Sí, quitar"))) return true; const o = infSecc(x, sec); o.rows = (o.rows || []).filter(r => r._id !== rid); o._del = (o._del || []).concat([rid]); infSet(x, sec, "_del", o._del); infSet(x, sec, "rows", o.rows); render(); return true; }
+  if (d.iev) { await infGuardarTodo(); S.evTit = d.ievt; evidModal("informe", d.iev); return true; }
+  if (d.icerrar !== undefined) {
+    if (!(await confirmBox("¿Cerrar el informe y generar el PDF?", "Después solo un administrador podrá reabrirlo para hacer cambios.", "Sí, cerrar", false))) return true;
+    await infGuardarTodo(); toast("Generando PDF…");
+    try { await T("cerrarInforme", x.id); await cargarInformes(true); render(); toast("Informe cerrado. Ya puedes descargar el PDF."); } catch (e) { fallo(e); } return true;
+  }
+  if (d.ireabrir !== undefined) { try { await T("reabrirInforme", x.id); await cargarInformes(true); render(); toast("Informe reabierto."); } catch (e) { fallo(e); } return true; }
+  if (d.iborrar !== undefined) { if (!(await confirmBox("¿Eliminar este informe?", "Se borrarán todos sus datos, fotos y documentos. No se puede deshacer.", "Sí, eliminar"))) return true;
+    try { await T("borrarInforme", x.id); S.inf.cur = null; await cargarInformes(true); render(); toast("Informe eliminado."); } catch (e) { fallo(e); } return true; }
+  return false;
+}
+function infChange(t) {
+  const x = infCur(); if (!x) return false;
+  if (t.dataset.inom !== undefined) { x.nombres = t.value.trim(); T("guardarInformeSecc", x.id, "cabecera", { nombres: x.nombres }).catch(fallo); return true; }
+  if (!t.dataset.ik) return false;
+  const [sec, path] = t.dataset.ik.split("|"); let v = t.value;
+  if (sec === "act") { const parts = t.dataset.ik.split("|"); const ad = infSecc(x, "act"); ad[parts[1]] = Object.assign({}, ad[parts[1]], { [parts[2]]: v.trim() }); infPend[x.id + "|act"] = infPend[x.id + "|act"] || { x, sec: "act", keys: new Set(), t: 0 }; infPend[x.id + "|act"].keys.add(parts[1] + "." + parts[2]); infGuardar(x.id + "|act"); return true; }
+  infSet(x, sec, path, v);
+  if (t.classList.contains("inum")) setTimeout(() => { const f = document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.ik : null; render(); if (f) { const el = document.querySelector(`[data-ik="${f}"]`); if (el) el.focus(); } }, 0);
+  return true;
+}
+function bajarB64(f) {
+  const bin = atob(f.b64), u8 = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+  const url = URL.createObjectURL(new Blob([u8], { type: f.mime })), a = document.createElement("a"); a.href = url; a.download = f.nombre; document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+function achicarFoto(file) {
+  return new Promise(res => {
+    if (!/^image\/(jpeg|png|webp|heic|heif)/i.test(file.type)) return res(null);
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => { const m = 1280, k = Math.min(1, m / Math.max(img.width, img.height)), c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.8).split(",")[1]); };
+    img.onerror = () => { URL.revokeObjectURL(url); res(null); }; img.src = url;
+  });
+}
+
+/* ===================== Instalar en el celular ===================== */
+const UA = navigator.userAgent || "", ES_IOS = /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1), ES_ANDROID = /Android/i.test(UA);
+const ES_CEL = ES_IOS || ES_ANDROID || /Mobi/i.test(UA);
+const INSTALADOR = "https:" + "/" + "/ipr.gmrlabs.cl/prueba/";
+const EN_INSTALADOR = (() => { try { return Array.from(location.ancestorOrigins || []).some(o => (o.indexOf("gmrlabs.cl") >= 0 || o.indexOf("moghart.github.io") >= 0)); } catch (_) { return false; } })();
+function yaInstalada() { if (EN_INSTALADOR) return true; try { return navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches; } catch (_) { return false; } }
+function instalarAyuda() {
+  const link = "ipr.gmrlabs.cl";
+  const pasos = ES_IOS
+    ? `<p class="intro">En <b>iPhone</b> ábrelo en <b>Safari</b> y sigue los pasos que aparecen (Compartir, luego <b>Agregar a inicio</b>).</p>`
+    : `<p class="intro">En <b>Android</b> ábrelo en <b>Chrome</b> y toca el botón verde <b>Instalar</b>.</p>`;
+  const html = `<p class="intro">La app se instala desde esta página:</p>
+    <p style="margin:10px 0"><a class="btn primary" href="${INSTALADOR}" target="_blank" rel="noopener" style="text-decoration:none">Abrir instalador</a></p>
+    <p class="intro" style="margin:0 0 8px"><b>${link}</b></p>` + pasos +
+    `<p class="intro" style="margin-top:8px">Quedará el ícono verde de Seguimiento IPR en tu pantalla de inicio.</p>`;
+  return infoBox("Instalar en el celular", html);
+}
+function avisoInstalar() {
+  try { if (!ES_CEL || yaInstalada() || localStorage.getItem("ipr-noinst") || sessionStorage.getItem("ipr-noinst-hoy")) return; } catch (_) { if (!ES_CEL) return; }
+  if (document.querySelector(".instbar")) return;
+  const b = document.createElement("div"); b.className = "instbar"; b.setAttribute("role", "dialog"); b.setAttribute("aria-label", "Instalar app");
+  b.innerHTML = `<b>Instala la app en tu celular</b><p>Deja Seguimiento IPR como ícono en tu pantalla de inicio para abrirla rápido.</p>
+    <div class="ib"><button class="pri" data-i="como">Cómo instalar</button><button data-i="luego">Ahora no</button><button class="lnk" data-i="nunca">No volver a mostrar</button></div>`;
+  b.onclick = e => { const x = e.target.closest("[data-i]"); if (!x) return; const k = x.dataset.i;
+    if (k === "como") instalarAyuda();
+    if (k === "luego") { try { sessionStorage.setItem("ipr-noinst-hoy", "1"); } catch (_) {} }
+    if (k === "nunca") { try { localStorage.setItem("ipr-noinst", "1"); } catch (_) {} toast("Listo, no volverá a aparecer. Puedes usar el botón Instalar app cuando quieras."); }
+    b.remove(); };
+  document.body.append(b);
+}
+
+/* ===================== Inicio ===================== */
+(function init() {
+  try { S.token = localStorage.getItem("ipr-token"); } catch (_) {}
+  if (S.token) cargar().catch(() => pantallaLogin()); else pantallaLogin();
+  setTimeout(avisoInstalar, 1200);
+  if (EN_INSTALADOR) document.documentElement.classList.add("en-inst");
+})();
+</script>
+</body>
+</html>
