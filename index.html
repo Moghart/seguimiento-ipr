@@ -126,7 +126,9 @@
     navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function () {});
   }
 
-  if (instalada || forzarApp) { abrirApp(); return; }
+  // En computador se entra directo a la app; la pantalla de instalación es solo para celulares.
+  var esCelular = esIOS || esAndroid || /Mobi/i.test(ua);
+  if (instalada || forzarApp || !esCelular) { abrirApp(); return; }
 
   $("b-abrir").addEventListener("click", abrirApp);
 
