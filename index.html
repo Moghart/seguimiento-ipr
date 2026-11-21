@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seguimiento IPR</title>
+<meta name="description" content="Seguimiento del Programa de Trabajo IPR · Berliam">
+<meta name="theme-color" content="#6abf40">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Seguimiento IPR">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+  :root { --verde:#6abf40; --verde-osc:#3f8a1f; --tinta:#1b1f1a; --gris:#5d655a; --linea:#e2e6df; --fondo:#f6f7f4; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; }
+  body { font:16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--tinta); background:var(--fondo); -webkit-text-size-adjust:100%; }
+  #app { position:fixed; inset:0; width:100%; height:100%; border:0; display:none; background:#fff; }
+  body.en-app #app { display:block; }
+  body.en-app main { display:none; }
+  main { max-width:440px; margin:0 auto; padding:calc(28px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom)); }
+  .cab { text-align:center; }
+  .cab img { width:104px; height:104px; border-radius:24px; box-shadow:0 6px 18px rgba(30,60,20,.18); }
+  h1 { font-size:26px; margin:16px 0 2px; letter-spacing:-.01em; }
+  .sub { color:var(--gris); margin:0; font-size:15px; }
+  .tarjeta { background:#fff; border:1px solid var(--linea); border-radius:16px; padding:18px; margin-top:22px; }
+  .tarjeta h2 { font-size:17px; margin:0 0 10px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-height:52px; border-radius:12px; border:0; font:600 17px/1 inherit; cursor:pointer; text-decoration:none; }
+  .btn.pri { background:var(--verde); color:#10240a; }
+  .btn.pri:active { background:var(--verde-osc); color:#fff; }
+  .btn.sec { background:#fff; color:var(--tinta); border:1px solid var(--linea); margin-top:12px; font-weight:500; }
+  .btn[hidden], [hidden] { display:none !important; }
+  ol { margin:0; padding-left:0; list-style:none; counter-reset:p; }
+  ol li { counter-increment:p; position:relative; padding:8px 0 8px 40px; border-top:1px solid var(--linea); }
+  ol li:first-child { border-top:0; }
+  ol li::before { content:counter(p); position:absolute; left:0; top:8px; width:26px; height:26px; border-radius:50%; background:#eef6e8; color:var(--verde-osc); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  .ico { display:inline-block; vertical-align:-4px; width:20px; height:20px; }
+  .nota { font-size:14px; color:var(--gris); margin:12px 0 0; }
+  .ok { text-align:center; }
+  .ok b { color:var(--verde-osc); }
+  footer { text-align:center; color:var(--gris); font-size:13px; margin-top:26px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="cab">
+    <img src="icons/icon-192.png" alt="" width="104" height="104">
+    <h1>Seguimiento IPR</h1>
+    <p class="sub">Programa de Trabajo IPR · Berliam</p>
+  </div>
+
+  <!-- Android / Chrome: instalación directa -->
+  <section class="tarjeta" id="t-instalar" hidden>
+    <h2>Instala la app en tu celular</h2>
+    <button class="btn pri" id="b-instalar">
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+      Instalar
+    </button>
+    <p class="nota">Queda un ícono en tu pantalla de inicio y se abre como una app.</p>
+  </section>
+
+  <!-- Android sin aviso automático -->
+  <section class="tarjeta" id="t-android" hidden>
+    <h2>Instala la app en tu celular</h2>
+    <ol>
+      <li>Toca los <b>tres puntos ⋮</b> arriba a la derecha de Chrome.</li>
+      <li>Elige <b>Instalar app</b> o <b>Agregar a pantalla principal</b>.</li>
+      <li>Confirma con <b>Instalar</b>.</li>
+    </ol>
+  </section>
+
+  <!-- iPhone -->
+  <section class="tarjeta" id="t-iphone" hidden>
+    <h2>Instala la app en tu iPhone</h2>
+    <ol>
+      <li>Abre este link en <b>Safari</b>.</li>
+      <li>Toca <b>Compartir</b>
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#0a7aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>
+        en la barra de abajo.</li>
+      <li>Baja y toca <b>Agregar a inicio</b>.</li>
+      <li>Toca <b>Agregar</b>. Listo, queda el ícono en tu pantalla.</li>
+    </ol>
+  </section>
+
+  <!-- Navegador dentro de WhatsApp, Instagram, etc. -->
+  <section class="tarjeta" id="t-externo" hidden>
+    <h2>Abre este link en tu navegador</h2>
+    <p style="margin:0">Estás viendo la página dentro de otra app. Para instalar, toca <b>⋮</b> o <b>Compartir</b> y elige <b id="nav-nombre">Abrir en Chrome</b>.</p>
+  </section>
+
+  <section class="tarjeta ok" id="t-listo" hidden>
+    <p style="margin:0"><b>¡Listo!</b> La app quedó instalada. Búscala en tu pantalla de inicio como <b>Seguimiento IPR</b>.</p>
+  </section>
+
+  <button class="btn sec" id="b-abrir">Abrir sin instalar</button>
+
+  <footer>Uso interno Berliam</footer>
+</main>
+
+<iframe id="app" title="Seguimiento IPR" allow="camera; clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<script>
+(function () {
+  var APP_URL = "https://script.google.com/macros/s/AKfycbzbgJzj0HnGdFSmGtUFO1BvANAlPs5bpHkUMkWuqJH05y1YvXPIoijIVZXmEdtbvgtb/exec";
+  var ua = navigator.userAgent || "";
+  var $ = function (id) { return document.getElementById(id); };
+  var mostrar = function (id) { $(id).hidden = false; };
+
+  var esIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var esAndroid = /Android/i.test(ua);
+  var esInApp = /FBAN|FBAV|Instagram|WhatsApp|Line\/|; wv\)|GSA\//i.test(ua);
+  var instalada = navigator.standalone === true ||
+    (window.matchMedia && (matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: fullscreen)").matches));
+  var forzarApp = /[?&]app=1\b/.test(location.search);
+
+  function abrirApp() {
+    var f = $("app");
+    if (!f.src) f.src = APP_URL + "?pwa=1";
+    document.body.classList.add("en-app");
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function () {});
+  }
+
+  if (instalada || forzarApp) { abrirApp(); return; }
+
+  $("b-abrir").addEventListener("click", abrirApp);
+
+  if (esInApp) {
+    $("nav-nombre").textContent = esIOS ? "Abrir en Safari" : "Abrir en Chrome";
+    mostrar("t-externo");
+  } else if (esIOS) {
+    mostrar("t-iphone");
+  } else {
+    // Android o computador: esperamos el aviso de instalación del navegador.
+    var aviso = null;
+    var respaldo = setTimeout(function () { if (!aviso && esAndroid) mostrar("t-android"); }, 2500);
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault();
+      aviso = e;
+      clearTimeout(respaldo);
+      $("t-android").hidden = true;
+      mostrar("t-instalar");
+    });
+    $("b-instalar").addEventListener("click", function () {
+      if (!aviso) return;
+      aviso.prompt();
+      aviso.userChoice.then(function (r) {
+        if (r && r.outcome === "accepted") { $("t-instalar").hidden = true; mostrar("t-listo"); }
+        aviso = null;
+      });
+    });
+    window.addEventListener("appinstalled", function () {
+      $("t-instalar").hidden = true; $("t-android").hidden = true; mostrar("t-listo");
+    });
+  }
+})();
+</script>
+</body>
+</html>
