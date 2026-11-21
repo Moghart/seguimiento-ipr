@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Seguimiento IPR",
   "short_name": "Seguimiento IPR",
-  "description": "Seguimiento del Programa de Trabajo IPR · Berliam",
+  "description": "Seguimiento del Programa de Trabajo IPR",
   "lang": "es",
   "start_url": "./?app=1",
   "scope": "./",
