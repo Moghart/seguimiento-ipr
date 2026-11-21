@@ -98,14 +98,13 @@
 
   <button class="btn sec" id="b-abrir">Abrir sin instalar</button>
 
-  <footer>Uso interno Berliam</footer>
 </main>
 
 <iframe id="app" title="Seguimiento IPR" allow="camera; clipboard-read; clipboard-write; fullscreen" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 <script>
 (function () {
-  var APP_URL = "https://script.google.com/macros/s/AKfycby6lSaIyz10AM9mAlyFmXALibm-KBzIOzD8HDsGvkWGg9-wl2UEr-IAe0KAAZkjrgSkEQ/exec";
+  var APP_URL = "app.html";
   var ua = navigator.userAgent || "";
   var $ = function (id) { return document.getElementById(id); };
   var mostrar = function (id) { $(id).hidden = false; };
@@ -119,7 +118,7 @@
 
   function abrirApp() {
     var f = $("app");
-    if (!f.src) f.src = APP_URL + "?pwa=1";
+    if (!f.src) f.src = APP_URL;
     document.body.classList.add("en-app");
   }
 
