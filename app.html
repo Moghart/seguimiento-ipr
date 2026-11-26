@@ -222,6 +222,46 @@ table.tb{width:100%;border-collapse:collapse;font-size:14px}
   .seg{width:100%}.seg button{flex:1;padding:9px 6px}
   .frow{flex-direction:column;gap:0}
 }
+.hkpis{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--negro);color:#fff;border-radius:16px;padding:18px 22px;margin-bottom:16px}
+.hkg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.hk b{display:block;font-size:26px;line-height:1.05;font-weight:800}.hk span{font-size:13px;color:rgba(255,255,255,.65)}.hk b.am{color:var(--ambar)}.hk b.ro{color:#f08a8a}
+.halerts{background:#fff;border-radius:14px;box-shadow:var(--sombra);padding:18px;margin-bottom:16px}.halerts h3{font-size:17px;margin:0 0 6px}
+.hal{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px;border-radius:12px;margin-top:8px}
+.hico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.hal.r{background:var(--rojo-suave)}.hal.r .hico{background:var(--rojo);color:#fff}
+.hal.a{background:var(--ambar-suave)}.hal.a .hico{background:var(--ambar);color:var(--negro)}
+.hal.g{background:var(--verde-suave)}.hal.g .hico{background:var(--verde);color:var(--negro)}
+.hal>div>b{display:block;font-size:15px}.hal p{margin:3px 0 0;font-size:14px}.hal ol{margin:6px 0 0;padding-left:20px;font-size:14px;line-height:1.55}
+.hwhen{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.hal.r .hwhen{color:var(--rojo-txt)}.hal.a .hwhen{color:var(--ambar-txt)}.hal.g .hwhen{color:var(--verde-txt)}
+.hleg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--gris);margin-top:10px;align-items:center}
+.hcols{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;align-items:start}.hcol{display:flex;flex-direction:column;gap:16px;min-width:0}
+.hgrp h3{font-size:16px;margin-bottom:8px}
+.hrow{display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid #f0efea}
+.hrow:first-of-type{border-top:0}.hn{font-weight:500}
+.hdot{width:10px;height:10px;border-radius:3px;flex:none;display:inline-block}
+.hacts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+a.btn{text-decoration:none}
+.hsem{padding:6px 0 10px}.hsemh{display:flex;align-items:center;gap:8px;margin-bottom:6px}.hsemh b{flex:1;font-size:14px}
+.hwk{display:flex;flex-wrap:wrap;gap:6px}
+.hchip{border:1px solid var(--gris-claro);background:#f7f6f2;border-radius:10px;padding:5px 8px;min-width:64px;text-align:center;font:inherit;cursor:pointer}
+.hchip b{display:block;font-size:13px}.hchip small{font-size:11.5px;font-weight:600;color:var(--gris)}
+.hchip.ok{background:var(--verde-suave);border-color:#cfe9c0}.hchip.ok small{color:var(--verde-txt)}
+.hchip.late{background:var(--rojo-suave);border-color:#f1cfcf}.hchip.late small{color:var(--rojo-txt)}
+.hchip.pend{background:var(--ambar-suave);border-color:#f3dfa6}.hchip.pend small{color:var(--ambar-txt)}
+.hchip:hover{border-color:var(--tinta)}
+.hhelp{color:var(--gris);font-size:13px;margin:10px 0 0}
+.hanio td small{display:block;color:var(--gris);font-size:12px}.hanio td,.hanio th{text-align:center}.hanio td:first-child,.hanio th:first-child{text-align:left;min-width:220px}
+.hsq{display:inline-flex;align-items:center;justify-content:center;width:30px;height:24px;border-radius:6px;border:0;font:inherit;font-size:11px;font-weight:700;cursor:pointer;vertical-align:middle}
+i.hsq{width:16px;height:16px;cursor:default}
+.hsq.ok{background:var(--verde);color:var(--negro)}.hsq.late{background:var(--rojo);color:#fff}.hsq.pend{background:var(--ambar);color:var(--negro)}.hsq.fut{background:#ecebe6;color:var(--gris)}
+.hpasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:8px}.hpasos div{background:var(--hueso);border-radius:10px;padding:10px 12px;font-size:13.5px}.hpasos b{display:block;color:var(--verde-txt)}
+.hr6{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.hshare{display:flex;gap:16px;align-items:center;margin-top:14px;flex-wrap:wrap}.hqr canvas{width:170px;height:170px;border:1px solid var(--gris-claro);border-radius:10px}
+.hfirma{height:34px;max-width:110px;object-fit:contain;background:#fff;border:1px solid #f0efea;border-radius:6px}.hfirma.big{height:60px;max-width:220px}
+.hpad{width:100%;height:auto;aspect-ratio:3/1;border:2px dashed var(--gris-claro);border-radius:12px;background:#fff;display:block;margin-bottom:6px;touch-action:none}
+.hanx{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}.hanx label{font-weight:500;display:flex;gap:6px;align-items:center}.hanx input{width:auto}
+@media (max-width:900px){.hcols,.hr6{grid-template-columns:1fr}.hkpis{grid-template-columns:1fr;justify-items:center;text-align:center}.hrow{grid-template-columns:10px minmax(0,1fr) auto}.hrow .hacts{grid-column:2/-1;justify-content:flex-start}.hal{grid-template-columns:36px minmax(0,1fr)}.hal .btn{grid-column:2;justify-self:start}}
 </style>
 </head>
 <body>
@@ -294,7 +334,7 @@ const supervisores = () => S.d.usuarios.filter(u => u.rol === "supervisor" && u.
 const iprPct = e => S.d.act.length ? avg(S.d.act.map(a => num(reg(e, a.id).cumplimiento) ?? 0)) : null; // lo no marcado cuenta como no realizado
 const iprHechas = e => S.d.act.filter(a => num(reg(e, a.id).cumplimiento) >= 100).length;
 const grupo = id => (S.d.grupos || []).find(g => g.id === id) || { id, cat: "", nombre: id };
-const evDe = (t, id) => S.d.evidencias.filter(e => e.ref_tipo === t && e.ref_id === id);
+const evDe = (t, id) => (t === "hse" ? (S.hse ? S.hse.ev : []) : S.d.evidencias).filter(e => e.ref_tipo === t && e.ref_id === id);
 const cats = () => { const s = []; (S.d.grupos || []).forEach(g => { if (!s.includes(g.cat)) s.push(g.cat); }); return s; };
 const itemsCat = c => S.d.items.filter(i => grupo(i.grupo).cat === c);
 const pendientes = () => (S.d.items || []).filter(i => i.grupo !== "rf" && (num(i.cumplimiento) == null || num(i.cumplimiento) < 100));
@@ -462,7 +502,7 @@ async function cambiarMiClave() {
 }
 
 /* ===================== Estructura ===================== */
-const NAV_ADMIN = [["panel", "Panel general", "dash"], ["c4x3", "Control documental 4x3", "doc"], ["rf", "Riesgos de fatalidad", "alert"], ["ipr", "IPR 7x7 · Informes", "users"], ["usuarios", "Usuarios", "user"]];
+const NAV_ADMIN = [["panel", "Panel general", "dash"], ["c4x3", "Control documental 4x3", "doc"], ["rf", "Riesgos de fatalidad", "alert"], ["ipr", "IPR 7x7 · Informes", "users"], ["hse", "Cumplimiento HSE", "check"], ["usuarios", "Usuarios", "user"]];
 const NAV_SUP = [["turno", "Informe de turno", "users"], ["historial", "Mis informes", "hist"]];
 async function cargar() {
   const d = await T("datos"); S.d = d; S.t = Date.now();
@@ -503,8 +543,9 @@ function render() {
   if (!S.d || !$("#main")) return;
   $$("#nav [data-nav]").forEach(b => b.classList.toggle("on", b.dataset.nav === S.view));
   const b = $("#badge"); if (b) { const n = pendientes().length; b.textContent = n; b.style.display = n ? "" : "none"; }
-  const v = { panel: viewPanel, c4x3: viewC4, rf: viewRF, ipr: viewInformes, usuarios: viewUsuarios, turno: viewInformeActual, historial: viewInformes }[S.view] || (esAdmin() ? viewPanel : viewInformeActual);
+  const v = { panel: viewPanel, c4x3: viewC4, rf: viewRF, ipr: viewInformes, hse: viewHSE, usuarios: viewUsuarios, turno: viewInformeActual, historial: viewInformes }[S.view] || (esAdmin() ? viewPanel : viewInformeActual);
   $("#main").innerHTML = v();
+  if (S.view === "hse" && S.hse && S.hse.det) r006Qr();
 }
 function seg(v, attr, labels) {
   v = num(v);
@@ -752,7 +793,7 @@ function zipTurnoAbierto(email) {
 function evidModal(tipo, refId) {
   let titulo = "";
   if (tipo === "item") { const it = S.d.items.find(i => i.id === refId); titulo = it ? (it.codigo ? it.codigo + " · " : "") + it.actividad : ""; }
-  else if (tipo === "informe") titulo = S.evTit || "Informe de turno";
+  else if (tipo === "informe" || tipo === "hse") titulo = S.evTit || "Informe de turno";
   else { const [em, aid] = refId.split("|"), a = S.d.act.find(x => x.id === aid); titulo = (a ? a.texto : "") + " · " + persona(em).nombre; }
   const ov = document.createElement("div"); ov.className = "ov";
   const paint = () => {
@@ -763,7 +804,7 @@ function evidModal(tipo, refId) {
           ${/^image\//.test(e.mime) ? `<button type="button" class="icon-btn" data-ever="${e.id}" title="Ver">${ic("eye")}</button>` : ""}
           <button type="button" class="icon-btn" data-ebajar="${e.id}" title="Descargar">${ic("down")}</button>
           ${esAdmin() || e.subido_por === S.d.yo.email ? `<button type="button" class="icon-btn" data-equitar="${e.id}" title="Quitar">${ic("x")}</button>` : ""}</li>`).join("")}</ul>`
-        : `<div class="empty" style="padding:26px 10px">Aún no hay archivos.<br>Adjunta fotos, PDF, actas o planillas que respalden esta actividad (máximo ${MAX_MB} MB cada uno).</div>`}
+        : `<div class="empty" style="padding:26px 10px">Aún no hay archivos.<br>${tipo === "hse" ? "Sube el PDF descargado del Power BI, o la foto o acta que respalde este registro" : "Adjunta fotos, PDF, actas o planillas que respalden esta actividad"} (máximo ${MAX_MB} MB cada uno).</div>`}
       <input type="file" multiple id="evfile" hidden>${tipo === "informe" ? `<input type="file" accept="image/&#42;" capture="environment" id="evcam" hidden>` : ""}
       <div class="mact"><i></i><span>${tipo === "informe" ? `<button type="button" class="btn" data-ecam>${ic("plus")}Tomar foto</button>` : ""}${L.length > 1 ? `<button type="button" class="btn" data-ezip>${ic("down")}Descargar todo</button>` : ""}<button type="button" class="btn ghost" data-x>Cerrar</button><button type="button" class="btn primary" data-eadd>${ic("plus")}Adjuntar archivos</button></span></div></div>`;
     const subir = async e => {
@@ -773,6 +814,7 @@ function evidModal(tipo, refId) {
         if (f.size > MAX_MB * 1048576) { toast(`«${esc(f.name)}» pesa más de ${MAX_MB} MB y no se subió.`, true); continue; }
         btn.textContent = `Subiendo ${ok + 1} de ${files.length}…`;
         try { const chica = tipo === "informe" ? await achicarFoto(f) : null;
+          if (tipo === "hse") { const [hid, hp] = refId.split("|"); S.hse.ev.push(await T("hseSubir", hid, hp, f.name, f.type, await leerB64(f), "")); ok++; continue; }
           const r = chica ? await T("subirEvidencia", tipo, refId, f.name.replace(/\.[^.]+$/, "") + ".jpg", "image/jpeg", chica) : await T("subirEvidencia", tipo, refId, f.name, f.type, await leerB64(f)); S.d.evidencias.push(r); ok++; } catch (err) { fallo(err); }
       }
       paint(); if (ok) toast(ok === 1 ? "Archivo adjuntado." : `${ok} archivos adjuntados.`);
@@ -791,9 +833,9 @@ function evidModal(tipo, refId) {
     if (d.ezip !== undefined) { const ix = tipo === "reg7x7" ? S.d.act.findIndex(a => a.id === refId.split("|")[1]) + 1 : 0;
       return bajarVarios(evDe(tipo, refId).map(e => ({ id: e.id, nombre: e.nombre })), (ix ? `Actividad ${n2(ix)} ` : "Evidencias ") + (tipo === "reg7x7" ? persona(refId.split("|")[0]).nombre : tipo === "informe" ? (S.evTit || "") : "")); }
     if (d.equitar) {
-      const ev = S.d.evidencias.find(x => x.id === d.equitar);
+      const ev = evDe(tipo, refId).find(x => x.id === d.equitar);
       if (!(await confirmBox("¿Quitar este archivo?", `«${esc(ev.nombre)}» se enviará a la papelera de Drive del administrador.`, "Sí, quitar"))) return;
-      try { await T("quitarEvidencia", d.equitar); S.d.evidencias = S.d.evidencias.filter(x => x.id !== d.equitar); paint(); toast("Archivo quitado."); } catch (err) { fallo(err); }
+      try { await T("quitarEvidencia", d.equitar); S.d.evidencias = S.d.evidencias.filter(x => x.id !== d.equitar); if (S.hse) S.hse.ev = S.hse.ev.filter(x => x.id !== d.equitar); paint(); toast("Archivo quitado."); } catch (err) { fallo(err); }
     }
   });
   paint(); document.body.append(ov);
@@ -813,7 +855,8 @@ function bindEvents() {
       const em = emailTurno(), r = Object.assign({}, reg(em, d.act)), prev = r.cumplimiento; r.cumplimiento = d.v; setReg(r); render();
       return T("marcar7x7", em, d.act, { cumplimiento: Number(d.v) }).then(x => setReg(x), err => { r.cumplimiento = prev; setReg(r); render(); fallo(err); });
     }
-    if (d.refresh !== undefined) return refrescar(true);
+    if (d.h) { hseClick(t, d).catch(fallo); return; }
+    if (d.refresh !== undefined) { if (S.view === "hse") { cargarHSE(true).then(() => { render(); if (S.hse.det) r006Qr(); toast("Datos actualizados."); }).catch(fallo); return; } return refrescar(true); }
     if (d.go) return go(d.go, d.cat !== undefined || d.est !== undefined ? { cat: d.cat || "", est: d.est || "" } : null);
     if (d.goitem) return goItem(d.goitem);
     if (d.goperson) { S.sel = d.goperson; return go("ipr"); }
@@ -1222,6 +1265,302 @@ function achicarFoto(file) {
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.8).split(",")[1]); };
     img.onerror = () => { URL.revokeObjectURL(url); res(null); }; img.src = url;
   });
+}
+
+/* ===================== Cumplimiento HSE (solo administradores) ===================== */
+const HSE_FREC = { mensual: "Mensual", semanal: "Semanal", miercoles: "Cada miércoles" };
+const LINK_FIRMA = "https:" + "/" + "/ipr.gmrlabs.cl/firmar.html?k=";
+const R006_ANEXOS = ["AST", "Reglamentaciones", "Charla", "Video", "Instructivo", "Presentación", "Procedimiento", "Otro"];
+const R006_TEMA = "Toda actividad, ya sea programada o no prevista, debe ser planificada y verificada por tres actores fundamentales:\nDefine claramente el trabajo requerido.\nRevisa, comprende y aplica el procedimiento.\nVerifica condiciones seguras y autoriza la ejecución.";
+const R006_COMP = "Asegurar el Mapa de proceso, MIPER y Procedimiento disponible y vigente.\nDifusión del procedimiento y evaluación de entendimiento a todo el personal involucrado.\nInstrucción clara sobre la actividad a ejecutar.\nVerificación de comprensión por parte de los trabajadores.\nVerificación del uso correcto de herramientas, equipos y EPP.\nIdentificación de riesgos y aplicación de controles.\nCondiciones del área verificadas y seguras para intervenir.\nPermisos y autorizaciones aplicables disponibles.\nVerificación de certificaciones.";
+const diasEntre = (a, b) => Math.round((pf(b) - pf(a)) / 86400000);
+const mesTxt = m => { const [y, mm] = m.split("-").map(Number); return MESES[mm - 1].replace(/^./, c => c.toUpperCase()) + " " + y; };
+const mesMas = (m, k) => { const [y, mm] = m.split("-").map(Number), d = new Date(y, mm - 1 + k, 1); return isoD(d).slice(0, 7); };
+const fCort = s => { const d = pf(s); return d ? d.getDate() + " " + MESES[d.getMonth()].slice(0, 3) : ""; };
+
+async function cargarHSE(force) {
+  if (S.hse && !force) return S.hse;
+  const r = await T("hseDatos"), prev = S.hse || {};
+  S.hse = Object.assign({ mes: r.hoy.slice(0, 7), tab: "cal", cur: null, det: null }, prev, { items: r.items, ev: r.ev, r006: r.r006, hoy: r.hoy });
+  return S.hse;
+}
+function conHSE(fn) {
+  if (S.hse) return fn();
+  cargarHSE().then(render).catch(fallo);
+  return topbar("Cumplimiento HSE", "Cargando…", "") + `<div class="card empty">Cargando…</div>`;
+}
+const hseEv = (id, p) => (S.hse.ev || []).filter(e => e.ref_id === id + "|" + p);
+
+/* Periodos de un ítem dentro de un mes: mensual = el mes; semanal = semanas que empiezan (lunes) en el mes; miércoles = cada miércoles */
+function hsePeriodos(it, mes) {
+  const [y, m] = mes.split("-").map(Number), out = [];
+  if (it.frecuencia === "mensual") { const d = Math.min(28, Math.max(1, Number(it.dia) || 25)); return [{ p: mes, vence: `${mes}-${n2(d)}`, et: "Día " + d }]; }
+  for (let d = new Date(y, m - 1, 1); d.getMonth() === m - 1; d.setDate(d.getDate() + 1)) {
+    if (it.frecuencia === "semanal" && d.getDay() === 1) { const f = new Date(d); f.setDate(f.getDate() + 6); out.push({ p: isoD(d), vence: isoD(f), et: `${d.getDate()}–${f.getDate()}` }); }
+    if (it.frecuencia === "miercoles" && d.getDay() === 3) out.push({ p: isoD(d), vence: isoD(d), et: fCort(isoD(d)) });
+  }
+  return out;
+}
+/* Estado: ok (subido), late (atrasado), pend (vence hoy o en 3 días), fut (aún no corresponde) */
+function hseEstado(it, per) {
+  const L = hseEv(it.id, per.p), h = S.hse.hoy;
+  if (L.length) return { k: "ok", L, txt: "✓ Subido " + fCort(L[L.length - 1].fecha.slice(0, 10)) };
+  const dd = diasEntre(h, per.vence);
+  if (dd < 0) return { k: "late", L, d: -dd, txt: "✕ Atrasado " + (-dd) + (dd === -1 ? " día" : " días") };
+  if (dd === 0) return { k: "pend", L, d: 0, txt: "⏰ Vence hoy" };
+  if (dd <= 3) return { k: "pend", L, d: dd, txt: "⏰ Vence en " + dd + (dd === 1 ? " día" : " días") };
+  return { k: "fut", L, d: dd, txt: "Vence " + fCort(per.vence) };
+}
+const HSE_PILL = { ok: "ok", late: "bad", pend: "mid", fut: "na" };
+const hseActivos = () => S.hse.items.filter(i => i.activo !== "NO");
+
+function viewHSE() {
+  return conHSE(() => {
+    const H = S.hse, tabs = [["cal", "Calendario y respaldos"], ["r006", "R006 · Firmas"], ["anio", "Avance del año"]];
+    if (H.tab === "r006" && H.cur) return viewR006Det();
+    const head = topbar("Cumplimiento HSE", H.tab === "cal" ? mesTxt(H.mes) : H.tab === "anio" ? "Avance " + H.mes.slice(0, 4) : "R006 con firma en el celular", "",
+      H.tab === "cal" ? `<button class="btn" data-h="mes" data-k="-1">‹ ${esc(MESES[Number(mesMas(H.mes, -1).slice(5)) - 1].slice(0, 3))}</button><button class="btn" data-h="mes" data-k="1">${esc(MESES[Number(mesMas(H.mes, 1).slice(5)) - 1].slice(0, 3))} ›</button><button class="btn" data-h="zip">${ic("down")}Respaldos del mes (ZIP)</button>`
+        : H.tab === "r006" ? `<button class="btn primary" data-h="r006new">${ic("plus")}Nuevo R006</button>` : "");
+    const tb = `<div class="itabs">${tabs.map(([k, l]) => `<button class="${H.tab === k ? "on" : ""}" data-h="tab" data-k="${k}">${l}</button>`).join("")}</div>`;
+    return head + tb + (H.tab === "cal" ? hseCal() : H.tab === "anio" ? hseAnio() : viewR006Lista());
+  });
+}
+
+function hseCal() {
+  const H = S.hse, its = hseActivos(), filas = [];
+  its.forEach(it => hsePeriodos(it, H.mes).forEach(per => filas.push({ it, per, st: hseEstado(it, per) })));
+  const tot = filas.length, ok = filas.filter(f => f.st.k === "ok").length, pct = tot ? ok / tot * 100 : null;
+  const late = filas.filter(f => f.st.k === "late"), pend = filas.filter(f => f.st.k === "pend");
+  const fut = filas.filter(f => f.st.k === "fut").sort((a, b) => a.per.vence.localeCompare(b.per.vence));
+  const k = (n, l, c) => `<div class="hk"><b class="${c || ""}">${n}</b><span>${l}</span></div>`;
+  let h = `<div class="hkpis">${ring(pct, 84, 8, true)}<div class="hkg">
+    ${k(`${ok} / ${tot}`, "respaldos subidos este mes")}${k(pend.length, "vencen hoy o en los próximos 3 días", pend.length ? "am" : "")}${k(late.length, "atrasados", late.length ? "ro" : "")}
+    ${k(fut.length ? fCort(fut[0].per.vence) : "—", fut.length ? "próximo: " + esc(fut[0].it.nombre) : "no quedan plazos este mes")}</div></div>`;
+  h += hseAlertas(late, pend, fut);
+  const grupo = (titulo, sub, list) => list.length ? `<div class="card hgrp"><h3>${titulo} <small>${sub}</small></h3>${list.join("")}</div>` : "";
+  const fila = (it, per, st) => `<div class="hrow"><span class="hdot" style="background:${esc(it.color || "#6e72b8")}"></span><span class="hn">${esc(it.nombre)}</span>
+    <span class="pill ${HSE_PILL[st.k]}">${st.txt}</span><span class="hacts">${it.link ? `<a class="btn sm" href="${esc(it.link)}" target="_blank" rel="noopener">Power BI ↗</a>` : `<button class="btn sm ghost" data-h="link" data-id="${it.id}" title="Guardar el link del Power BI">${ic("plus")}Agregar link</button>`}
+    ${st.k === "ok" ? `<button class="btn sm" data-h="ev" data-id="${it.id}" data-p="${per.p}">Ver (${st.L.length})</button>` : `<button class="btn sm primary" data-h="ev" data-id="${it.id}" data-p="${per.p}">Subir PDF</button>`}
+    <button class="icon-btn" data-h="link" data-id="${it.id}" title="Editar link o día">${ic("edit")}</button></span></div>`;
+  const mens = its.filter(i => i.frecuencia === "mensual"), dias = [...new Set(mens.map(i => Number(i.dia) || 25))].sort((a, b) => b - a);
+  const izq = dias.map(d => { const L = mens.filter(i => (Number(i.dia) || 25) === d), sub = L.filter(i => hseEstado(i, hsePeriodos(i, H.mes)[0]).k === "ok").length;
+    return grupo(`Mensual · día ${d}`, `${L.length > 1 ? "Power BI · " : ""}${sub} de ${L.length} subidos`, L.map(i => { const p = hsePeriodos(i, H.mes)[0]; return fila(i, p, hseEstado(i, p)); })); });
+  const chips = it => `<div class="hwk">${hsePeriodos(it, H.mes).map(per => { const st = hseEstado(it, per);
+    return `<button class="hchip ${st.k}" data-h="ev" data-id="${it.id}" data-p="${per.p}" title="${esc(st.txt)}"><b>${it.frecuencia === "semanal" ? per.et : "Mié " + pf(per.p).getDate()}</b><small>${st.k === "ok" ? "✓ listo" : st.k === "late" ? "✕ faltó" : st.k === "pend" ? (st.d ? "⏰ " + st.d + "d" : "⏰ hoy") : "—"}</small></button>`; }).join("")}</div>`;
+  const sem = its.filter(i => i.frecuencia === "semanal"), mie = its.filter(i => i.frecuencia === "miercoles");
+  const der = (sem.length ? `<div class="card hgrp"><h3>Semanal <small>uno por semana, de lunes a domingo</small></h3>${sem.map(it => `<div class="hsem"><div class="hsemh"><span class="hdot" style="background:${esc(it.color)}"></span><b>${esc(it.nombre)}</b>${it.link ? `<a class="btn sm ghost" href="${esc(it.link)}" target="_blank" rel="noopener">Abrir ↗</a>` : ""}<button class="icon-btn" data-h="link" data-id="${it.id}" title="Editar">${ic("edit")}</button></div>${chips(it)}</div>`).join("")}<p class="hhelp">Toca una semana para subir su respaldo (PDF o foto) o ver lo que ya subiste.</p></div>` : "")
+    + mie.map(it => { const hoyP = hsePeriodos(it, H.mes).find(p => p.p === H.hoy);
+      return `<div class="card hgrp"><h3>Cada miércoles <small>${esc(it.nombre)}</small></h3>${chips(it)}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn sm primary" data-h="dialogo" data-id="${it.id}" data-p="${(hoyP || hsePeriodos(it, H.mes).filter(p => p.p <= H.hoy).pop() || hsePeriodos(it, H.mes)[0] || {}).p || ""}">${ic("plus")}Registrar diálogo${hoyP ? " de hoy" : ""}</button></div><p class="hhelp">Llena el formulario y la app arma el PDF de respaldo con las fotos, o toca un miércoles para subir el acta que ya tienes.</p></div>`; }).join("");
+  h += `<div class="hcols"><div class="hcol">${izq.join("")}</div><div class="hcol">${der}</div></div>`;
+  return h;
+}
+
+function hseAlertas(late, pend, fut) {
+  const pasos = it => it.frecuencia === "mensual"
+    ? (it.link ? `<ol><li>Toca <b>Power BI ↗</b> en el ítem y llena el reporte.</li><li>Descarga el PDF que te entrega el Power BI.</li><li>Vuelve aquí y toca <b>Subir PDF</b> en ese mismo ítem.</li></ol>`
+      : `<ol><li>Toca <b>Agregar link</b> y pega el link del Power BI (se guarda para los próximos meses).</li><li>Llena el reporte y descarga el PDF.</li><li>Toca <b>Subir PDF</b> en ese ítem.</li></ol>`)
+    : it.frecuencia === "semanal" ? `<p>Sube el PDF o una foto que respalde esa semana. Si se te pasó, igual puedes subirlo: quedará con la fecha real de subida.</p>`
+      : `<p>Registra con quién conversaste, los temas y compromisos, o sube el acta si ya la tienes.</p>`;
+  const cuando = (k, f) => k === "late" ? `Atrasado ${f.st.d} ${f.st.d === 1 ? "día" : "días"} · vencía el ${diaLargo(pf(f.per.vence)).toLowerCase()}` : f.st.d === 0 ? "Vence hoy, " + diaLargo(pf(f.per.vence)).toLowerCase() : `Vence en ${f.st.d} ${f.st.d === 1 ? "día" : "días"}, ${diaLargo(pf(f.per.vence)).toLowerCase()}`;
+  const grupos = []; const key = f => f.st.k + "|" + f.it.frecuencia + "|" + f.per.vence;
+  [...late, ...pend].forEach(f => { let g = grupos.find(x => x.key === key(f)); if (!g) grupos.push(g = { key: key(f), k: f.st.k, L: [] }); g.L.push(f); });
+  let h = `<div class="halerts"><h3>¿Qué tienes que hacer ahora?</h3>`;
+  if (!grupos.length) h += `<div class="hal g"><span class="hico">✓</span><div><span class="hwhen">Todo al día</span><b>No hay nada vencido ni por vencer en los próximos 3 días.</b></div></div>`;
+  grupos.forEach(g => {
+    const f = g.L[0], nombres = g.L.map(x => x.it.nombre), qué = f.it.frecuencia === "mensual" ? (g.L.length > 1 ? `Faltan ${g.L.length} respaldos: ${nombres.join(", ")}` : `Falta el respaldo de ${nombres[0]}`)
+      : f.it.frecuencia === "semanal" ? `${nombres.join(" y ")} de la semana del ${f.per.et.replace("–", " al ")}` : `${nombres[0]} del ${diaLargo(pf(f.per.p)).toLowerCase()}`;
+    h += `<div class="hal ${g.k === "late" ? "r" : "a"}"><span class="hico">${g.k === "late" ? "✕" : "⏰"}</span><div><span class="hwhen">${cuando(g.k, f)}</span><b>${esc(qué)}</b>${pasos(f.it)}</div>
+      <button class="btn sm ${g.k === "late" ? "" : "primary"}" data-h="${f.it.frecuencia === "miercoles" ? "dialogo" : "ev"}" data-id="${f.it.id}" data-p="${f.per.p}">${f.it.frecuencia === "miercoles" ? "Registrar" : "Subir ahora"}</button></div>`;
+  });
+  if (fut.length) { const f = fut[0]; h += `<div class="hal g"><span class="hico">→</span><div><span class="hwhen">Próximo: en ${f.st.d} ${f.st.d === 1 ? "día" : "días"}</span><b>${esc(f.it.nombre)}, ${esc(diaLargo(pf(f.per.vence)).toLowerCase())}</b><p>Cuando falten 3 días aparecerá aquí en amarillo.</p></div></div>`; }
+  h += `<div class="hleg"><span>✓ Listo</span><span>⏰ Vence hoy o en los próximos 3 días</span><span>✕ Atrasado</span><span>Gris: aún no corresponde</span></div></div>`;
+  return h;
+}
+
+function hseAnio() {
+  const H = S.hse, y = H.mes.slice(0, 4), its = hseActivos(), meses = [...Array(12)].map((_, i) => `${y}-${n2(i + 1)}`);
+  const celda = (it, m) => {
+    const P = hsePeriodos(it, m); if (!P.length) return `<td></td>`;
+    const E = P.map(p => hseEstado(it, p)), ok = E.filter(e => e.k === "ok").length, late = E.filter(e => e.k === "late").length, fut = E.every(e => e.k === "fut");
+    const c = ok === P.length ? "ok" : fut ? "fut" : late ? "late" : "pend";
+    return `<td><button class="hsq ${c}" data-h="vermes" data-k="${m}" title="${esc(it.nombre)} · ${esc(mesTxt(m))}: ${ok} de ${P.length}">${P.length > 1 ? ok + "/" + P.length : c === "ok" ? "✓" : c === "late" ? "✕" : ""}</button></td>`;
+  };
+  return `<div class="card"><div class="tablewrap"><table class="tb hanio"><thead><tr><th>Ítem</th>${meses.map(m => `<th>${MESES[Number(m.slice(5)) - 1].slice(0, 3)}</th>`).join("")}</tr></thead>
+    <tbody>${its.map(it => `<tr><td>${esc(it.nombre)}<small>${HSE_FREC[it.frecuencia]}${it.frecuencia === "mensual" ? " · día " + (it.dia || 25) : ""}</small></td>${meses.map(m => celda(it, m)).join("")}</tr>`).join("")}</tbody></table></div>
+    <div class="hleg" style="margin-top:12px"><span><i class="hsq ok"></i> Completo</span><span><i class="hsq late"></i> Faltó algo</span><span><i class="hsq pend"></i> En curso</span><span><i class="hsq fut"></i> Aún no corresponde</span><span>Toca un mes para ver su detalle.</span></div></div>`;
+}
+
+async function hseLink(id) {
+  const it = S.hse.items.find(i => i.id === id);
+  const v = await openForm({ title: it.nombre, intro: "Pega aquí el link del Power BI (o de donde haces este registro). Queda guardado y el botón lo abrirá todos los meses.",
+    fields: [{ name: "link", label: "Link", value: it.link || "", placeholder: "Pega el link aquí" }].concat(it.frecuencia === "mensual" ? [{ name: "dia", label: "Día del mes en que vence", type: "text", value: it.dia || 25 }] : []),
+    onSubmit: vals => T("hseGuardarItem", Object.assign({ id }, vals)) });
+  if (!v) return; Object.assign(it, v); render(); toast("Guardado.");
+}
+function hseZip() {
+  const L = S.hse.ev.filter(e => e.ref_id.split("|")[1].slice(0, 7) === S.hse.mes);
+  return bajarVarios(L.map(e => ({ id: e.id, nombre: e.nombre })), "Cumplimiento HSE " + S.hse.mes);
+}
+async function hseDialogo(id, p) {
+  const it = S.hse.items.find(i => i.id === id), mies = [];
+  for (let k = -1; k <= 1; k++) hsePeriodos(it, mesMas(S.hse.mes, k)).forEach(x => { if (x.p <= S.hse.hoy) mies.push(x.p); });
+  if (!mies.includes(p) && p) mies.push(p);
+  const v = await openForm({ title: "Diálogo de desempeño", intro: "La app arma un PDF de respaldo con estos datos y las fotos, y lo guarda en el miércoles que elijas.",
+    fields: [{ name: "fecha", label: "Miércoles", type: "select", value: p, options: mies.sort().reverse().map(x => ({ v: x, l: diaLargo(pf(x)) })) },
+      { name: "participantes", label: "Con quién se hizo", type: "textarea", required: true, placeholder: "Un nombre por línea" },
+      { name: "lugar", label: "Lugar", placeholder: "Ej: sala de charlas" },
+      { name: "temas", label: "Temas conversados", type: "textarea", required: true },
+      { name: "compromisos", label: "Compromisos y plazos", type: "textarea" },
+      { name: "fotos", label: "Fotos (opcional, hasta 6)", type: "file" }],
+    saveLabel: "Guardar y generar PDF",
+    onSubmit: async vals => {
+      const inp = $("#fld-fotos"), files = inp ? [...inp.files].slice(0, 6) : [], fotos = [];
+      for (const f of files) { const b = await achicarFoto(f); if (b) fotos.push(b); }
+      return T("hseDialogo", id, vals.fecha, { participantes: vals.participantes, lugar: vals.lugar, temas: vals.temas, compromisos: vals.compromisos }, fotos);
+    } });
+  if (!v) return; S.hse.ev.push(v); render(); toast("Diálogo guardado con su PDF de respaldo.");
+}
+function hseFotosInput() { const i = $("#fld-fotos"); if (i) { i.multiple = true; i.setAttribute("accept", "image/" + "*"); } }
+
+/* ===================== R006 ===================== */
+function r006Estado(r) {
+  if (r.estado === "cerrado") return `<span class="pill na">Cerrado</span>`;
+  if (r.cierra && new Date(r.cierra) < new Date()) return `<span class="pill na">Cerrado (se acabó el día)</span>`;
+  return `<span class="pill mid">Abierto para firmar</span>`;
+}
+function viewR006Lista() {
+  const L = S.hse.r006 || [];
+  const intro = `<div class="halerts"><h3>¿Cómo funciona?</h3><div class="hpasos"><div><b>1 · Crear</b>Escribe el tema, compromisos, relator y horario. Se parte del último R006 para no escribir todo de nuevo.</div><div><b>2 · Compartir</b>Envía el link o el QR al grupo de WhatsApp.</div><div><b>3 · Firmar</b>Cada persona pone nombre, cargo y RUT, y firma con el dedo. No necesita cuenta.</div><div><b>4 · Imprimir</b>Descarga el PDF con todas las firmas. El link se cierra solo a las 23:59 del día.</div></div></div>`;
+  if (!L.length) return intro + `<div class="card empty">Aún no hay registros R006.<br><br><button class="btn primary" data-h="r006new">${ic("plus")}Crear el primero</button></div>`;
+  return intro + `<div class="card"><div class="tablewrap"><table class="tb"><thead><tr><th>Folio</th><th>Fecha</th><th>Tema</th><th>Firmas</th><th>Estado</th><th></th></tr></thead><tbody>${L.map(r => `<tr>
+    <td><b>${esc(r.folio)}</b></td><td>${esc(fDia(r.fecha))}</td><td style="max-width:360px">${esc(String(r.tema || "").split("\n")[0].slice(0, 110))}</td><td>${r.firmas}</td><td>${r006Estado(r)}</td>
+    <td><button class="btn sm" data-h="r006open" data-id="${r.id}">Abrir</button></td></tr>`).join("")}</tbody></table></div></div>`;
+}
+async function r006Abrir(id) {
+  S.hse.cur = id; S.hse.det = null; render();
+  try { S.hse.det = await T("r006Detalle", id); render(); r006Qr(); } catch (e) { fallo(e); }
+}
+function viewR006Det() {
+  const r = S.hse.det, base = (S.hse.r006 || []).find(x => x.id === S.hse.cur) || {};
+  const back = `<div class="idnav"><button class="btn ghost" data-h="r006back">← Todos los R006</button><h2>${esc(base.folio || "")}</h2></div>`;
+  if (!r) return back + `<div class="card empty">Cargando…</div>`;
+  const link = LINK_FIRMA + r.clave, temaL = String(r.tema || "").split("\n");
+  const firmas = r.firmas.length ? `<ul class="evlist">${r.firmas.map((f, i) => `<li><span class="evic">${i + 1}</span><div class="evn"><b>${esc(f.nombre)}</b><small>${esc(f.cargo)} · ${esc(f.rut)} · firmó a las ${esc(f.hora)}</small></div><img src="${f.firma}" alt="Firma" class="hfirma"><button class="icon-btn" data-h="r006qf" data-id="${f.id}" title="Quitar esta firma">${ic("x")}</button></li>`).join("")}</ul>`
+    : `<div class="empty" style="padding:24px">Todavía nadie firma. Envía el link o muestra el QR.</div>`;
+  return back + `<div class="hr6">
+    <div class="card"><div class="eyebrow">R006 · ${esc(fDia(r.fecha))}${r.lugar ? " · " + esc(r.lugar) : ""}</div><h3 style="margin-top:4px">${esc(temaL[0])}</h3>
+      <p class="hhelp" style="margin-top:0">Relator ${esc(r.relator)}${r.hora_ini ? " · " + esc(r.hora_ini) + (r.hora_fin ? " a " + esc(r.hora_fin) : "") : ""}</p>
+      <div class="hshare"><div class="hqr" id="r6qr"></div><div style="min-width:0;flex:1">
+        <div class="fld" style="margin-bottom:8px"><label>Link para firmar</label><input readonly value="${esc(link)}" id="r6link"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" data-h="r006wa">Enviar por WhatsApp</button><button class="btn" data-h="r006cp">Copiar link</button><button class="btn" data-h="r006qrpng">Descargar QR</button></div>
+        <p class="hhelp">${r.abierto ? "El link se cierra solo a las 23:59 del " + esc(fDia(r.fecha)) + ", o cuando toques «Cerrar firmas»." : "Las firmas están cerradas. Si falta alguien, toca «Reabrir firmas» (queda abierto hasta las 23:59 de hoy)."}</p></div></div>
+      <div class="mact" style="margin-top:14px"><span><button class="btn" data-h="r006edit">${ic("edit")}Editar datos</button><button class="btn" data-h="r006dup">Usar como plantilla</button><button class="btn danger" data-h="r006del">Eliminar</button></span></div></div>
+    <div class="card"><h3>Han firmado ${r.firmas.length} ${r.firmas.length === 1 ? "persona" : "personas"} <small>${r.abierto ? `<span class="pill mid">Abierto</span>` : `<span class="pill na">Cerrado</span>`}</small></h3>${firmas}
+      <div class="fld" style="margin-top:6px"><label>Firma del relator</label>${r.firma_relator ? `<img src="${r.firma_relator}" alt="Firma relator" class="hfirma big">` : `<span class="hhelp" style="margin:0">Aún no firma el relator.</span>`}</div>
+      <div class="mact"><span><button class="btn" data-h="r006ref">${ic("sync")}Actualizar</button><button class="btn" data-h="r006rel">${r.firma_relator ? "Cambiar" : "Firmar como"} relator</button>${r.abierto ? `<button class="btn" data-h="r006est" data-k="cerrado">Cerrar firmas</button>` : `<button class="btn" data-h="r006est" data-k="abierto">Reabrir firmas</button>`}</span>
+      <button class="btn primary" data-h="r006pdf">${ic("down")}Descargar para imprimir</button></div></div></div>`;
+}
+function cargarQrLib() {
+  if (window.qrcode) return Promise.resolve(true);
+  return new Promise(res => { const s = document.createElement("script"); s.src = "qr.js"; s.onload = () => res(!!window.qrcode); s.onerror = () => res(false); document.head.append(s); });
+}
+async function r006Qr() {
+  const el = $("#r6qr"); if (!el || !S.hse.det) return;
+  if (!(await cargarQrLib())) { el.innerHTML = `<span class="hhelp">QR no disponible; usa el link.</span>`; return; }
+  const q = window.qrcode(0, "M"); q.addData(LINK_FIRMA + S.hse.det.clave); q.make();
+  const n = q.getModuleCount(), c = document.createElement("canvas"), px = 6, m = 4; c.width = c.height = (n + m * 2) * px;
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.fillStyle = "#000";
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) g.fillRect((x + m) * px, (y + m) * px, px, px);
+  el.innerHTML = ""; el.append(c);
+}
+function r006Msg() { const r = S.hse.det; return `Hola equipo. Firma el registro R006 de hoy:\n«${String(r.tema || "").split("\n")[0]}»\n\nAbre este link, completa tu nombre, cargo y RUT, y firma con el dedo:\n${LINK_FIRMA + r.clave}\n\nEl link se cierra a las 23:59.`; }
+
+async function r006Form(base, dup) {
+  const ult = (S.hse.r006 || [])[0] || {}, r = base || {}, src = base || (ult.id ? ult : {});
+  const val = k => (base && !dup) ? (r[k] || "") : (src[k] || "");
+  const def = { tema: val("tema") || R006_TEMA, compromisos: (base ? val("compromisos") : src.compromisos) || R006_COMP };
+  const anx = String(val("anexos") || "").split(",");
+  const ov = document.createElement("div"); ov.className = "ov";
+  ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="R006"><h3>${base && !dup ? "Editar R006" : "Nuevo R006"}</h3><p class="intro">Capacitación, comunicación, inducción y/o difusión (FSCHBF-SGI-QA-0011).${!base && ult.id ? " Los textos vienen del último R006; cámbialos si hace falta." : ""}</p>
+    <form novalidate>
+      <div class="frow"><div class="fld"><label for="r6-fecha">Fecha</label><input type="date" id="r6-fecha" value="${esc(base && !dup ? r.fecha : hoy())}"></div><div class="fld"><label for="r6-ini">Hora inicio</label><input type="time" id="r6-ini" value="${esc(val("hora_ini"))}"></div><div class="fld"><label for="r6-fin">Hora término</label><input type="time" id="r6-fin" value="${esc(val("hora_fin"))}"></div></div>
+      <div class="frow"><div class="fld"><label for="r6-faena">Faena</label><input id="r6-faena" value="${esc(val("faena") || "CODELCO División Radomiro Tomic")}"></div><div class="fld"><label for="r6-lugar">Lugar</label><input id="r6-lugar" value="${esc(base && !dup ? r.lugar : val("lugar"))}" placeholder="Ej: sala de charlas"></div></div>
+      <div class="frow"><div class="fld"><label for="r6-adm">Administrador de contrato</label><input id="r6-adm" value="${esc(val("adm_contrato"))}"></div><div class="fld"><label for="r6-rel">Relator</label><input id="r6-rel" value="${esc(val("relator"))}"></div></div>
+      <div class="fld"><label for="r6-tema">Tema</label><textarea id="r6-tema" style="min-height:110px">${esc(def.tema)}</textarea><span class="hhelp" style="margin:0">La primera línea es el título. Cada línea siguiente sale como punto.</span></div>
+      <div class="fld"><label for="r6-comp">Compromisos</label><textarea id="r6-comp" style="min-height:150px">${esc(def.compromisos)}</textarea><span class="hhelp" style="margin:0">Uno por línea.</span></div>
+      <div class="fld"><label>Documentos o material anexo</label><div class="hanx">${R006_ANEXOS.map(a => `<label><input type="checkbox" value="${esc(a)}" ${anx.includes(a) ? "checked" : ""}> ${esc(a)}</label>`).join("")}</div>
+        <input id="r6-otro" value="${esc(val("otro"))}" placeholder="Si marcaste Otro, ¿cuál?" style="margin-top:6px"></div>
+      <div class="err" data-err="_"></div>
+      <div class="mact"><i></i><span><button type="button" class="btn ghost" data-x>Cancelar</button><button type="submit" class="btn primary">${base && !dup ? "Guardar" : "Crear y compartir"}</button></span></div></form></div>`;
+  document.body.append(ov);
+  return new Promise(resolve => {
+    const close = v => { ov.remove(); resolve(v); };
+    $("[data-x]", ov).onclick = () => close(null);
+    $("form", ov).onsubmit = async e => {
+      e.preventDefault(); const sub = $("button[type=submit]", ov), er = $('[data-err="_"]', ov);
+      const d = { fecha: $("#r6-fecha", ov).value, hora_ini: $("#r6-ini", ov).value, hora_fin: $("#r6-fin", ov).value, faena: $("#r6-faena", ov).value, lugar: $("#r6-lugar", ov).value,
+        adm_contrato: $("#r6-adm", ov).value, relator: $("#r6-rel", ov).value, tema: $("#r6-tema", ov).value, compromisos: $("#r6-comp", ov).value, otro: $("#r6-otro", ov).value,
+        anexos: $$(".hanx input:checked", ov).map(i => i.value) };
+      if (!d.fecha) { er.textContent = "Elige la fecha."; return; }
+      if (!d.relator.trim()) { er.textContent = "Escribe el nombre del relator."; return; }
+      if (base && !dup) d.id = r.id;
+      sub.disabled = true; sub.textContent = "Guardando…";
+      try { close(await T("r006Guardar", d)); } catch (err) { er.textContent = err.message; sub.disabled = false; sub.textContent = "Guardar"; }
+    };
+  });
+}
+/* Cuadro para firmar con el dedo o el mouse; devuelve PNG chico en data URL */
+function padFirma(titulo, intro) {
+  return new Promise(resolve => {
+    const ov = document.createElement("div"); ov.className = "ov";
+    ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(titulo)}"><h3>${esc(titulo)}</h3><p class="intro">${intro}</p>
+      <canvas class="hpad" width="600" height="200"></canvas><div class="mact"><button type="button" class="btn ghost" data-borrar>Borrar</button><span><button type="button" class="btn ghost" data-x>Cancelar</button><button type="button" class="btn primary" data-ok>Guardar firma</button></span></div></div>`;
+    document.body.append(ov);
+    const pad = iniciarPad($("canvas", ov)), close = v => { ov.remove(); resolve(v); };
+    $("[data-x]", ov).onclick = () => close(null); $("[data-borrar]", ov).onclick = () => pad.borrar();
+    $("[data-ok]", ov).onclick = () => { if (pad.vacio()) return toast("Firma dentro del recuadro.", true); close(pad.png()); };
+  });
+}
+function iniciarPad(c) {
+  const g = c.getContext("2d"); let dib = false, n = 0, last = null;
+  const pos = e => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) * c.width / r.width, (e.clientY - r.top) * c.height / r.height]; };
+  g.lineWidth = 4; g.lineCap = g.lineJoin = "round"; g.strokeStyle = "#111";
+  c.style.touchAction = "none";
+  c.addEventListener("pointerdown", e => { dib = true; last = pos(e); c.setPointerCapture(e.pointerId); g.beginPath(); g.arc(last[0], last[1], 1.5, 0, 7); g.fillStyle = "#111"; g.fill(); n++; });
+  c.addEventListener("pointermove", e => { if (!dib) return; const p = pos(e); g.beginPath(); g.moveTo(last[0], last[1]); g.lineTo(p[0], p[1]); g.stroke(); last = p; n++; });
+  ["pointerup", "pointercancel", "pointerleave"].forEach(t => c.addEventListener(t, () => { dib = false; }));
+  return {
+    vacio: () => n < 8,
+    borrar: () => { g.clearRect(0, 0, c.width, c.height); n = 0; },
+    png: () => { const o = document.createElement("canvas"); o.width = 300; o.height = 100; o.getContext("2d").drawImage(c, 0, 0, 300, 100); return o.toDataURL("image/png"); }
+  };
+}
+
+async function hseClick(t, d) {
+  const H = S.hse, a = d.h;
+  if (a === "tab") { H.tab = d.k; H.cur = null; return render(); }
+  if (a === "mes") { H.mes = mesMas(H.mes, Number(d.k)); return render(); }
+  if (a === "vermes") { H.mes = d.k; H.tab = "cal"; return render(); }
+  if (a === "zip") return hseZip();
+  if (a === "link") return hseLink(d.id);
+  if (a === "ev") { const it = H.items.find(i => i.id === d.id), per = hsePeriodos(it, d.p.slice(0, 7)).find(p => p.p === d.p) || { et: d.p };
+    S.evTit = it.nombre + " · " + (it.frecuencia === "mensual" ? mesTxt(d.p) : it.frecuencia === "semanal" ? "semana " + per.et + " " + MESES[Number(d.p.slice(5, 7)) - 1] : diaLargo(pf(d.p)));
+    return evidModal("hse", d.id + "|" + d.p); }
+  if (a === "dialogo") { const pr = hseDialogo(d.id, d.p); hseFotosInput(); return pr; }
+  if (a === "r006new") { const r = await r006Form(null); if (!r) return; await cargarHSE(true); return r006Abrir(r.id); }
+  if (a === "r006open") return r006Abrir(d.id);
+  if (a === "r006back") { H.cur = null; H.det = null; await cargarHSE(true); return render(); }
+  const r = H.det; if (!r) return;
+  if (a === "r006ref") { H.det = await T("r006Detalle", r.id); render(); r006Qr(); return toast("Firmas actualizadas."); }
+  if (a === "r006wa") return window.open("https:" + "/" + "/wa.me/?text=" + encodeURIComponent(r006Msg()), "_blank");
+  if (a === "r006cp") return copiarTexto(LINK_FIRMA + r.clave).then(() => toast("Link copiado. Pégalo en el grupo de WhatsApp."));
+  if (a === "r006qrpng") { const c = $("#r6qr canvas"); if (!c) return toast("El QR no está disponible.", true); const x = document.createElement("a"); x.href = c.toDataURL("image/png"); x.download = "QR " + (H.r006.find(z => z.id === r.id) || {}).folio + ".png"; document.body.append(x); x.click(); x.remove(); return; }
+  if (a === "r006edit" || a === "r006dup") { const n = await r006Form(r, a === "r006dup"); if (!n) return; await cargarHSE(true); if (a === "r006dup") return r006Abrir(n.id); H.det = await T("r006Detalle", r.id); render(); r006Qr(); return toast("R006 guardado."); }
+  if (a === "r006del") { if (!(await confirmBox("¿Eliminar este R006?", `Se borran el registro y sus ${r.firmas.length} firmas. Esto no se puede deshacer.`, "Sí, eliminar"))) return; await T("r006Borrar", r.id); H.cur = null; H.det = null; await cargarHSE(true); render(); return toast("R006 eliminado."); }
+  if (a === "r006qf") { const f = r.firmas.find(x => x.id === d.id); if (!(await confirmBox("¿Quitar esta firma?", `Se quita la firma de <b>${esc(f.nombre)}</b>. Podrá volver a firmar con el link si sigue abierto.`, "Sí, quitar"))) return; await T("r006QuitarFirma", d.id); H.det = await T("r006Detalle", r.id); render(); r006Qr(); return toast("Firma quitada."); }
+  if (a === "r006rel") { const png = await padFirma("Firma del relator", `Firma ${esc(r.relator)} dentro del recuadro, con el dedo o el mouse.`); if (!png) return; await T("r006FirmaRelator", r.id, png); r.firma_relator = png; render(); r006Qr(); return toast("Firma del relator guardada."); }
+  if (a === "r006est") { const x = await T("r006Estado", r.id, d.k); H.det = await T("r006Detalle", r.id); render(); r006Qr(); return toast(x.estado === "cerrado" ? "Firmas cerradas. Ya nadie más puede firmar." : "Firmas reabiertas hasta las 23:59 de hoy."); }
+  if (a === "r006pdf") { t.disabled = true; const lbl = t.innerHTML; t.textContent = "Generando PDF…"; try { bajarB64(await T("r006Pdf", r.id)); toast("PDF descargado. Ábrelo e imprímelo."); } finally { t.disabled = false; t.innerHTML = lbl; } }
 }
 
 /* ===================== Instalar en el celular ===================== */

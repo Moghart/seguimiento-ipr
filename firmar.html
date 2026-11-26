@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f0f10">
+<meta name="robots" content="noindex">
+<title>Firmar registro R006</title>
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--negro:#0f0f10;--tinta:#1a1a1c;--gris:#6c6c6e;--gris-claro:#e4e4df;--hueso:#f6f5f2;--verde:#6bbf3f;--verde-txt:#3b7a1f;--verde-suave:#ebf5e4;--rojo:#d64545;--rojo-txt:#a82e2e;--rojo-suave:#fbeaea;--ambar-suave:#fff5d6;--ambar-txt:#8a6400}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Barlow,"Segoe UI",system-ui,sans-serif;background:var(--hueso);color:var(--tinta);font-size:16px;line-height:1.45;min-height:100vh}
+button,input{font:inherit;color:inherit}
+.hd{background:var(--negro);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 20px) max(18px,env(safe-area-inset-right,0px)) 20px max(18px,env(safe-area-inset-left,0px))}
+.hd .ey{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--verde);font-weight:700}
+.hd h1{font-size:21px;line-height:1.25;margin:6px 0 6px;font-weight:700}
+.hd .sub{color:rgba(255,255,255,.65);font-size:14px}
+.wrap{max-width:520px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px))}
+.card{background:#fff;border-radius:16px;box-shadow:0 1px 2px rgba(15,15,16,.06),0 4px 16px rgba(15,15,16,.05);padding:18px;margin-bottom:14px}
+details summary{font-weight:700;cursor:pointer}
+details ul{margin:8px 0 0;padding-left:20px;font-size:14.5px;color:#333}
+details p{margin:10px 0 0;font-size:14.5px}
+.fld{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fld label{font-weight:700;font-size:14.5px}
+.fld input{border:1px solid var(--gris-claro);border-radius:10px;padding:12px;font-size:17px;background:#fff;width:100%}
+.fld input:focus{outline:2px solid var(--verde);border-color:var(--verde)}
+.fld .ok{color:var(--verde-txt);font-size:13px;font-weight:600}.fld .bad{color:var(--rojo-txt);font-size:13px;font-weight:600}
+.pad{width:100%;aspect-ratio:3/1;border:2px dashed #bdbcb6;border-radius:12px;background:#fff;display:block;touch-action:none}
+.padbar{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--gris);margin-top:6px}
+.link{border:0;background:none;color:var(--tinta);text-decoration:underline;padding:4px;font-weight:600;cursor:pointer}
+.btn{display:block;width:100%;border:0;border-radius:12px;background:var(--verde);color:var(--negro);font-weight:800;font-size:18px;padding:15px;cursor:pointer;margin-top:6px}
+.btn:disabled{opacity:.6}
+.err{background:var(--rojo-suave);color:var(--rojo-txt);border-radius:10px;padding:10px 12px;font-weight:600;font-size:14.5px;margin-bottom:12px}
+.done{text-align:center;padding:30px 18px}
+.done .ck{width:72px;height:72px;border-radius:50%;background:var(--verde);color:var(--negro);display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;margin:0 auto 14px}
+.done h2{margin:0 0 6px;font-size:23px}.done p{margin:0;color:var(--gris)}
+.closed{background:var(--ambar-suave);color:var(--ambar-txt);border-radius:12px;padding:14px;font-weight:600}
+.small{font-size:13px;color:var(--gris);text-align:center;margin-top:12px}
+.loading{padding:60px 20px;text-align:center;color:var(--gris)}
+</style>
+</head>
+<body>
+<div id="app"><div class="loading">Cargando…</div></div>
+<script>
+const API = "https:" + "/" + "/script.google.com/macros/s/AKfycby6lSaIyz10AM9mAlyFmXALibm-KBzIOzD8HDsGvkWGg9-wl2UEr-IAe0KAAZkjrgSkEQ/exec";
+const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const K = (new URLSearchParams(location.search).get("k") || "").toUpperCase();
+function call(f, ...a) {
+  return fetch(API, { method: "POST", body: JSON.stringify({ f, a }), credentials: "omit", redirect: "follow" })
+    .then(r => r.json(), () => { throw new Error("Sin conexión. Revisa tu internet e intenta de nuevo."); })
+    .then(o => { if (o && o.ok) return o.r; throw new Error((o && o.e) || "Error del servidor"); });
+}
+const fecha = s => { const p = String(s || "").split("-").map(Number); return p[0] ? p[2] + " de " + MESES[p[1] - 1] + " de " + p[0] : ""; };
+function rutLimpio(v) { return String(v || "").toUpperCase().replace(/[^0-9K]/g, ""); }
+function rutValido(v) {
+  const s = rutLimpio(v); if (s.length < 8 || s.length > 9) return false;
+  const c = s.slice(0, -1), dv = s.slice(-1); if (!/^\d+$/.test(c)) return false;
+  let sum = 0, m = 2; for (let i = c.length - 1; i >= 0; i--) { sum += Number(c[i]) * m; m = m === 7 ? 2 : m + 1; }
+  const r = 11 - (sum % 11); return (r === 11 ? "0" : r === 10 ? "K" : String(r)) === dv;
+}
+function rutFmt(v) { const s = rutLimpio(v); if (s.length < 2) return s; return s.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + s.slice(-1); }
+const guardado = () => { try { return JSON.parse(localStorage.getItem("r006-yo") || "{}"); } catch (_) { return {}; } };
+
+function pad(c) {
+  const g = c.getContext("2d"); let dib = false, n = 0, last = null;
+  const pos = e => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) * c.width / r.width, (e.clientY - r.top) * c.height / r.height]; };
+  g.lineWidth = 4; g.lineCap = g.lineJoin = "round"; g.strokeStyle = "#111"; g.fillStyle = "#111";
+  c.addEventListener("pointerdown", e => { e.preventDefault(); dib = true; last = pos(e); c.setPointerCapture(e.pointerId); g.beginPath(); g.arc(last[0], last[1], 1.5, 0, 7); g.fill(); n++; });
+  c.addEventListener("pointermove", e => { if (!dib) return; e.preventDefault(); const p = pos(e); g.beginPath(); g.moveTo(last[0], last[1]); g.lineTo(p[0], p[1]); g.stroke(); last = p; n++; });
+  ["pointerup", "pointercancel"].forEach(t => c.addEventListener(t, () => { dib = false; }));
+  return { vacio: () => n < 8, borrar: () => { g.clearRect(0, 0, c.width, c.height); n = 0; },
+    png: () => { const o = document.createElement("canvas"); o.width = 300; o.height = 100; o.getContext("2d").drawImage(c, 0, 0, 300, 100); return o.toDataURL("image/png"); } };
+}
+
+function pintar(r) {
+  const lin = String(r.tema || "").split("\n"), tit = lin.shift(), pts = lin.filter(x => x.trim()), comp = String(r.compromisos || "").split("\n").filter(x => x.trim());
+  const yo = guardado();
+  const head = `<div class="hd"><div class="ey">Registro R006 · firma de asistencia</div><h1>${esc(tit)}</h1><div class="sub">${esc(fecha(r.fecha))}${r.lugar ? " · " + esc(r.lugar) : ""} · Relator ${esc(r.relator)}</div></div>`;
+  const det = `<div class="card"><details><summary>Ver el tema y los compromisos</summary>${pts.length ? `<ul>${pts.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}${comp.length ? `<p><b>Compromisos</b></p><ul>${comp.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}</details></div>`;
+  if (!r.abierto) { $("#app").innerHTML = head + `<div class="wrap">${det}<div class="closed">Este registro ya está cerrado y no recibe más firmas. Si te faltó firmar, avísale a quien te envió el link.</div></div>`; return; }
+  $("#app").innerHTML = head + `<div class="wrap">${det}<form class="card" id="f" novalidate>
+    <div id="err"></div>
+    <div class="fld"><label for="nombre">Nombre y apellido</label><input id="nombre" autocomplete="name" value="${esc(yo.nombre || "")}" placeholder="Ej: Pedro Rojas Contreras"></div>
+    <div class="fld"><label for="cargo">Cargo</label><input id="cargo" autocomplete="organization-title" value="${esc(yo.cargo || "")}" placeholder="Ej: Operador"></div>
+    <div class="fld"><label for="rut">RUT</label><input id="rut" inputmode="text" autocomplete="off" value="${esc(yo.rut || "")}" placeholder="Ej: 15.234.678-9"><span id="rutmsg"></span></div>
+    <div class="fld"><label>Tu firma</label><canvas class="pad" id="pad" width="600" height="200" aria-label="Recuadro para firmar con el dedo"></canvas>
+      <div class="padbar"><span>Firma con el dedo dentro del recuadro.</span><button type="button" class="link" id="borrar">Borrar</button></div></div>
+    <button class="btn" type="submit" id="go">Firmar</button>
+    <p class="small">Tus datos solo se usan para este registro. Quedan guardados en este celular para la próxima vez.</p></form></div>`;
+  const P = pad($("#pad")), rut = $("#rut"), msg = $("#rutmsg");
+  const chk = () => { const v = rut.value; if (!rutLimpio(v)) { msg.className = ""; msg.textContent = ""; return; } const ok = rutValido(v); msg.className = ok ? "ok" : "bad"; msg.textContent = ok ? "✓ RUT válido" : "Revisa el RUT: el dígito verificador no coincide."; };
+  rut.addEventListener("blur", () => { if (rutLimpio(rut.value)) rut.value = rutFmt(rut.value); chk(); });
+  rut.addEventListener("input", chk); chk();
+  $("#borrar").onclick = () => P.borrar();
+  $("#f").onsubmit = async e => {
+    e.preventDefault(); const er = $("#err"), go = $("#go");
+    const d = { nombre: $("#nombre").value.trim(), cargo: $("#cargo").value.trim(), rut: rutFmt(rut.value) };
+    const falta = !d.nombre || d.nombre.indexOf(" ") < 0 ? "Escribe tu nombre y apellido." : !d.cargo ? "Escribe tu cargo." : !rutValido(d.rut) ? "El RUT no es válido. Revisa el número y el dígito verificador." : P.vacio() ? "Falta tu firma en el recuadro." : "";
+    if (falta) { er.innerHTML = `<div class="err">${esc(falta)}</div>`; er.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+    er.innerHTML = ""; go.disabled = true; go.textContent = "Enviando…";
+    try {
+      const x = await call("r006Firmar", K, Object.assign({ firma: P.png() }, d));
+      try { localStorage.setItem("r006-yo", JSON.stringify(d)); } catch (_) {}
+      $("#app").innerHTML = head + `<div class="wrap"><div class="card done"><div class="ck">✓</div><h2>Listo, ${esc(x.nombre.split(" ")[0])}</h2><p>Tu firma quedó registrada a las ${esc(x.hora)}.<br>Ya puedes cerrar esta página.</p></div></div>`;
+      window.scrollTo(0, 0);
+    } catch (err) { er.innerHTML = `<div class="err">${esc(err.message)}</div>`; go.disabled = false; go.textContent = "Firmar"; }
+  };
+}
+if (!K) $("#app").innerHTML = `<div class="wrap"><div class="card"><b>Falta el código del registro.</b><p>Abre el link completo que te enviaron por WhatsApp o escanea el QR de nuevo.</p></div></div>`;
+else call("r006Publico", K).then(pintar).catch(e => { $("#app").innerHTML = `<div class="wrap"><div class="card"><b>No se pudo abrir el registro.</b><p>${esc(e.message)}</p></div></div>`; });
+</script>
+</body>
+</html>
