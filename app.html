@@ -1430,10 +1430,10 @@ function r006Estado(r) {
 }
 function viewR006Lista() {
   const L = S.hse.r006 || [];
-  const intro = `<div class="halerts"><h3>¿Cómo funciona?</h3><div class="hpasos"><div><b>1 · Crear</b>Escribe el tema, compromisos, relator y horario. Se parte del último R006 para no escribir todo de nuevo.</div><div><b>2 · Compartir</b>Envía el link o el QR al grupo de WhatsApp.</div><div><b>3 · Firmar</b>Cada persona pone nombre, cargo y RUT, y firma con el dedo. No necesita cuenta.</div><div><b>4 · Imprimir</b>Descarga el PDF con todas las firmas. El link se cierra solo a las 23:59 del día.</div></div></div>`;
+  const intro = `<div class="halerts"><h3>¿Cómo funciona?</h3><div class="hpasos"><div><b>1 · Crear</b>Escribe el tema, compromisos, relator, horario y cuántas personas asisten. Se parte del último R006 para no escribir todo de nuevo.</div><div><b>2 · Compartir</b>Envía el link o el QR al grupo de WhatsApp.</div><div><b>3 · Firmar</b>Cada persona pone nombre, cargo y RUT, y firma con el dedo. No necesita cuenta.</div><div><b>4 · Imprimir</b>Descarga el PDF con todas las firmas. El link se cierra solo a las 23:59 del día.</div></div></div>`;
   if (!L.length) return intro + `<div class="card empty">Aún no hay registros R006.<br><br><button class="btn primary" data-h="r006new">${ic("plus")}Crear el primero</button></div>`;
   return intro + `<div class="card"><div class="tablewrap"><table class="tb"><thead><tr><th>Folio</th><th>Fecha</th><th>Tema</th><th>Firmas</th><th>Estado</th><th></th></tr></thead><tbody>${L.map(r => `<tr>
-    <td><b>${esc(r.folio)}</b></td><td>${esc(fDia(r.fecha))}</td><td style="max-width:360px">${esc(String(r.tema || "").split("\n")[0].slice(0, 110))}</td><td>${r.firmas}</td><td>${r006Estado(r)}</td>
+    <td><b>${esc(r.folio)}</b></td><td>${esc(fDia(r.fecha))}</td><td style="max-width:360px">${esc(String(r.tema || "").split("\n")[0].slice(0, 110))}</td><td>${r.firmas}${r.personas ? " de " + esc(r.personas) : ""}</td><td>${r006Estado(r)}</td>
     <td><button class="btn sm" data-h="r006open" data-id="${r.id}">Abrir</button></td></tr>`).join("")}</tbody></table></div></div>`;
 }
 async function r006Abrir(id) {
@@ -1455,7 +1455,8 @@ function viewR006Det() {
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" data-h="r006wa">Enviar por WhatsApp</button><button class="btn" data-h="r006cp">Copiar link</button><button class="btn" data-h="r006qrpng">Descargar QR</button></div>
         <p class="hhelp">${r.abierto ? "El link se cierra solo a las 23:59 del " + esc(fDia(r.fecha)) + ", o cuando toques «Cerrar firmas»." : "Las firmas están cerradas. Si falta alguien, toca «Reabrir firmas» (queda abierto hasta las 23:59 de hoy)."}</p></div></div>
       <div class="mact" style="margin-top:14px"><span><button class="btn" data-h="r006edit">${ic("edit")}Editar datos</button><button class="btn" data-h="r006dup">Usar como plantilla</button><button class="btn danger" data-h="r006del">Eliminar</button></span></div></div>
-    <div class="card"><h3>Han firmado ${r.firmas.length} ${r.firmas.length === 1 ? "persona" : "personas"} <small>${r.abierto ? `<span class="pill mid">Abierto</span>` : `<span class="pill na">Cerrado</span>`}</small></h3>${firmas}
+    <div class="card"><h3>${r.personas ? `Han firmado ${r.firmas.length} de ${esc(r.personas)}` : `Han firmado ${r.firmas.length} ${r.firmas.length === 1 ? "persona" : "personas"}`} <small>${r.abierto ? `<span class="pill mid">Abierto</span>` : `<span class="pill na">Cerrado</span>`}</small></h3>
+      ${r.personas ? `<div class="track" style="margin:-4px 0 6px"><i class="f-${r.firmas.length >= +r.personas ? "ok" : "mid"}" style="width:${Math.min(100, Math.round(r.firmas.length / r.personas * 100))}%"></i></div><p class="hhelp" style="margin:0 0 8px">${r.firmas.length >= +r.personas ? "✓ Ya firmaron todos." : `Faltan ${r.personas - r.firmas.length} por firmar.`}</p>` : ""}${firmas}
       <div class="fld" style="margin-top:6px"><label>Firma del relator</label>${r.firma_relator ? `<img src="${r.firma_relator}" alt="Firma relator" class="hfirma big">` : `<span class="hhelp" style="margin:0">Aún no firma el relator.</span>`}</div>
       <div class="mact"><span><button class="btn" data-h="r006ref">${ic("sync")}Actualizar</button><button class="btn" data-h="r006rel">${r.firma_relator ? "Cambiar" : "Firmar como"} relator</button>${r.abierto ? `<button class="btn" data-h="r006est" data-k="cerrado">Cerrar firmas</button>` : `<button class="btn" data-h="r006est" data-k="abierto">Reabrir firmas</button>`}</span>
       <button class="btn primary" data-h="r006pdf">${ic("down")}Descargar para imprimir</button></div></div></div>`;
@@ -1483,7 +1484,7 @@ async function r006Form(base, dup) {
   const ov = document.createElement("div"); ov.className = "ov";
   ov.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-label="R006"><h3>${base && !dup ? "Editar R006" : "Nuevo R006"}</h3><p class="intro">Capacitación, comunicación, inducción y/o difusión (FSCHBF-SGI-QA-0011).${!base && ult.id ? " Los textos vienen del último R006; cámbialos si hace falta." : ""}</p>
     <form novalidate>
-      <div class="frow"><div class="fld"><label for="r6-fecha">Fecha</label><input type="date" id="r6-fecha" value="${esc(base && !dup ? r.fecha : hoy())}"></div><div class="fld"><label for="r6-ini">Hora inicio</label><input type="time" id="r6-ini" value="${esc(val("hora_ini"))}"></div><div class="fld"><label for="r6-fin">Hora término</label><input type="time" id="r6-fin" value="${esc(val("hora_fin"))}"></div></div>
+      <div class="frow"><div class="fld"><label for="r6-fecha">Fecha</label><input type="date" id="r6-fecha" value="${esc(base && !dup ? r.fecha : hoy())}"></div><div class="fld"><label for="r6-ini">Hora inicio</label><input type="time" id="r6-ini" value="${esc(val("hora_ini"))}"></div><div class="fld"><label for="r6-fin">Hora término</label><input type="time" id="r6-fin" value="${esc(val("hora_fin"))}"></div><div class="fld"><label for="r6-np">N° de personas</label><input type="number" inputmode="numeric" min="1" max="200" id="r6-np" value="${esc(val("personas"))}" placeholder="Ej: 12"></div></div>
       <div class="frow"><div class="fld"><label for="r6-faena">Faena</label><input id="r6-faena" value="${esc(val("faena") || "CODELCO División Radomiro Tomic")}"></div><div class="fld"><label for="r6-lugar">Lugar</label><input id="r6-lugar" value="${esc(base && !dup ? r.lugar : val("lugar"))}" placeholder="Ej: sala de charlas"></div></div>
       <div class="frow"><div class="fld"><label for="r6-adm">Administrador de contrato</label><input id="r6-adm" value="${esc(val("adm_contrato"))}"></div><div class="fld"><label for="r6-rel">Relator</label><input id="r6-rel" value="${esc(val("relator"))}"></div></div>
       <div class="fld"><label for="r6-tema">Tema</label><textarea id="r6-tema" style="min-height:110px">${esc(def.tema)}</textarea><span class="hhelp" style="margin:0">La primera línea es el título. Cada línea siguiente sale como punto.</span></div>
@@ -1499,10 +1500,11 @@ async function r006Form(base, dup) {
     $("form", ov).onsubmit = async e => {
       e.preventDefault(); const sub = $("button[type=submit]", ov), er = $('[data-err="_"]', ov);
       const d = { fecha: $("#r6-fecha", ov).value, hora_ini: $("#r6-ini", ov).value, hora_fin: $("#r6-fin", ov).value, faena: $("#r6-faena", ov).value, lugar: $("#r6-lugar", ov).value,
-        adm_contrato: $("#r6-adm", ov).value, relator: $("#r6-rel", ov).value, tema: $("#r6-tema", ov).value, compromisos: $("#r6-comp", ov).value, otro: $("#r6-otro", ov).value,
+        adm_contrato: $("#r6-adm", ov).value, relator: $("#r6-rel", ov).value, tema: $("#r6-tema", ov).value, compromisos: $("#r6-comp", ov).value, otro: $("#r6-otro", ov).value, personas: $("#r6-np", ov).value,
         anexos: $$(".hanx input:checked", ov).map(i => i.value) };
       if (!d.fecha) { er.textContent = "Elige la fecha."; return; }
       if (!d.relator.trim()) { er.textContent = "Escribe el nombre del relator."; return; }
+      if (d.personas !== "" && !(+d.personas >= 1 && +d.personas <= 200)) { er.textContent = "La cantidad de personas debe ser un número entre 1 y 200."; return; }
       if (base && !dup) d.id = r.id;
       sub.disabled = true; sub.textContent = "Guardando…";
       try { close(await T("r006Guardar", d)); } catch (err) { er.textContent = err.message; sub.disabled = false; sub.textContent = "Guardar"; }
